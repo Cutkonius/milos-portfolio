@@ -65,17 +65,7 @@ export async function POST(req: NextRequest) {
   const user = process.env.VAULT_USER;
   const pass = process.env.VAULT_PASS;
   if (!secret || !user || !pass) {
-    // TEMPORARY deploy diagnostic — names/booleans only, never values.
-    const diag = {
-      hasSecret: Boolean(secret),
-      hasUser: Boolean(user),
-      hasPass: Boolean(pass),
-      vaultKeys: Object.keys(process.env).filter((k) => k.startsWith("VAULT")),
-      envCount: Object.keys(process.env).length,
-      node: process.version,
-    };
-    console.log("[vault] env diagnostic", JSON.stringify(diag));
-    return NextResponse.json({ ok: false, error: "vault_not_configured", diag }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "vault_not_configured" }, { status: 500 });
   }
 
   const ip = clientIp(req);
