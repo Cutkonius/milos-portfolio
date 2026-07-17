@@ -1,0 +1,9 @@
+# Netlify + Next.js: the @netlify/plugin-nextjs runtime is auto-detected;
+# this just pins the build inputs so deploys are predictable.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Next 16 requires Node >= 20.9
+  NODE_VERSION = "22"

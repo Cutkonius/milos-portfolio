@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  /* "Built in daylight, sold after dark" — day sky, night sky, amber sun, blue night accent */
+  --color-night: #07090d;
+  --color-night-2: #0d1017;
+  --color-night-3: #10141f;
+  --color-day-ink: #171c26;
+  --color-text: #eef1f7;
+  --color-amber: #f5a94e;
+  --color-amber-soft: #e8b06a;
+  --color-amber-deep: #b56a1c;
+  --color-blue: #5b8cff;
+  --color-blue-soft: #8fabff;
+  --color-blue-ink: #0b1020;
+
+  --font-sans: var(--font-switzer), system-ui, sans-serif;
+
+  --animate-floaty: floaty 7s ease-in-out infinite;
+  --animate-sunpulse: sunpulse 6s ease-in-out infinite;
+  --animate-shake: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.85; }
+}
+@keyframes sunpulse {
+  0%, 100% { box-shadow: 0 0 64px rgba(255, 190, 110, 0.7); }
+  50% { box-shadow: 0 0 92px rgba(255, 190, 110, 0.95); }
+}
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-night);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+}
+
+::selection {
+  background: rgba(245, 169, 78, 0.4);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(238, 241, 247, 0.25) transparent;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(238, 241, 247, 0.25); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+input::placeholder {
+  color: rgba(238, 241, 247, 0.4);
+}
+
+/* Tiny twinkling star */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #eef1f7;
+  animation: twinkle var(--tw-dur, 4s) ease-in-out infinite var(--tw-delay, 0s);
+}
+
+/* Section timestamp label */
+.time-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Lenis smooth-scroll cooperation */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
