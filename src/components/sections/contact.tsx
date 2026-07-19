@@ -6,6 +6,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Reveal } from "@/components/ui/reveal";
 import { Stars } from "@/components/ui/stars";
+import type { ContactSection, Receipt } from "@/lib/cms/types";
 
 const CONTACT_STARS = [
   { top: "12%", left: "8%", size: 3 as const, dur: 3.5 },
@@ -16,25 +17,17 @@ const CONTACT_STARS = [
   { top: "56%", right: "34%", size: 2 as const, dur: 3.7, delay: 3 },
 ];
 
-const RECEIPTS = [
-  {
-    icon: "✓",
-    title: "Order: brake pads, front axle",
-    meta: "vujicauto.rs · 02:13",
-  },
-  {
-    icon: "↑",
-    title: "“delovi za auto”, page 1, spot 3",
-    meta: "Google Search · 03:07",
-  },
-  {
-    icon: "↺",
-    title: "Cart rescued by email: €148",
-    meta: "email flow · 04:26",
-  },
-];
-
-function Receipts() {
+function Receipts({
+  receipts: RECEIPTS,
+  note,
+  target,
+  totalMeta,
+}: {
+  receipts: Receipt[];
+  note: string;
+  target: number;
+  totalMeta: string;
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const inView = useInView(wrapRef, { once: true, amount: 0.3 });
   const reduced = useReducedMotion();
@@ -46,14 +39,14 @@ function Receipts() {
     const delay = setTimeout(
       () => {
         if (reduced) {
-          setTotal(412);
+          setTotal(target);
           return;
         }
         const t0 = performance.now();
         const dur = 1500;
         const tick = (now: number) => {
           const k = Math.min(1, (now - t0) / dur);
-          setTotal(Math.round(412 * (1 - Math.pow(1 - k, 3))));
+          setTotal(Math.round(target * (1 - Math.pow(1 - k, 3))));
           if (k < 1) raf = requestAnimationFrame(tick);
         };
         raf = requestAnimationFrame(tick);
@@ -64,7 +57,7 @@ function Receipts() {
       clearTimeout(delay);
       cancelAnimationFrame(raf);
     };
-  }, [inView, reduced]);
+  }, [inView, reduced, target, RECEIPTS.length]);
 
   const item = () =>
     reduced
@@ -74,11 +67,11 @@ function Receipts() {
   return (
     <div ref={wrapRef} className="flex min-w-[min(300px,100%)] max-w-[440px] flex-1 flex-col gap-3 sm:min-w-[min(340px,100%)]">
       <div className="time-label text-right !text-[10.5px] !tracking-[0.16em] text-text/40">
-        Last night, unsupervised · simulated until vujicauto launches
+        {note}
       </div>
       {RECEIPTS.map((r, i) => (
         <motion.div
-          key={r.title}
+          key={r.id}
           initial={false}
           animate={item()}
           transition={{ duration: 0.65, delay: inView ? i * 0.18 : 0, ease: [0.2, 0.8, 0.25, 1] }}
@@ -110,14 +103,14 @@ function Receipts() {
       >
         <span className="text-sm font-semibold text-text">Night total</span>
         <span className="text-sm font-bold text-amber tabular-nums">
-          €{total} · 3 orders
+          €{total} · {totalMeta}
         </span>
       </motion.div>
     </div>
   );
 }
 
-export function Contact() {
+export function Contact({ data }: { data: ContactSection }) {
   const router = useRouter();
 
   async function lockUp(e: React.MouseEvent) {
@@ -149,40 +142,46 @@ export function Contact() {
       <div className="relative mx-auto flex max-w-[1120px] flex-wrap items-center gap-14">
         <div className="min-w-[min(300px,100%)] flex-[1.1] sm:min-w-[min(340px,100%)]">
           <Reveal>
-            <div className="time-label text-blue-soft">02:13 · The part where it pays off</div>
+            <div className="time-label text-blue-soft">{data.label}</div>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-3.5 text-[clamp(38px,4.6vw,60px)] font-semibold leading-tight tracking-[-0.03em] text-text [text-wrap:balance]">
-              Everyone is asleep. The website is not.
+              {data.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-4 max-w-[480px] text-base leading-[1.6] text-text/[0.62] [text-wrap:pretty]">
-              That is the whole pitch. Want a website that works both shifts?
-              The calendar is right there. Fifteen minutes, no slides, no
-              jargon, maybe one bad joke.
+              {data.pitch}
             </p>
           </Reveal>
           <Reveal delay={0.15}>
             <div className="mt-[30px] flex flex-wrap gap-3">
-              <BookCallButton label="Book the short call" />
+              <BookCallButton label={data.ctaLabel} />
               <EmailPill />
             </div>
           </Reveal>
         </div>
 
-        <Receipts />
+        <Receipts
+          receipts={data.receipts}
+          note={data.receiptsNote}
+          target={data.nightTotal}
+          totalMeta={data.nightTotalMeta}
+        />
       </div>
 
       {/* Footer bar */}
       <div className="relative mx-auto mt-[90px] flex max-w-[1120px] flex-wrap items-center justify-between gap-3 border-t border-text/[0.1] pb-[30px] pt-[26px] text-[12.5px] text-text/45">
-        <span>© 2026 Miloš Novaković · built in daylight, sold after dark</span>
+        <span>{data.footerCopyright}</span>
         <span className="flex gap-5">
-          <a href="mailto:hi@milosnovakovic.com" className="text-text/60 transition-colors hover:text-amber">
-            hi@milosnovakovic.com
+          <a
+            href={`mailto:${data.footerEmail}`}
+            className="text-text/60 transition-colors hover:text-amber"
+          >
+            {data.footerEmail}
           </a>
           <a href="#top" onClick={lockUp} className="text-text/60 transition-colors hover:text-amber">
-            Lock up behind you
+            {data.footerLockLabel}
           </a>
         </span>
       </div>

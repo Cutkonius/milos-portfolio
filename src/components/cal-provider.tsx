@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
-import { CAL_NAMESPACE } from "@/lib/cal";
+import { useSiteConfig } from "@/components/site-config";
 import { storm } from "@/lib/confetti";
 import { toast } from "@/components/ui/toast";
 
@@ -13,11 +13,12 @@ import { toast } from "@/components/ui/toast";
  * hidden behind the backdrop.
  */
 export function CalProvider() {
+  const { calNamespace } = useSiteConfig();
   useEffect(() => {
     let cancelled = false;
     let booked = false;
     (async () => {
-      const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+      const cal = await getCalApi({ namespace: calNamespace });
       if (cancelled) return;
       cal("ui", {
         theme: "dark",
@@ -48,7 +49,7 @@ export function CalProvider() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [calNamespace]);
 
   return null;
 }

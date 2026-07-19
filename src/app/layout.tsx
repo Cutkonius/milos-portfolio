@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { getContent } from "@/lib/cms/content";
 
 const switzer = localFont({
   variable: "--font-switzer",
@@ -12,21 +13,23 @@ const switzer = localFont({
   ],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: "Miloš Novaković — built in daylight, sold after dark",
-  description:
-    "Websites designed and built with AI at unfair speed, then marketed long after everyone goes to bed: email flows, SEO, the occasional ad.",
-  openGraph: {
-    title: "Miloš Novaković — built in daylight, sold after dark",
-    description:
-      "Websites built with AI at unfair speed, marketed while you sleep.",
-    siteName: "Miloš Novaković",
-    type: "website",
-  },
-  twitter: { card: "summary_large_image" },
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    title: site.metaTitle,
+    description: site.metaDescription,
+    openGraph: {
+      title: site.ogTitle,
+      description: site.ogDescription,
+      siteName: site.siteName,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image" },
+    // Keep the site out of the index until it is launched from the CMS.
+    robots: site.launched ? undefined : { index: false, follow: false },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#07090d",

@@ -44,5 +44,9 @@ next-env.d.ts
 # Local Netlify folder
 .netlify
 
+# CMS local filesystem store (used by `next dev` without Netlify context)
+/.cms-data/
+/.cms-data-test/
+
 # netlify cli build artifacts
 deno.lock

@@ -2,24 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import { BookCallButton } from "@/components/book-call";
-
-const LINKS = [
-  { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
-  { href: "#about", label: "About" },
-  { href: "#process", label: "Process" },
-];
-
-/** Page time runs 19:58 → 02:13 across the full scroll. */
-const START_MIN = 19 * 60 + 58;
-const END_MIN = 26 * 60 + 13;
+import type { Nav as NavData } from "@/lib/cms/types";
 
 /**
  * Fixed nav that changes skin at the horizon: dark ink over the daylight
  * hero, light text on frosted night once you scroll past it. Carries the
- * scroll-linked clock with its sunset-to-night rail.
+ * scroll-linked clock with its sunset-to-night rail (page time runs from
+ * `clockStartMin` → `clockEndMin` across the full scroll).
  */
-export function Nav() {
+export function Nav({ data }: { data: NavData }) {
+  const { links: LINKS, clockStartMin: START_MIN, clockEndMin: END_MIN } = data;
   const navRef = useRef<HTMLElement>(null);
   const clockRef = useRef<HTMLSpanElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
@@ -57,7 +49,7 @@ export function Nav() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [START_MIN, END_MIN]);
 
   return (
     <header
@@ -73,7 +65,7 @@ export function Nav() {
       className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-[18px] backdrop-blur-[14px] transition-[background,border-color] duration-500 md:px-12"
     >
       <a href="#top" className="text-[15px] font-semibold" style={{ color: "var(--nav-ink)" }}>
-        Miloš Novaković
+        {data.brand}
       </a>
 
       <nav aria-label="Main" className="flex items-center gap-[22px] text-[13.5px]">
@@ -108,7 +100,7 @@ export function Nav() {
           </span>
         </span>
 
-        <BookCallButton size="sm" label="Book a call" />
+        <BookCallButton size="sm" label={data.ctaLabel} />
       </nav>
     </header>
   );

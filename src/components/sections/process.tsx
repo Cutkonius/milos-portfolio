@@ -4,50 +4,10 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
+import type { ProcessSection } from "@/lib/cms/types";
 
-const STEPS = [
-  {
-    label: "DAY 0",
-    stroke: "rgba(245,169,78,0.55)",
-    dot: "#f5a94e",
-    ring: "rgba(245,169,78,0.16)",
-    title: "The short call",
-    blurb: (
-      <>
-        Fifteen minutes. You talk, I take notes, we find out if we fit.{" "}
-        <CalTextLink className="text-sm">
-          It is literally called the short informative call →
-        </CalTextLink>
-      </>
-    ),
-  },
-  {
-    label: "DAYS 1–20",
-    stroke: "rgba(238,241,247,0.3)",
-    dot: "#d99a5b",
-    ring: "rgba(217,154,91,0.14)",
-    title: "The build",
-    blurb: "You get a link on day one and watch the site grow up. Progress you can click, not promises.",
-  },
-  {
-    label: "DAY 21",
-    stroke: "rgba(238,241,247,0.3)",
-    dot: "#8fabff",
-    ring: "rgba(143,171,255,0.14)",
-    title: "The keys",
-    blurb: "Launch day. Training included, documentation included, hostage handovers not included.",
-  },
-  {
-    label: "EVERY NIGHT",
-    stroke: "rgba(91,140,255,0.6)",
-    dot: "#5b8cff",
-    ring: "rgba(91,140,255,0.18)",
-    title: "The night shift",
-    blurb: "Email flows first, SEO close behind. The marketing clocks in when you clock out. Receipts below.",
-  },
-];
-
-export function Process() {
+export function Process({ data }: { data: ProcessSection }) {
+  const STEPS = data.steps;
   const railRef = useRef<HTMLDivElement>(null);
   const inView = useInView(railRef, { once: true, amount: 0.35 });
   const reduced = useReducedMotion();
@@ -59,11 +19,11 @@ export function Process() {
     >
       <div className="relative mx-auto max-w-[1120px]">
         <Reveal>
-          <div className="time-label text-blue-soft">00:52 · How a project rolls out of the shop</div>
+          <div className="time-label text-blue-soft">{data.label}</div>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-3.5 max-w-[620px] text-[40px] font-semibold tracking-[-0.025em] text-text [text-wrap:balance] sm:text-[52px]">
-            Four steps. Zero mystery.
+            {data.heading}
           </h2>
         </Reveal>
 
@@ -84,7 +44,7 @@ export function Process() {
 
           <div className="grid gap-x-[clamp(16px,2.5vw,36px)] gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08}>
+              <Reveal key={s.id} delay={i * 0.08}>
                 <div className="relative pt-[38px]">
                   <span
                     aria-hidden="true"
@@ -102,7 +62,15 @@ export function Process() {
                     <span className="sr-only">{s.label} — </span>
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-[1.6] text-text/60 [text-wrap:pretty]">{s.blurb}</p>
+                  <p className="mt-2 text-sm leading-[1.6] text-text/60 [text-wrap:pretty]">
+                    {s.blurb}
+                    {s.ctaLabel && (
+                      <>
+                        {" "}
+                        <CalTextLink className="text-sm">{s.ctaLabel}</CalTextLink>
+                      </>
+                    )}
+                  </p>
                 </div>
               </Reveal>
             ))}

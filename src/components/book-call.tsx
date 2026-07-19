@@ -1,14 +1,17 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CAL_LINK, CAL_NAMESPACE } from "@/lib/cal";
+import { useSiteConfig } from "@/components/site-config";
 import { burst } from "@/lib/confetti";
 
-const calAttrs = {
-  "data-cal-namespace": CAL_NAMESPACE,
-  "data-cal-link": CAL_LINK,
-  "data-cal-config": '{"layout":"month_view","theme":"dark"}',
-};
+function useCalAttrs() {
+  const { calLink, calNamespace } = useSiteConfig();
+  return {
+    "data-cal-namespace": calNamespace,
+    "data-cal-link": calLink,
+    "data-cal-config": '{"layout":"month_view","theme":"dark"}',
+  };
+}
 
 /** Primary booking CTA — the night-blue pill. Opens the Cal.com popup with a confetti pop. */
 export function BookCallButton({
@@ -18,6 +21,7 @@ export function BookCallButton({
   size?: "sm" | "lg";
   label?: string;
 }) {
+  const calAttrs = useCalAttrs();
   const sizeClasses =
     size === "lg"
       ? "px-[26px] py-[14px] text-[15px] font-semibold shadow-[0_12px_36px_rgba(91,140,255,0.35)] hover:shadow-[0_18px_44px_rgba(91,140,255,0.5)]"
@@ -43,6 +47,7 @@ export function CalTextLink({
   children: ReactNode;
   className?: string;
 }) {
+  const calAttrs = useCalAttrs();
   return (
     <button
       type="button"
@@ -57,14 +62,15 @@ export function CalTextLink({
 
 /** Secondary glass pill (email). */
 export function EmailPill({ size = "lg" }: { size?: "sm" | "lg" }) {
+  const { email } = useSiteConfig();
   return (
     <a
-      href="mailto:hi@milosnovakovic.com"
+      href={`mailto:${email}`}
       className={`inline-flex items-center rounded-full border border-white/15 bg-white/[0.07] font-medium text-text backdrop-blur-md transition-[transform,border-color] duration-250 hover:-translate-y-0.5 hover:border-amber/50 ${
         size === "lg" ? "px-[26px] py-[14px] text-[15px]" : "px-[18px] py-[9px] text-[13px]"
       }`}
     >
-      hi@milosnovakovic.com
+      {email}
     </a>
   );
 }

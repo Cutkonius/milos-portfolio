@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Stars } from "@/components/ui/stars";
+import type { Hero as HeroData } from "@/lib/cms/types";
 
 const HERO_STARS = [
   { top: "62%", left: "12%", size: 3 as const, dur: 3.4 },
@@ -33,7 +34,7 @@ function CurrentMonth() {
  * line between them. Scroll — or grab the sun and drag it down — to ride
  * into the night shift. Day and night halves drift apart in parallax.
  */
-export function Hero() {
+export function Hero({ data, open }: { data: HeroData; open: boolean }) {
   const sunRef = useRef<HTMLButtonElement>(null);
   const dayRef = useRef<HTMLDivElement>(null);
   const nightRef = useRef<HTMLDivElement>(null);
@@ -128,7 +129,7 @@ export function Hero() {
         className="absolute left-1/2 top-[calc(56%-47px)] z-[5] -ml-[47px] h-[94px] w-[94px] cursor-grab touch-none rounded-full bg-[radial-gradient(circle_at_42%_38%,#fff3dd,#ffce8a_60%,#f5a94e)] animate-sunpulse"
       >
         <span className="pointer-events-none absolute -top-[30px] left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold tracking-[0.18em] text-[rgba(33,28,20,0.6)]">
-          SCROLL, OR DRAG THE SUN
+          {data.sunHint}
         </span>
       </button>
 
@@ -139,13 +140,12 @@ export function Hero() {
         ref={dayRef}
         className="absolute inset-x-0 top-0 box-border flex h-[56%] flex-col items-center justify-center px-6 pb-24 pt-16 text-center text-day-ink"
       >
-        <div className="time-label text-amber-deep">19:58 · You caught me mid-shift</div>
+        <div className="time-label text-amber-deep">{data.day.label}</div>
         <h1 className="mt-4 text-[clamp(52px,6.5vw,86px)] font-semibold leading-none tracking-[-0.035em]">
-          Built in daylight.
+          {data.day.title}
         </h1>
         <p className="mt-3.5 max-w-[460px] text-[16.5px] leading-[1.55] text-[#4a5145] [text-wrap:pretty]">
-          The day job: websites designed and built with AI at unfair speed.
-          Kickoff to keys in weeks, not quarters.
+          {data.day.body}
         </p>
       </div>
 
@@ -155,11 +155,10 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 top-[56%] box-border flex flex-col items-center justify-center px-6 pb-[74px] pt-[34px] text-center text-text"
       >
         <h2 className="mt-6 text-[clamp(52px,6.5vw,86px)] font-semibold leading-none tracking-[-0.035em]">
-          Sold after dark.
+          {data.night.title}
         </h2>
         <p className="mt-3.5 max-w-[460px] text-[16.5px] leading-[1.55] text-text/60 [text-wrap:pretty]">
-          The night job: email flows, SEO and the occasional ad, quietly
-          working long after everyone (including me) goes to bed.
+          {data.night.body}
         </p>
         <div className="mt-[26px] flex flex-wrap justify-center gap-3">
           <BookCallButton />
@@ -169,12 +168,14 @@ export function Hero() {
 
       {/* Corner notes */}
       <div className="absolute bottom-6 left-6 text-xs text-text/55 md:left-12">
-        Zdravo. Miloš, 24 · Serbia · GMT+1, both shifts
+        {data.cornerLeft}
       </div>
-      <div className="absolute bottom-6 right-6 flex items-center gap-2 text-xs text-text/55 md:right-12">
-        <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-blue" />
-        Open for projects · <CurrentMonth />
-      </div>
+      {open && (
+        <div className="absolute bottom-6 right-6 flex items-center gap-2 text-xs text-text/55 md:right-12">
+          <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-blue" />
+          {data.openForProjectsLabel} · <CurrentMonth />
+        </div>
+      )}
     </section>
   );
 }
