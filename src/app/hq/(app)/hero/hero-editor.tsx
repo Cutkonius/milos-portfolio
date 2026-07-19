@@ -24,7 +24,11 @@ export function HeroEditor({ initial }: { initial: Hero }) {
 
   return (
     <div>
-      <PageHeader title="Hero" description="The horizon headline — daylight above, night below." />
+      <PageHeader
+        kicker="19:58 · The horizon"
+        title="Hero"
+        description="The horizon headline — daylight above, night below."
+      />
 
       <div className="flex flex-col gap-5">
         <Card>

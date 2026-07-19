@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { getContentAdmin } from "@/lib/cms/content";
 import { Providers } from "@/components/providers";
 import { SiteConfigProvider } from "@/components/site-config";
 import { CalProvider } from "@/components/cal-provider";
@@ -9,25 +11,22 @@ import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
 import { Process } from "@/components/sections/process";
 import { Contact } from "@/components/sections/contact";
-import { getContent } from "@/lib/cms/content";
-import { JsonLd, personSchema } from "@/components/cms/json-ld";
+import { PreviewBanner } from "./preview-banner";
 
-export default async function Home() {
-  const content = await getContent();
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://milosnovakovic.com";
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = {
+  title: "Preview — HQ",
+  robots: { index: false, follow: false },
+};
+
+/** The public home page rendered from the DRAFT — admin-only, never indexed. */
+export default async function PreviewPage() {
+  const { content } = await getContentAdmin();
 
   return (
     <Providers>
       <SiteConfigProvider calLink={content.site.calLink} email={content.site.email}>
-        <JsonLd data={personSchema(content.site, base)} />
         <div className="relative">
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:rounded-full focus:bg-amber focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#1c1206]"
-          >
-            Skip to content
-          </a>
-
           <CalProvider />
           <Nav data={content.nav} />
 
@@ -40,6 +39,7 @@ export default async function Home() {
             <Contact data={content.contact} />
           </main>
 
+          <PreviewBanner />
           <Toaster />
         </div>
       </SiteConfigProvider>

@@ -29,7 +29,7 @@ export function ContactEditor({ initial }: { initial: ContactSection }) {
 
   return (
     <div>
-      <PageHeader title="Contact" description="The closing pitch, the receipts, and the footer." />
+      <PageHeader kicker="02:13 · The payoff" title="Contact" description="The closing pitch, the receipts, and the footer." />
 
       <div className="flex flex-col gap-5">
         <Card>

@@ -108,6 +108,6 @@ async function vaultGate(req: NextRequest): Promise<NextResponse> {
 
 export const config = {
   // Gate everything, including /_next/image (so images can't be fetched
-  // pre-login). Build assets, favicon and robots.txt stay reachable.
-  matcher: ["/((?!_next/static|favicon\\.ico|icon\\.svg|robots\\.txt).*)"],
+  // pre-login). Build assets, favicon, robots.txt and sitemap.xml stay reachable.
+  matcher: ["/((?!_next/static|favicon\\.ico|icon\\.svg|robots\\.txt|sitemap\\.xml).*)"],
 };

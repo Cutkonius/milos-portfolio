@@ -75,6 +75,37 @@ export const DEFAULT_CONTENT: ContentDoc = {
           key: "static:vujicauto-product",
           alt: "Vujić Auto product catalog with categories and prices",
         },
+        slug: "vujicauto",
+        caseStudy: {
+          enabled: false,
+          intro:
+            "How a parts counter for a seller who knows his torque specs went from a spreadsheet to a storefront that behaves.",
+          liveUrl: "https://vujicauto.rs",
+          tags: ["WooCommerce", "AI-assisted build", "SEO", "Email flows"],
+          metrics: [
+            { id: "m1", value: "48h", label: "Part to doorstep" },
+            { id: "m2", value: "weeks", label: "Kickoff to launch" },
+            { id: "m3", value: "24/7", label: "Sells while he sleeps" },
+          ],
+          blocks: [
+            {
+              id: "b1",
+              heading: "The problem",
+              body: "Right part, right price, no drama. Buyers needed to find the exact component for their vehicle without a phone call — and the shop needed a checkout that doesn't stall on a hill.",
+            },
+            {
+              id: "b2",
+              heading: "The build",
+              body: "A WooCommerce storefront built with AI at unfair speed: search by vehicle, a catalog that behaves, and a checkout that gets out of the way. Design to deployment in weeks, not quarters.",
+            },
+            {
+              id: "b3",
+              heading: "The night shift",
+              body: "Then the part most builders skip: email flows and SEO that keep working long after everyone clocks out. The website earns its keep on its own.",
+            },
+          ],
+          gallery: [],
+        },
       },
       {
         id: "redacted-1",

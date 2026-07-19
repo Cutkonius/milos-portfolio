@@ -33,7 +33,7 @@ export function ServicesEditor({ initial }: { initial: ServicesSection }) {
 
   return (
     <div>
-      <PageHeader title="Services" description="Three trades, one pair of hands." />
+      <PageHeader kicker="22:06 · Three trades" title="Services" description="Three trades, one pair of hands." />
 
       <Card className="mb-5">
         <div className="flex flex-col gap-4">

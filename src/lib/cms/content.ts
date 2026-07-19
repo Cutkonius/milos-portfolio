@@ -2,9 +2,21 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { DEFAULT_CONTENT } from "./defaults";
 import type { ContentDoc } from "./types";
-import { CMS_STORE, readJSON, writeJSON } from "./store";
+import { CMS_STORE, listKeys, readJSON, removeKey, writeJSON } from "./store";
 
+/** Published doc the public site reads. */
 export const CONTENT_KEY = "content";
+/** The admin's working copy; published on demand. */
+export const DRAFT_KEY = "draft";
+const BACKUP_PREFIX = "backups/";
+/** Keep at most this many restore points; older ones are pruned on publish. */
+const MAX_BACKUPS = 50;
+
+export interface Version {
+  key: string;
+  /** Epoch millis the snapshot was taken. */
+  at: number;
+}
 
 /** Fill any missing field from defaults; stored arrays replace defaults wholesale. */
 function mergeSection<T>(def: T, stored: Partial<T> | undefined): T {
@@ -38,8 +50,7 @@ function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
 }
 
 /**
- * Public read. Memoized per render (React cache) so the several sections that
- * ask for content in one render share a single store hit. Never throws — the
+ * Public read (the published doc). Memoized per render. Never throws — the
  * public site falls back to defaults if the store is empty or unreachable.
  */
 export const getContent = cache(async (): Promise<ContentDoc> => {
@@ -51,29 +62,92 @@ export const getContent = cache(async (): Promise<ContentDoc> => {
   }
 });
 
-/** Admin read — strong consistency, uncached, carries the ETag for safe saves. */
-export async function getContentAdmin(): Promise<{ content: ContentDoc; etag: string | null }> {
+/** The published doc, uncached (for publish comparison). */
+async function getPublished(): Promise<ContentDoc> {
   const res = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
-  return { content: withDefaults(res?.value ?? null), etag: res?.etag ?? null };
+  return withDefaults(res?.value ?? null);
 }
 
 /**
- * Overwrite the whole content doc. Snapshots the previous version into
- * `backups/<timestamp>`, honours an optional ETag precondition (throws
- * ConflictError on a stale edit), and revalidates the public site.
+ * The admin's working copy: the draft if one exists, otherwise the published
+ * doc (so editing always starts from what's live). Strong consistency + carries
+ * the ETag so the dashboard can tell an empty store from a seeded one.
  */
-export async function saveContent(
-  next: ContentDoc,
-  onlyIfMatch?: string | null
-): Promise<{ etag: string | null }> {
+export async function getContentAdmin(): Promise<{ content: ContentDoc; etag: string | null }> {
+  const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
+  if (draft) return { content: withDefaults(draft.value), etag: draft.etag };
+  const pub = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
+  return { content: withDefaults(pub?.value ?? null), etag: pub?.etag ?? null };
+}
+
+/** Save the working copy. Not public until published — no revalidation. */
+export async function saveDraft(next: ContentDoc): Promise<{ etag: string | null }> {
+  return writeJSON(CMS_STORE, DRAFT_KEY, next);
+}
+
+/** True when the draft differs from what's published. */
+export async function hasUnpublishedChanges(): Promise<boolean> {
+  const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
+  if (!draft) return false;
+  return JSON.stringify(withDefaults(draft.value)) !== JSON.stringify(await getPublished());
+}
+
+/** Promote the draft to live (snapshots the previous published doc first). */
+export async function publish(): Promise<boolean> {
+  const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
+  if (!draft) return false;
+  await saveContent(withDefaults(draft.value));
+  return true;
+}
+
+/** Throw away draft edits — reset the working copy to what's published. */
+export async function discardDraft(): Promise<void> {
+  await saveDraft(await getPublished());
+}
+
+/**
+ * Write the published doc: snapshot the previous version into
+ * `backups/<millis>`, prune old ones, then publish and revalidate the site.
+ */
+export async function saveContent(next: ContentDoc): Promise<{ etag: string | null }> {
   const current = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
   if (current) {
-    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-    await writeJSON(CMS_STORE, `backups/${stamp}`, current.value).catch(() => {});
+    await writeJSON(CMS_STORE, `${BACKUP_PREFIX}${Date.now()}`, current.value).catch(() => {});
+    await pruneBackups().catch(() => {});
   }
-  const res = await writeJSON(CMS_STORE, CONTENT_KEY, next, {
-    onlyIfMatch: onlyIfMatch || undefined,
-  });
+  const res = await writeJSON(CMS_STORE, CONTENT_KEY, next);
   revalidatePath("/");
+  revalidatePath("/work/[slug]", "page");
   return res;
+}
+
+async function pruneBackups(): Promise<void> {
+  const versions = await listVersions();
+  for (const v of versions.slice(MAX_BACKUPS)) {
+    await removeKey(CMS_STORE, v.key).catch(() => {});
+  }
+}
+
+/** Restore points, newest first. */
+export async function listVersions(): Promise<Version[]> {
+  const keys = await listKeys(CMS_STORE, BACKUP_PREFIX);
+  return keys
+    .map((key) => ({ key, at: Number(key.slice(BACKUP_PREFIX.length)) }))
+    .filter((v) => Number.isFinite(v.at))
+    .sort((a, b) => b.at - a.at);
+}
+
+export async function getVersion(key: string): Promise<ContentDoc | null> {
+  if (!key.startsWith(BACKUP_PREFIX)) return null;
+  const res = await readJSON<ContentDoc>(CMS_STORE, key, { consistency: "strong" });
+  return res ? withDefaults(res.value) : null;
+}
+
+/** Restore a snapshot as the live content and sync the draft to match. */
+export async function restoreVersion(key: string): Promise<boolean> {
+  const doc = await getVersion(key);
+  if (!doc) return false;
+  await saveContent(doc);
+  await saveDraft(doc);
+  return true;
 }

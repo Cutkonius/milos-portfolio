@@ -25,7 +25,7 @@ export function NavEditor({ initial }: { initial: Nav }) {
 
   return (
     <div>
-      <PageHeader title="Navigation" description="The fixed header — brand, links, and the scroll clock." />
+      <PageHeader kicker="The header" title="Navigation" description="The fixed header — brand, links, and the scroll clock." />
 
       <div className="flex flex-col gap-5">
         <Card>

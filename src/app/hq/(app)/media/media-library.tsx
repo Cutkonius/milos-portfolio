@@ -56,6 +56,7 @@ export function MediaLibrary({ initial }: { initial: MediaItem[] }) {
   return (
     <div>
       <PageHeader
+        kicker="Assets"
         title="Media"
         description="Every uploaded image. Content-addressed, so duplicates are stored once."
         actions={

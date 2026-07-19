@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
 import { MediaImage } from "@/components/cms/media-image";
@@ -134,6 +135,17 @@ export function Work({ data }: { data: WorkSection }) {
                 <p className="mt-3.5 max-w-[620px] text-base leading-[1.6] text-text/65 [text-wrap:pretty]">
                   {featured.description}
                 </p>
+              </Reveal>
+            )}
+
+            {featured.caseStudy?.enabled && (
+              <Reveal delay={0.11}>
+                <Link
+                  href={`/work/${featured.slug || featured.id}`}
+                  className="mt-3.5 inline-block text-sm font-semibold text-blue-soft transition-colors hover:text-amber"
+                >
+                  Read the case study →
+                </Link>
               </Reveal>
             )}
 

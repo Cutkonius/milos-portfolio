@@ -2,11 +2,124 @@
 
 import { useState } from "react";
 import { Reorder, useDragControls } from "motion/react";
-import type { Project, ProjectKind, WorkSection } from "@/lib/cms/types";
+import type {
+  CaseStudy,
+  CaseStudyBlock,
+  ImageRef,
+  Metric,
+  Project,
+  ProjectKind,
+  WorkSection,
+} from "@/lib/cms/types";
 import { Button, Card, PageHeader, TextArea, TextInput, Toggle } from "@/app/hq/_components/ui";
 import { ImageUpload } from "@/app/hq/_components/image-upload";
+import { ListEditor } from "@/app/hq/_components/list-editor";
 import { SaveBar } from "@/app/hq/_components/save-bar";
 import { useSectionSave } from "@/app/hq/_components/use-section-save";
+
+function CaseStudyFields({
+  cs,
+  setCs,
+}: {
+  cs: CaseStudy;
+  setCs: (patch: Partial<CaseStudy>) => void;
+}) {
+  return (
+    <div className="mt-2 flex flex-col gap-4 rounded-xl border border-white/[0.1] bg-white/[0.02] p-4">
+      <Toggle
+        checked={cs.enabled}
+        onChange={(v) => setCs({ enabled: v })}
+        label="Publish a dedicated /work/<slug> case-study page"
+      />
+      {cs.enabled && (
+        <>
+          <TextArea
+            label="Intro"
+            rows={2}
+            value={cs.intro ?? ""}
+            onChange={(e) => setCs({ intro: e.target.value })}
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <TextInput
+              label="Live URL"
+              value={cs.liveUrl ?? ""}
+              placeholder="https://vujicauto.rs"
+              onChange={(e) => setCs({ liveUrl: e.target.value })}
+            />
+            <TextInput
+              label="Tags (comma-separated)"
+              value={(cs.tags ?? []).join(", ")}
+              onChange={(e) =>
+                setCs({
+                  tags: e.target.value
+                    .split(",")
+                    .map((t) => t.trim())
+                    .filter(Boolean),
+                })
+              }
+            />
+          </div>
+
+          <div>
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-text/45">
+              Metrics
+            </div>
+            <ListEditor
+              items={cs.metrics ?? []}
+              setItems={(metrics) => setCs({ metrics })}
+              makeItem={(): Metric => ({ id: crypto.randomUUID(), value: "", label: "" })}
+              addLabel="+ Add metric"
+              render={(m, update) => (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <TextInput label="Value" value={m.value} onChange={(e) => update({ ...m, value: e.target.value })} />
+                  <TextInput label="Label" value={m.label} onChange={(e) => update({ ...m, label: e.target.value })} />
+                </div>
+              )}
+            />
+          </div>
+
+          <div>
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-text/45">
+              Story blocks
+            </div>
+            <ListEditor
+              items={cs.blocks ?? []}
+              setItems={(blocks) => setCs({ blocks })}
+              makeItem={(): CaseStudyBlock => ({ id: crypto.randomUUID(), heading: "", body: "" })}
+              addLabel="+ Add block"
+              render={(b, update) => (
+                <div className="flex flex-col gap-3">
+                  <TextInput label="Heading" value={b.heading} onChange={(e) => update({ ...b, heading: e.target.value })} />
+                  <TextArea label="Body" rows={3} value={b.body} onChange={(e) => update({ ...b, body: e.target.value })} />
+                  <ImageUpload
+                    label="Image (optional)"
+                    image={b.image}
+                    onChange={(img) => update({ ...b, image: img })}
+                  />
+                </div>
+              )}
+            />
+          </div>
+
+          <div>
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-text/45">
+              Gallery
+            </div>
+            <ListEditor
+              items={cs.gallery ?? []}
+              setItems={(gallery) => setCs({ gallery })}
+              makeItem={(): ImageRef => ({ key: "", alt: "" })}
+              addLabel="+ Add image"
+              render={(img, update) => (
+                <ImageUpload image={img} onChange={(next) => update(next ?? { key: "", alt: "" })} />
+              )}
+            />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 const KIND_LABEL: Record<ProjectKind, string> = {
   case: "Case study",
@@ -113,6 +226,17 @@ function ProjectFields({
             onChange={(img) => onChange({ productShot: img })}
           />
         </div>
+        <TextInput
+          label="URL slug"
+          hint="The detail page lives at /work/<slug>."
+          value={p.slug ?? ""}
+          placeholder="vujicauto"
+          onChange={(e) => onChange({ slug: e.target.value })}
+        />
+        <CaseStudyFields
+          cs={p.caseStudy ?? { enabled: false }}
+          setCs={(patch) => onChange({ caseStudy: { ...(p.caseStudy ?? { enabled: false }), ...patch } })}
+        />
       </div>
     );
   }
@@ -247,6 +371,7 @@ export function ProjectsEditor({ initial }: { initial: WorkSection }) {
   return (
     <div>
       <PageHeader
+        kicker="20:41 · Selected work"
         title="Projects"
         description="Your selected work. Drag to reorder; the first published case study becomes the large showcase."
         actions={

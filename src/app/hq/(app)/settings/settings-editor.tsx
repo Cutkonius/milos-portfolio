@@ -24,7 +24,7 @@ export function SettingsEditor({ initial }: { initial: SiteSettings }) {
 
   return (
     <div>
-      <PageHeader title="Settings" description="Search, social, availability and launch." />
+      <PageHeader kicker="Controls" title="Settings" description="Search, social, availability and launch." />
 
       <div className="flex flex-col gap-5">
         <Card>

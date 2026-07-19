@@ -44,6 +44,30 @@ export interface Nav {
 
 export type ProjectKind = "case" | "redacted" | "reserved";
 
+export interface CaseStudyBlock {
+  id: string;
+  heading: string;
+  body: string;
+  image?: ImageRef;
+}
+
+export interface Metric {
+  id: string;
+  value: string;
+  label: string;
+}
+
+/** The optional dedicated `/work/<slug>` detail page for a case study. */
+export interface CaseStudy {
+  enabled: boolean;
+  intro?: string;
+  liveUrl?: string;
+  tags?: string[];
+  metrics?: Metric[];
+  blocks?: CaseStudyBlock[];
+  gallery?: ImageRef[];
+}
+
 export interface Project {
   id: string;
   kind: ProjectKind;
@@ -62,6 +86,10 @@ export interface Project {
   screenshot?: ImageRef;
   /** Shown in the secondary product-shot card. */
   productShot?: ImageRef;
+  /** URL slug for the detail page (`/work/<slug>`). */
+  slug?: string;
+  /** Full case-study detail page content. */
+  caseStudy?: CaseStudy;
 
   // --- kind: "redacted" | "reserved" ---
   label?: string;

@@ -33,7 +33,7 @@ export function ProcessEditor({ initial }: { initial: ProcessSection }) {
 
   return (
     <div>
-      <PageHeader title="Process" description="Four steps. Zero mystery." />
+      <PageHeader kicker="00:52 · The rollout" title="Process" description="Four steps. Zero mystery." />
 
       <Card className="mb-5">
         <div className="flex flex-col gap-4">

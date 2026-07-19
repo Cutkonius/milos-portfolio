@@ -48,21 +48,31 @@ Hash a password: `node scripts/hash-password.mjs "your-strong-password"`
   admin app (clean subdomain paths rewritten onto the internal `/hq/*` segment,
   gated by a signed admin cookie); every other host is the public site behind the
   vault. The admin app is never reachable from the public host (404).
-- **Storage.** `src/lib/cms/` is a small storage adapter over Netlify Blobs: the
-  whole site is one JSON document (`cms` store, key `content`), with a timestamped
-  backup on every save; uploaded images live in the `cms-media` store, content-
-  hashed and served from `/media/[key]`.
-- **Editing → live.** Saving a section runs a Server Action that writes the doc
-  and calls `revalidatePath('/')`; Netlify purges the public page across its
-  network within seconds. The public site is statically rendered and reads the
-  store (falling back to built-in defaults in `src/lib/cms/defaults.ts` if the
-  store is empty — so it never breaks).
+- **Storage.** `src/lib/cms/` is a small storage adapter over Netlify Blobs. The
+  whole site is one JSON document — key `draft` (the working copy) and key
+  `content` (what's published) — plus timestamped `backups/*`. Uploaded images
+  live in the `cms-media` store, content-hashed and served from `/media/[key]`.
+- **Draft → Preview → Publish.** Editing a section saves to the **draft** —
+  nothing changes on the live site. A sticky bar shows unpublished changes;
+  **Preview** (`/preview`, admin-only) renders the site from the draft, and
+  **Publish** promotes the draft to live and revalidates the public page (Netlify
+  purges it network-wide in seconds). **Discard** resets the draft to what's live.
+- **History.** Every publish snapshots the previous version into `backups/*`; the
+  **History** page restores any of them in one click (a restore is itself
+  snapshotted, so it's reversible).
+- **Case studies.** A published `case` project with a slug and its case study
+  enabled gets a `/work/<slug>` detail page, linked from the home showcase, with a
+  generated OG image and structured data.
+- **SEO.** `robots.txt` and `sitemap.xml` follow the **Launched** toggle in
+  Settings; the home page carries Person/ProfilePage JSON-LD.
+- **Resilience.** The public site is statically rendered and reads the published
+  doc, falling back to built-in defaults (`src/lib/cms/defaults.ts`) if the store
+  is empty — so it never breaks.
 - **Auth.** Reuses the site's HMAC-cookie scheme (`src/lib/auth.ts`) with a
   separate cookie/secret; the password is verified server-side against a scrypt
   hash, with per-IP rate limiting and a same-origin check.
 - **First run.** On an empty store the dashboard shows a "Publish defaults"
-  button (POSTs `/hq/api/seed`) to write the initial content. Optional — the
-  first edit seeds it anyway.
+  button (POSTs `/hq/api/seed`). Optional — the first edit seeds it anyway.
 
 ## Deploying to Netlify
 
