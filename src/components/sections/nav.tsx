@@ -146,7 +146,7 @@ export function Nav({ data }: { data: NavData }) {
                   href={link.href}
                   aria-current={selected ? "location" : undefined}
                   data-active={selected}
-                  className="nav-underline inline-flex min-h-11 items-center px-4 text-[11.5px] font-medium transition-[color,letter-spacing,background-color] duration-300 hover:bg-current/[0.045] hover:tracking-[0.025em] focus-visible:outline-offset-[-3px] xl:px-5"
+                  className="nav-underline inline-flex min-h-11 items-center px-4 text-[12px] font-medium transition-[color,letter-spacing,background-color] duration-300 hover:bg-current/[0.045] hover:tracking-[0.025em] focus-visible:outline-offset-[-3px] xl:px-5"
                   style={{ color: selected ? "var(--nav-ink)" : "var(--nav-sub)" }}
                 >
                   {link.label}
@@ -209,7 +209,7 @@ export function Nav({ data }: { data: NavData }) {
             className="pointer-events-auto fixed inset-0 -z-10 flex bg-night px-5 pb-8 pt-[100px] text-text sm:px-8 sm:pt-[112px] lg:hidden"
           >
             <div className="flex w-full flex-col">
-              <div className="mb-8 flex items-end justify-between border-b border-text/16 pb-4 text-[9.5px] font-semibold uppercase tracking-[0.17em] text-text/54">
+              <div className="mb-8 flex items-end justify-between border-b border-text/16 pb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-text/66">
                 <span>Index</span>
                 <span>Portfolio / 2026</span>
               </div>
@@ -223,7 +223,7 @@ export function Nav({ data }: { data: NavData }) {
                     onClick={() => setMenuOpen(false)}
                     className="group grid grid-cols-[46px_1fr_auto] items-baseline py-5 sm:py-7"
                   >
-                    <span className="text-[10px] font-semibold tracking-[0.15em] text-text/48">
+                    <span className="text-[11px] font-semibold tracking-[0.12em] text-text/64">
                       0{index + 1}
                     </span>
                     <span className="text-[clamp(36px,11vw,64px)] font-semibold leading-none tracking-[-0.055em] text-text transition-transform duration-500 group-hover:translate-x-2">
@@ -239,7 +239,7 @@ export function Nav({ data }: { data: NavData }) {
                 ))}
               </div>
 
-              <p className="mt-auto max-w-[280px] pt-8 text-[12px] leading-relaxed text-text/52">
+              <p className="mt-auto max-w-[300px] pt-8 text-[14px] leading-relaxed text-text/70">
                 Built in daylight. Sold after dark.
               </p>
             </div>

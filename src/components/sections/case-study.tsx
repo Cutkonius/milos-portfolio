@@ -164,11 +164,11 @@ export function CaseStudyView({
             What should your website make easier?
           </h2>
           <p className="mx-auto mt-3 max-w-[440px] text-[15px] leading-[1.6] text-text/60 [text-wrap:pretty]">
-            Bring the page, offer or decision path that feels harder than it should. We can
-            identify the friction in 15 minutes.
+            Bring the website, page or offer that is not working clearly enough. In 15 minutes, we
+            can identify the main problem and the best next step.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <BookCallButton label="Book a 15-minute fit call" />
+            <BookCallButton label="Book a 15-minute call" />
             <EmailPill label="Email Miloš" />
           </div>
         </div>

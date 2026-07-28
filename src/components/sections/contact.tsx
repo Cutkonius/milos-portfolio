@@ -46,11 +46,11 @@ function OvernightLedger({
 
   return (
     <div ref={wrapRef} className="w-full lg:ml-auto">
-      <div className="flex items-end justify-between gap-5 border-b border-text/18 pb-4">
-        <span className="time-label max-w-[250px] text-text/56">
-          What the system is designed to improve
+      <div className="flex flex-col items-start gap-3 border-b border-text/18 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
+        <span className="time-label max-w-[250px] text-text/70">
+          What I can improve on your website
         </span>
-        <span className="max-w-[280px] text-right text-[9px] leading-[1.45] uppercase tracking-[0.13em] text-text/44">
+        <span className="max-w-[300px] text-[11px] leading-[1.5] text-text/64 sm:text-right">
           {note}
         </span>
       </div>
@@ -72,13 +72,13 @@ function OvernightLedger({
             style={{ opacity: 0, x: reduced ? 0 : 14 }}
             className="grid grid-cols-[38px_1fr] gap-x-3 border-b border-text/14 py-5 sm:grid-cols-[44px_1fr_auto] sm:items-center"
           >
-            <span className="text-[9px] font-semibold tracking-[0.16em] text-blue-soft/62">
+            <span className="text-[11px] font-semibold tracking-[0.12em] text-blue-soft/76">
               0{index + 1}
             </span>
-            <span className="text-[13px] font-medium leading-snug text-text/82 sm:text-[14px]">
+            <span className="text-[15px] font-medium leading-snug text-text/88">
               {receipt.title}
             </span>
-            <span className="col-start-2 mt-1 text-[11px] text-text/48 sm:col-auto sm:mt-0 sm:text-right">
+            <span className="col-start-2 mt-1 text-[12.5px] text-text/66 sm:col-auto sm:mt-0 sm:text-right">
               {receipt.meta}
             </span>
           </motion.div>
@@ -86,7 +86,7 @@ function OvernightLedger({
       </div>
 
       <div className="grid items-end gap-4 border-b border-text/18 py-7 sm:grid-cols-[1fr_auto]">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text/48">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text/64">
           Total / {totalMeta}
         </span>
         <span className="text-[clamp(62px,9vw,112px)] font-semibold leading-[0.78] tracking-[-0.07em] text-amber tabular-nums">
@@ -169,7 +169,7 @@ export function Contact({ data }: { data: ContactSection }) {
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <p className="mt-7 max-w-[540px] text-[15px] leading-[1.72] text-text/62 [text-wrap:pretty] sm:text-[16px]">
+              <p className="mt-7 max-w-[580px] text-[16px] leading-[1.72] text-text/74 [text-wrap:pretty] sm:text-[17px]">
                 {data.pitch}
               </p>
             </Reveal>
@@ -189,7 +189,7 @@ export function Contact({ data }: { data: ContactSection }) {
           />
         </div>
 
-        <div className="mt-[110px] border-t border-text/16 pb-[34px] pt-[24px] text-[11px] text-text/44 sm:mt-[150px]">
+        <div className="mt-[110px] border-t border-text/16 pb-[34px] pt-[24px] text-[12px] text-text/62 sm:mt-[150px]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <span>{data.footerCopyright}</span>
             <span className="flex gap-6">

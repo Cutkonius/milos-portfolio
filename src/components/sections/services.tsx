@@ -6,9 +6,9 @@ import servicesPhotogram from "@/images/services-photogram-v1.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
-  "Message hierarchy / User journeys / Visual system",
-  "Responsive build / Performance / Quality assurance",
-  "Technical SEO / Email journeys / Post-launch learning",
+  "Audience and offer / Sitemap / Page-by-page content plan",
+  "Responsive design / Working website / Testing and launch",
+  "Search setup / Email flows / Analytics and improvements",
 ];
 
 export function Services({ data }: { data: ServicesSection }) {
@@ -21,7 +21,7 @@ export function Services({ data }: { data: ServicesSection }) {
         <div className="grid items-end gap-9 border-b border-day-ink/18 pb-10 lg:grid-cols-[1.25fr_.55fr] lg:pb-14">
           <div>
             <Reveal>
-              <div className="section-kicker !text-day-ink/58">{data.label}</div>
+              <div className="section-kicker !text-day-ink/68">{data.label}</div>
             </Reveal>
             <Reveal delay={0.04}>
               <h2 className="mt-7 max-w-[820px] text-[clamp(46px,6.8vw,96px)] font-semibold leading-[0.91] tracking-[-0.065em] [text-wrap:balance]">
@@ -30,10 +30,9 @@ export function Services({ data }: { data: ServicesSection }) {
             </Reveal>
           </div>
           <Reveal delay={0.08}>
-            <p className="max-w-[390px] text-[14px] leading-[1.68] text-day-ink/62 [text-wrap:pretty] lg:ml-auto">
-              You do not need separate people translating strategy into design, then design into
-              code. One accountable partner keeps the message, interface and build working toward
-              the same decision.
+            <p className="max-w-[420px] text-[15px] leading-[1.68] text-day-ink/72 [text-wrap:pretty] sm:text-[16px] lg:ml-auto">
+              I handle the offer, page structure, interface and code. You work with one person from
+              the first plan to launch, so the message and the finished site stay consistent.
             </p>
           </Reveal>
         </div>
@@ -55,7 +54,7 @@ export function Services({ data }: { data: ServicesSection }) {
               aria-hidden="true"
               className="flex min-h-[132px] flex-col justify-between px-4 py-5 sm:px-6 sm:py-6 lg:min-h-0"
             >
-              <div className="flex items-center gap-3 text-[8.5px] font-semibold uppercase tracking-[0.17em] text-day-ink/46 sm:text-[9px]">
+              <div className="flex items-center gap-3 text-[10.5px] font-semibold uppercase tracking-[0.11em] text-day-ink/62">
                 <span>01 / Message</span>
                 <span className="h-px flex-1 bg-day-ink/20" />
                 <span>03 / System</span>
@@ -81,7 +80,7 @@ export function Services({ data }: { data: ServicesSection }) {
                 </span>
 
                 <div className="mt-5 lg:mt-0">
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-day-ink/45 transition-colors group-hover:text-paper/50 group-focus-within:text-paper/50">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.11em] text-day-ink/62 transition-colors group-hover:text-paper/70 group-focus-within:text-paper/70">
                     {service.shift}
                   </span>
                   <h3 className="mt-3 max-w-[560px] text-[clamp(30px,3.8vw,54px)] font-semibold leading-[1] tracking-[-0.052em] transition-transform duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-2 group-focus-within:translate-x-2">
@@ -90,10 +89,10 @@ export function Services({ data }: { data: ServicesSection }) {
                 </div>
 
                 <div className="mt-7 lg:mt-0">
-                  <p className="max-w-[420px] text-[14px] leading-[1.65] text-day-ink/62 transition-colors group-hover:text-paper/66 group-focus-within:text-paper/66">
+                  <p className="max-w-[440px] text-[15px] leading-[1.65] text-day-ink/72 transition-colors group-hover:text-paper/78 group-focus-within:text-paper/78 sm:text-[16px]">
                     {service.blurb}
                   </p>
-                  <div className="mt-6 border-t border-current/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] opacity-55">
+                  <div className="mt-6 border-t border-current/18 pt-3 text-[11px] font-semibold uppercase tracking-[0.11em] text-day-ink/62 transition-colors group-hover:text-paper/70 group-focus-within:text-paper/70">
                     {DELIVERABLES[index] ?? "Strategy / Craft / Delivery"}
                   </div>
                 </div>

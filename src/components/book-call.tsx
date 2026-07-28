@@ -15,7 +15,7 @@ function useCalAttrs() {
 /** Primary booking CTA: a cut-corner editorial slab with an ink-wipe hover. */
 export function BookCallButton({
   size = "lg",
-  label = "Book a 15-minute fit call",
+  label = "Book a 15-minute call",
 }: {
   size?: "sm" | "lg";
   label?: string;

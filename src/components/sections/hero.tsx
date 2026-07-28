@@ -134,7 +134,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             </h1>
             <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
               <span aria-hidden="true" className="h-px w-12 bg-[#121722]/40 sm:w-16" />
-              <p className="text-[13px] leading-[1.55] text-[#343a43] [text-wrap:pretty] sm:text-[15.5px]">
+              <p className="text-[14.5px] leading-[1.58] text-[#2f353e] [text-wrap:pretty] sm:text-[16px]">
                 {data.day.body}
               </p>
             </div>
@@ -154,20 +154,20 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
               <span aria-hidden="true" className="h-px w-12 bg-text/38 sm:w-16" />
               <div className="flex flex-col items-center">
-                <p className="text-[12.5px] leading-[1.58] text-text/64 [text-wrap:pretty] sm:text-[15.5px]">
+                <p className="text-[14.5px] leading-[1.58] text-text/74 [text-wrap:pretty] sm:text-[16px]">
                   {data.night.body}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:mt-5">
-                  <BookCallButton label="Book a 15-minute fit call" />
+                  <BookCallButton label="Book a 15-minute call" />
                   <EmailPill label="Email Miloš" />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="hidden items-end justify-between gap-5 text-[9.5px] font-medium uppercase tracking-[0.14em] text-text/48 sm:flex">
+          <div className="hidden items-end justify-between gap-5 text-[11px] font-medium uppercase tracking-[0.11em] text-text/64 sm:flex">
             <span>{data.cornerLeft}</span>
-            <span>Independent from first decision to launch</span>
+            <span>One partner from first plan to launch</span>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
           aria-label="Continue to the night shift"
           className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-300 ease-out hover:scale-[1.06] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.06]"
         >
-          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.16em] text-[#4c4135] sm:-top-9">
+          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.11em] text-[#4c4135] sm:-top-9">
             {data.sunHint}
           </span>
         </button>

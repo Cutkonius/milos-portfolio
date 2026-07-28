@@ -38,9 +38,9 @@ function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
   if (!stored) return d;
 
   /*
-   * Version 3 is an editorial redesign rather than a new optional field set.
-   * Promote older documents to the new narrative while keeping the operational
-   * settings and any user-supplied media that cannot be recreated from copy.
+   * Editorial versions replace the public narrative rather than only adding
+   * optional fields. Promote older documents to the latest copy while keeping
+   * operational settings and media that should remain available in the CMS.
    */
   if ((stored.version ?? 0) < d.version) {
     const storedFeatured = stored.work?.projects?.find((project) => project.id === "vujicauto");

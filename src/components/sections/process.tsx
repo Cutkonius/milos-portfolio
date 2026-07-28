@@ -22,9 +22,9 @@ export function Process({ data }: { data: ProcessSection }) {
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <p className="mt-7 max-w-[390px] text-[14px] leading-[1.7] text-text/58">
-                You see the work early, make decisions while they are cheap to change and always
-                know what needs your attention.
+              <p className="mt-7 max-w-[420px] text-[15px] leading-[1.7] text-text/72 sm:text-[16px]">
+                You see working pages early, know what I need from you and can make changes before
+                they become expensive.
               </p>
             </Reveal>
           </div>
@@ -35,10 +35,10 @@ export function Process({ data }: { data: ProcessSection }) {
             <Reveal key={step.id} delay={index * 0.035}>
               <article className="group relative flex min-h-[360px] flex-col overflow-hidden border-t border-text/16 py-8 transition-[background-color,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] hover:bg-[#111a29] hover:px-5 focus-within:bg-[#111a29] focus-within:px-5 sm:min-h-[410px] sm:py-10">
                 <div className="flex items-start justify-between gap-6">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.17em] text-text/48">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text/64">
                     0{index + 1}
                   </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.17em] text-amber-soft/74">
+                  <span className="text-right text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-soft/88">
                     {step.label}
                   </span>
                 </div>
@@ -54,12 +54,12 @@ export function Process({ data }: { data: ProcessSection }) {
                   <h3 className="text-[clamp(30px,4.2vw,56px)] font-semibold leading-[0.98] tracking-[-0.052em] text-text">
                     {step.title}
                   </h3>
-                  <p className="mt-5 max-w-[500px] text-[14px] leading-[1.68] text-text/60 [text-wrap:pretty] sm:text-[15px]">
+                  <p className="mt-5 max-w-[520px] text-[15px] leading-[1.68] text-text/74 [text-wrap:pretty] sm:text-[16px]">
                     {step.blurb}
                     {step.ctaLabel && (
                       <>
                         {" "}
-                        <CalTextLink className="text-[14px] sm:text-[15px]">
+                        <CalTextLink className="text-[15px] sm:text-[16px]">
                           {step.ctaLabel}
                         </CalTextLink>
                       </>

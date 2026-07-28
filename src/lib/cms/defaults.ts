@@ -8,15 +8,15 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 5,
+  version: 6,
 
   site: {
-    metaTitle: "Miloš Novaković | Websites that make the next step obvious",
+    metaTitle: "Miloš Novaković | Website strategy, UI/UX design and development",
     metaDescription:
-      "Strategy, UI/UX and development in one focused engagement. Clearer positioning, sharper decisions and a website designed to turn attention into action.",
-    ogTitle: "Make the value clear. Make the next step easy.",
+      "I plan, design and build websites for service businesses and online stores. One partner for messaging, page structure, UI/UX, development and launch.",
+    ogTitle: "Websites that make the offer clear and the next step easy.",
     ogDescription:
-      "Independent strategy, design and development for websites that help the right buyer understand the value and act with confidence.",
+      "Strategy, UI/UX design and development, handled directly by one person from the first plan to launch.",
     siteName: "Miloš Novaković",
     email: EMAIL,
     calLink: CAL_LINK,
@@ -32,31 +32,31 @@ export const DEFAULT_CONTENT: ContentDoc = {
       { href: "#about", label: "About" },
       { href: "#process", label: "Process" },
     ],
-    ctaLabel: "Check the fit",
+    ctaLabel: "Book a call",
     clockStartMin: 19 * 60 + 58,
     clockEndMin: 26 * 60 + 13,
   },
 
   hero: {
     day: {
-      label: "Independent strategy / design / development",
+      label: "Website strategy / UI/UX design / development",
       title: "Built in daylight.",
       body:
-        "I turn complex offers into clear websites, carrying strategy, UI/UX and development from the first decision to launch.",
+        "I plan, design and build websites for service businesses and online stores, from the offer and page structure to launch.",
     },
     night: {
       title: "Sold after dark.",
       body:
-        "When the lights go out, the website keeps working: clarifying the value, answering hesitation and guiding the right people toward action.",
+        "Clear messaging, fast pages and intuitive paths help visitors understand the offer and enquire, book or buy.",
     },
-    sunHint: "Enter the night shift",
-    cornerLeft: "Miloš Novaković / Strategy / UI/UX / Development",
+    sunHint: "See how the site works",
+    cornerLeft: "Strategy / UI/UX / Development / From first plan to launch",
     openForProjectsLabel: "Now accepting / August",
   },
 
   work: {
-    label: "Selected work / Decisions made visible",
-    sublabel: "Commerce / Positioning / UX / Development",
+    label: "Selected work / Currently in production",
+    sublabel: "Automotive commerce / Strategy / UI/UX / Development",
     projects: [
       {
         id: "vujicauto",
@@ -67,7 +67,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
         title: "vujicauto",
         statusLink: "In production / 2026",
         description:
-          "Vujić Auto needed buyers to find the right part without turning every visit into a phone call. I shaped the offer, vehicle-first search, catalog and checkout around one job: move people from uncertainty to the correct part with less friction.",
+          "Vujić Auto is a new online store for car parts. I am planning, designing and building a storefront that helps buyers choose their vehicle, find a compatible part and complete the order with confidence.",
         urlBar: "vujicauto.rs",
         badge: "01",
         screenshot: {
@@ -81,29 +81,28 @@ export const DEFAULT_CONTENT: ContentDoc = {
         slug: "vujicauto",
         caseStudy: {
           enabled: false,
-          intro:
-            "How a vehicle-first storefront helps buyers reach the correct part with less uncertainty.",
+          intro: "A vehicle-first way to find the right part.",
           liveUrl: "https://vujicauto.rs",
           tags: ["Commerce", "Information architecture", "UI/UX", "Development"],
           metrics: [],
           blocks: [
             {
               id: "b1",
-              heading: "The problem",
+              heading: "Project goal",
               body:
-                "Buyers often know the vehicle before they know the part number. The experience needed to turn that knowledge into a confident product choice without making a phone call the default.",
+                "Make it easier to find a compatible car part and complete the order without calling for help.",
             },
             {
               id: "b2",
-              heading: "The build",
+              heading: "What I am building",
               body:
-                "The storefront organizes search, catalog and checkout around the buyer's decision path. Each step removes a specific uncertainty before asking for the next commitment.",
+                "Offer and content structure, vehicle search, catalog UX, responsive interface, storefront development and checkout.",
             },
             {
               id: "b3",
-              heading: "After launch",
+              heading: "Current stage",
               body:
-                "Search foundations, lifecycle email and measured iteration extend the same logic after the first visit.",
+                "The core experience is being designed and developed. Final screens and the full case study will be published after launch.",
             },
           ],
           gallery: [],
@@ -125,147 +124,147 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: false,
         label: "03 · Reserved for you",
         cardTitle: "This slot is yours.",
-        blurb: "A focused engagement for a website whose next decision should feel easier.",
-        ctaLabel: "Check the fit →",
+        blurb: "A focused project for a website that needs clearer pages and an easier next step.",
+        ctaLabel: "Book a call →",
       },
     ],
   },
 
   services: {
-    label: "The offer / From attention to action",
-    heading: "Clearer value. Lower friction. Easier action.",
+    label: "Services / Strategy, UI/UX and development",
+    heading: "One partner to plan, design and build your website.",
     rows: [
       {
         id: "s1",
         n: "01",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Clarify the offer",
+        title: "Plan the website",
         favorite: false,
         blurb:
-          "Turn a complex offer into a clear story. The right information appears in the order a real decision needs it.",
-        shift: "Positioning / UX / Interface",
+          "Clarify who the website is for, what each page needs to say and which action matters most before design begins.",
+        shift: "Strategy / Offer / Page structure",
       },
       {
         id: "s2",
         n: "02",
         stroke: "rgba(245,169,78,0.5)",
-        title: "Build the decision path",
+        title: "Design and build it",
         favorite: true,
         blurb:
-          "Responsive development removes friction from the moments that matter, from first impression to enquiry, checkout or booking.",
-        shift: "Development / Performance / Motion",
+          "Design and develop a responsive, accessible website with clear interactions, useful motion and fast loading.",
+        shift: "UI/UX / Development / Motion",
       },
       {
         id: "s3",
         n: "03",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Extend the value after launch",
+        title: "Improve it after launch",
         favorite: false,
         blurb:
-          "Search foundations, lifecycle email and measured iteration give the site useful work to do after launch.",
-        shift: "SEO / Lifecycle / Iteration",
+          "Set up search basics, useful email follow-ups and focused improvements based on how people actually use the site.",
+        shift: "Technical SEO / Email / Iteration",
       },
     ],
   },
 
   process: {
-    label: "Process / Know what happens next",
-    heading: "Four clear commitments.",
+    label: "Process / What working together looks like",
+    heading: "A clear process from first call to launch.",
     steps: [
       {
         id: "p1",
-        label: "FIRST / 15 MINUTES",
+        label: "FIRST / 15-MINUTE CALL",
         stroke: "rgba(245,169,78,0.55)",
         dot: "#f5a94e",
         ring: "rgba(245,169,78,0.16)",
-        title: "Check the fit",
+        title: "Confirm the project and fit",
         blurb:
-          "We look at the business goal, the buyer's hesitation and the most valuable next step. If I am not the right fit, I will say so.",
-        ctaLabel: "Book the 15-minute fit call",
+          "We discuss what the website needs to achieve, who it is for, what is not working now and the scope that would solve it. If I am not the right fit, I will tell you.",
+        ctaLabel: "Book a 15-minute call",
       },
       {
         id: "p2",
-        label: "EARLY IN THE BUILD",
+        label: "STRATEGY AND FIRST PAGES",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#d99a5b",
         ring: "rgba(217,154,91,0.14)",
-        title: "Decide with something real",
+        title: "Agree on the message and structure",
         blurb:
-          "You receive a working link early. We test ideas in the browser, where the actual experience lives.",
+          "I turn the offer into a sitemap, page plan and first working screens. You review real pages in the browser, not abstract presentations.",
       },
       {
         id: "p3",
-        label: "BEFORE LAUNCH",
+        label: "DESIGN AND DEVELOPMENT",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#8fabff",
         ring: "rgba(143,171,255,0.14)",
-        title: "Remove the friction",
+        title: "Build and test the complete site",
         blurb:
-          "Responsive behavior, accessibility, performance and key journeys are checked before the site meets your buyers.",
+          "I complete the responsive design, development, motion, accessibility, performance and the paths to enquiry, booking or purchase.",
       },
       {
         id: "p4",
-        label: "AFTER LAUNCH",
+        label: "LAUNCH AND AFTER",
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "Learn what deserves the next iteration",
+        title: "Launch, measure and improve",
         blurb:
-          "Search, email and focused improvements follow real behavior, not assumptions.",
+          "I set up search basics and analytics, then use real behavior to decide what to improve next.",
       },
     ],
   },
 
   about: {
-    label: "About / One accountable partner",
-    heading: "Technical enough to build it. Editorial enough to know what to leave out.",
+    label: "About / Direct collaboration",
+    heading: "Strategy, design and development with one person responsible.",
     paragraphs: [
-      "I’m Miloš Novaković, an independent designer-developer in Serbia studying software engineering. I work across positioning, interface and production so the idea does not get diluted between specialists.",
-      "You work directly with the person making the decisions and writing the code. That keeps feedback short, ownership clear and the final site coherent.",
+      "I’m Miloš Novaković, an independent website designer and developer based in Serbia. I help businesses clarify their offer, plan the right pages, design the interface and build the finished site.",
+      "You work directly with me from the first call to launch. There is no handoff between a strategist, designer and developer, so decisions stay clear and the final site stays consistent.",
     ],
     fileHeading: "Working model",
     fileRows: [
-      { k: "Based", v: "Serbia · GMT+1" },
-      { k: "Studies", v: "Software engineering" },
-      { k: "Model", v: "Independent / hands-on" },
-      { k: "Approach", v: "Direct / curious / accountable" },
+      { k: "Based", v: "Serbia / CET" },
+      { k: "Role", v: "Designer and developer" },
+      { k: "Services", v: "Strategy / UI/UX / Development" },
+      { k: "Model", v: "Direct / independent" },
     ],
-    statusLabel: "STATUS",
-    statusValue: "Independent / available",
+    statusLabel: "Availability",
+    statusValue: "August projects",
     photo: { key: "static:milos", alt: "Miloš Novaković" },
   },
 
   contact: {
-    label: "Start with the decision",
-    heading: "What should your website make easier?",
+    label: "Start a website project",
+    heading: "What does your website need to make easier?",
     pitch:
-      "Bring the offer, page or funnel that feels harder than it should. In 15 focused minutes, we will look at the buyer, the hesitation blocking action and the smallest useful next move. You leave with a clearer next step, whether we work together or not.",
-    receiptsNote: "Three places where clarity earns its keep",
+      "Tell me what you sell, who needs to understand it and what you want visitors to do. In a 15-minute call, we will identify the main problem, the right scope and the clearest next step. If the project is a fit, I will explain how I would approach it.",
+    receiptsNote: "From the first visit to an enquiry, booking or order",
     receipts: [
       {
         id: "r1",
         icon: "01",
-        title: "A clear route to the relevant category",
-        meta: "Information architecture / Search",
+        title: "Help visitors find the right product or service",
+        meta: "Navigation / Search / Page structure",
       },
       {
         id: "r2",
         icon: "02",
-        title: "Unfinished intent gets a relevant follow-up",
-        meta: "Lifecycle email / Recovery",
+        title: "Explain the offer and answer common questions",
+        meta: "Messaging / Content / Product UX",
       },
       {
         id: "r3",
         icon: "03",
-        title: "The product page answers the next real question",
-        meta: "Product UX / Decision support",
+        title: "Make the next step easy to complete",
+        meta: "Enquiry / Booking / Checkout",
       },
     ],
     nightTotal: 3,
-    nightTotalMeta: "connected decision points",
-    ctaLabel: "Book a 15-minute fit call",
+    nightTotalMeta: "key parts of the website",
+    ctaLabel: "Book a 15-minute call",
     footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Sold after dark.",
     footerEmail: EMAIL,
-    footerLockLabel: "Lock up behind you",
+    footerLockLabel: "Exit site",
   },
 };

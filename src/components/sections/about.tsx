@@ -48,9 +48,9 @@ export function About({ data }: { data: AboutSection }) {
                 />
               </div>
 
-              <figcaption className="relative ml-[23%] mt-4 flex w-[77%] items-start justify-between gap-5 border-t border-text/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/50">
+              <figcaption className="relative ml-[23%] mt-4 flex w-[77%] flex-col items-start gap-2 border-t border-text/18 pt-3 text-[10.5px] font-semibold uppercase leading-[1.45] tracking-[0.11em] text-text/68 sm:flex-row sm:justify-between sm:gap-5">
                 <span>Miloš Novaković / Serbia</span>
-                <span className="text-right">
+                <span className="sm:text-right">
                   {data.statusLabel} / {data.statusValue}
                 </span>
               </figcaption>
@@ -61,10 +61,10 @@ export function About({ data }: { data: AboutSection }) {
             {data.paragraphs.map((paragraph, index) => (
               <Reveal key={index} delay={0.06 + index * 0.04}>
                 <p
-                  className={`max-w-[680px] leading-[1.68] text-text/65 [text-wrap:pretty] ${
+                  className={`max-w-[680px] leading-[1.68] text-text/74 [text-wrap:pretty] ${
                     index === 0
                       ? "text-[clamp(19px,2.25vw,29px)] tracking-[-0.025em]"
-                      : "mt-7 text-[15px] sm:text-[16px]"
+                      : "mt-7 text-[16px] sm:text-[17px]"
                   }`}
                 >
                   {renderEmphasis(paragraph)}
@@ -74,17 +74,17 @@ export function About({ data }: { data: AboutSection }) {
 
             <Reveal delay={0.14}>
               <div className="mt-12 border-t border-text/18 pt-4">
-                <div className="time-label text-text/48">{data.fileHeading}</div>
+                <div className="time-label text-text/66">{data.fileHeading}</div>
                 <dl className="mt-5 grid sm:grid-cols-2">
                   {data.fileRows.map((row) => (
                     <div
                       key={row.k}
                       className="border-t border-text/14 py-4 sm:odd:pr-7 sm:even:border-l sm:even:pl-7"
                     >
-                      <dt className="text-[8.5px] font-semibold uppercase tracking-[0.16em] text-text/44">
+                      <dt className="text-[10.5px] font-semibold uppercase tracking-[0.11em] text-text/62">
                         {row.k}
                       </dt>
-                      <dd className="mt-2 text-[14px] font-medium text-text/82">{row.v}</dd>
+                      <dd className="mt-2 text-[15px] font-medium text-text/86">{row.v}</dd>
                     </div>
                   ))}
                 </dl>
