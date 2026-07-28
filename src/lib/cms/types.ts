@@ -29,7 +29,7 @@ export interface Hero {
   night: { title: string; body: string };
   sunHint: string;
   cornerLeft: string;
-  /** Left half of the right corner note; the live month is appended after it. */
+  /** Availability note shown in the hero's upper-right corner. */
   openForProjectsLabel: string;
 }
 

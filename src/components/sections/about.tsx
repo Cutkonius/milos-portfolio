@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { MediaImage } from "@/components/cms/media-image";
 import { renderEmphasis } from "@/components/cms/emphasis";
-import canvasFragments from "@/images/canvas-fragments-v2.webp";
+import studioMaterials from "@/images/studio-materials-v1.webp";
 import type { AboutSection } from "@/lib/cms/types";
 
 export function About({ data }: { data: AboutSection }) {
@@ -28,18 +28,19 @@ export function About({ data }: { data: AboutSection }) {
             <figure className="relative mx-auto w-full max-w-[520px] pb-12 lg:mx-0">
               <div
                 aria-hidden="true"
-                className="absolute bottom-[7%] left-0 h-[34%] w-full overflow-hidden border-y border-text/16"
+                className="absolute bottom-0 left-0 top-[9%] w-[74%] overflow-hidden border-y border-text/16"
               >
                 <Image
-                  src={canvasFragments}
+                  src={studioMaterials}
                   alt=""
                   fill
-                  sizes="(min-width: 1024px) 520px, 92vw"
-                  className="object-cover object-center opacity-90"
+                  quality={82}
+                  sizes="(min-width: 1024px) 390px, 72vw"
+                  className="object-cover object-center opacity-80 saturate-[.82] contrast-[1.04]"
                 />
               </div>
 
-              <div className="relative ml-[12%] h-[500px] w-[82%] overflow-hidden border border-text/18 sm:h-[610px]">
+              <div className="relative ml-[23%] h-[500px] w-[77%] overflow-hidden border border-text/18 sm:h-[610px]">
                 <MediaImage
                   image={data.photo}
                   sizes="(min-width: 1024px) 430px, (min-width: 640px) 460px, 84vw"
@@ -47,7 +48,7 @@ export function About({ data }: { data: AboutSection }) {
                 />
               </div>
 
-              <figcaption className="relative ml-[12%] mt-4 flex w-[82%] items-start justify-between gap-5 border-t border-text/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/50">
+              <figcaption className="relative ml-[23%] mt-4 flex w-[77%] items-start justify-between gap-5 border-t border-text/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/50">
                 <span>Miloš Novaković / Serbia</span>
                 <span className="text-right">
                   {data.statusLabel} / {data.statusValue}

@@ -1,10 +1,13 @@
 "use client";
 
+import { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Reveal } from "@/components/ui/reveal";
+import afterDarkArchitecture from "@/images/after-dark-architecture-v1.webp";
+import afterDarkArchitectureMobile from "@/images/after-dark-architecture-mobile-v1.webp";
 import type { ContactSection, Receipt } from "@/lib/cms/types";
 
 function OvernightLedger({
@@ -96,6 +99,27 @@ function OvernightLedger({
 
 export function Contact({ data }: { data: ContactSection }) {
   const router = useRouter();
+  const commonImageProps = {
+    alt: "",
+    sizes: "100vw",
+    quality: 82,
+  };
+  const {
+    props: { srcSet: desktopSrcSet },
+  } = getImageProps({
+    ...commonImageProps,
+    src: afterDarkArchitecture,
+    width: 3840,
+    height: 2160,
+  });
+  const {
+    props: { srcSet: mobileSrcSet, ...mobileImageProps },
+  } = getImageProps({
+    ...commonImageProps,
+    src: afterDarkArchitectureMobile,
+    width: 1440,
+    height: 2560,
+  });
 
   async function lockUp(event: React.MouseEvent) {
     event.preventDefault();
@@ -110,8 +134,16 @@ export function Contact({ data }: { data: ContactSection }) {
       className="editorial-section relative overflow-hidden bg-[#05080d] px-5 pb-0 pt-[115px] sm:px-8 sm:pt-[155px] lg:px-12"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="absolute bottom-0 left-[8%] top-0 border-l border-blue-soft/[0.07]" />
-        <span className="absolute bottom-0 right-[18%] top-0 border-l border-blue-soft/[0.07]" />
+        <picture>
+          <source media="(min-width: 640px)" srcSet={desktopSrcSet} />
+          <img
+            {...mobileImageProps}
+            srcSet={mobileSrcSet}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-55 saturate-[.82]"
+          />
+        </picture>
+        <span className="absolute inset-0 bg-[#05080d]/45" />
         <span
           className="absolute -right-[0.18em] top-[0.06em] text-[clamp(74px,10vw,150px)] font-semibold uppercase leading-none tracking-[-0.055em]"
           style={{

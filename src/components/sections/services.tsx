@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
+import servicesPhotogram from "@/images/services-photogram-v1.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
@@ -37,19 +39,32 @@ export function Services({ data }: { data: ServicesSection }) {
         </div>
 
         <Reveal delay={0.1}>
-          <div
-            aria-hidden="true"
-            className="overflow-hidden border-b border-day-ink/18 py-5 sm:py-7"
-          >
-            <div className="flex items-center gap-4 text-[8.5px] font-semibold uppercase tracking-[0.17em] text-day-ink/46 sm:text-[9px]">
-              <span>01 / Message</span>
-              <span className="h-px flex-1 bg-day-ink/20" />
-              <span>03 / System</span>
+          <div className="grid overflow-hidden border-b border-day-ink/18 lg:grid-cols-[0.72fr_0.28fr]">
+            <div className="relative h-[170px] border-b border-day-ink/18 sm:h-[230px] lg:h-[260px] lg:border-b-0 lg:border-r">
+              <Image
+                src={servicesPhotogram}
+                alt="Blueprint film, typographic proofs and a steel rule on a production table"
+                fill
+                quality={82}
+                sizes="(min-width: 1280px) 920px, (min-width: 1024px) 72vw, 100vw"
+                className="object-cover"
+              />
             </div>
-            <div className="mt-4 flex items-baseline justify-between gap-3 whitespace-nowrap text-[clamp(29px,5.5vw,74px)] font-semibold leading-none tracking-[-0.065em] sm:mt-6">
-              <span>Clarity</span>
-              <span className="editorial text-[0.62em] text-amber-deep">into</span>
-              <span>Action</span>
+
+            <div
+              aria-hidden="true"
+              className="flex min-h-[132px] flex-col justify-between px-4 py-5 sm:px-6 sm:py-6 lg:min-h-0"
+            >
+              <div className="flex items-center gap-3 text-[8.5px] font-semibold uppercase tracking-[0.17em] text-day-ink/46 sm:text-[9px]">
+                <span>01 / Message</span>
+                <span className="h-px flex-1 bg-day-ink/20" />
+                <span>03 / System</span>
+              </div>
+              <div className="mt-7 flex items-baseline justify-between gap-3 whitespace-nowrap text-[clamp(27px,4vw,50px)] font-semibold leading-none tracking-[-0.06em] lg:flex-col lg:items-start lg:gap-0 lg:whitespace-normal">
+                <span>Clarity</span>
+                <span className="editorial text-[0.62em] text-amber-deep">into</span>
+                <span>Action</span>
+              </div>
             </div>
           </div>
         </Reveal>

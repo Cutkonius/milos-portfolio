@@ -1,29 +1,11 @@
 "use client";
 
 import { getImageProps } from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import heroDesktop from "@/images/hero-canvas-desktop-v2.webp";
 import heroMobile from "@/images/hero-canvas-mobile-v2.webp";
 import type { Hero as HeroData } from "@/lib/cms/types";
-
-function CurrentMonth() {
-  const [month, setMonth] = useState("July");
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setMonth(
-        new Intl.DateTimeFormat("en-GB", {
-          month: "long",
-          timeZone: "Europe/Belgrade",
-        }).format(new Date())
-      );
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return <span suppressHydrationWarning>{month}</span>;
-}
 
 export function Hero({ data, open }: { data: HeroData; open: boolean }) {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -141,7 +123,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             <span className="time-label max-w-[220px] text-[#4b4b49]">{data.day.label}</span>
             {open && (
               <span className="time-label text-right text-[#3f464f]">
-                {data.openForProjectsLabel} / <CurrentMonth />
+                {data.openForProjectsLabel}
               </span>
             )}
           </div>

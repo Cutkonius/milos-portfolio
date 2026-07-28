@@ -8,7 +8,7 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 4,
+  version: 5,
 
   site: {
     metaTitle: "Miloš Novaković | Websites that make the next step obvious",
@@ -51,7 +51,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
     },
     sunHint: "Enter the night shift",
     cornerLeft: "Miloš Novaković / Strategy / UI/UX / Development",
-    openForProjectsLabel: "Now accepting",
+    openForProjectsLabel: "Now accepting / August",
   },
 
   work: {
