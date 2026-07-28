@@ -1,96 +1,74 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
 import type { ProcessSection } from "@/lib/cms/types";
 
 export function Process({ data }: { data: ProcessSection }) {
-  const railRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(railRef, { once: true, amount: 0.3 });
-  const reduced = useReducedMotion();
-
   return (
     <section
       id="process"
-      className="premium-section relative scroll-mt-24 overflow-hidden bg-[radial-gradient(800px_420px_at_54%_100%,rgba(113,157,255,.065),transparent_70%),linear-gradient(180deg,#0a0d15_0%,#080b12_100%)] px-5 py-[105px] sm:px-8 sm:py-[135px] lg:px-12"
+      className="editorial-section scroll-mt-20 overflow-visible bg-[#0d131e] px-5 py-[110px] sm:px-8 sm:py-[150px] lg:px-12"
     >
-      <div className="relative mx-auto max-w-[1180px]">
-        <Reveal>
-          <div className="section-kicker text-blue-soft">{data.label}</div>
-        </Reveal>
-
-        <div className="mt-5 grid items-end gap-6 lg:grid-cols-[1fr_.55fr]">
-          <Reveal delay={0.05}>
-            <h2 className="max-w-[760px] text-[clamp(42px,5.3vw,70px)] font-semibold leading-[1] tracking-[-0.05em] text-text [text-wrap:balance]">
-              {data.heading}
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="max-w-[370px] text-[14.5px] leading-[1.65] text-text/48 lg:ml-auto">
-              You always know what is happening, what comes next and who is accountable for it.
-            </p>
-          </Reveal>
+      <div className="mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[0.43fr_0.57fr] lg:gap-20">
+        <div>
+          <div className="lg:sticky lg:top-[118px]">
+            <Reveal>
+              <div className="section-kicker text-blue-soft">{data.label}</div>
+            </Reveal>
+            <Reveal delay={0.04}>
+              <h2 className="mt-7 max-w-[600px] text-[clamp(48px,6.4vw,88px)] font-semibold leading-[0.92] tracking-[-0.064em] text-text [text-wrap:balance]">
+                {data.heading}
+              </h2>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p className="mt-7 max-w-[390px] text-[14px] leading-[1.7] text-text/58">
+                A visible process, one accountable pair of hands, and no disappearing act between
+                the kickoff and the keys.
+              </p>
+            </Reveal>
+          </div>
         </div>
 
-        <div ref={railRef} className="relative mt-14">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-6 top-[8px] hidden h-px rounded-full bg-text/[0.09] lg:block"
-          />
-          <motion.div
-            aria-hidden="true"
-            initial={false}
-            animate={{ width: inView ? "calc(100% - 48px)" : "0%" }}
-            transition={
-              reduced
-                ? { duration: 0 }
-                : { duration: 1.45, ease: [0.22, 1, 0.36, 1] }
-            }
-            className="absolute left-6 top-[8px] hidden h-px rounded-full bg-[linear-gradient(90deg,#f2aa58_0%,#d99a5b_40%,#a5bdff_75%,#719dff_100%)] shadow-[0_0_14px_rgba(242,170,88,0.32)] lg:block"
-            style={{ width: 0 }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute bottom-6 left-[7px] top-2 w-px bg-[linear-gradient(#f2aa58,#719dff)] opacity-45 sm:hidden"
-          />
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {data.steps.map((step, index) => (
-              <Reveal key={step.id} delay={index * 0.07}>
-                <div className="relative ml-8 h-full sm:ml-0 lg:pt-[42px]">
-                  <span
-                    aria-hidden="true"
-                    className="absolute -left-[31px] top-6 z-10 h-3.5 w-3.5 rounded-full lg:left-2 lg:top-[1px]"
-                    style={{ background: step.dot, boxShadow: `0 0 0 5px ${step.ring}` }}
-                  />
-                  <article className="surface-card flex h-full min-h-[250px] flex-col rounded-[22px] p-5 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-white/[0.18] sm:p-6">
-                    <div
-                      aria-hidden="true"
-                      className="whitespace-nowrap text-[22px] font-semibold leading-none tracking-[-0.02em] text-transparent"
-                      style={{ WebkitTextStroke: `1px ${step.stroke}` }}
-                    >
-                      {step.label}
-                    </div>
-                    <h3 className="mt-auto pt-12 text-[20px] font-semibold tracking-[-0.02em] text-text">
-                      <span className="sr-only">{step.label} — </span>
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 text-[13.5px] leading-[1.65] text-text/55 [text-wrap:pretty]">
-                      {step.blurb}
-                      {step.ctaLabel && (
-                        <>
-                          {" "}
-                          <CalTextLink className="text-[13.5px]">{step.ctaLabel}</CalTextLink>
-                        </>
-                      )}
-                    </p>
-                  </article>
+        <div className="border-b border-text/16">
+          {data.steps.map((step, index) => (
+            <Reveal key={step.id} delay={index * 0.035}>
+              <article className="group relative flex min-h-[360px] flex-col overflow-hidden border-t border-text/16 py-8 transition-[background-color,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] hover:bg-[#111a29] hover:px-5 focus-within:bg-[#111a29] focus-within:px-5 sm:min-h-[410px] sm:py-10">
+                <div className="flex items-start justify-between gap-6">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.17em] text-text/48">
+                    0{index + 1}
+                  </span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.17em] text-amber-soft/74">
+                    {step.label}
+                  </span>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-2 top-[22%] text-[clamp(76px,12vw,176px)] font-semibold leading-none tracking-[-0.075em] text-text/[0.035] transition-[color,transform] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-x-3 group-hover:text-blue/[0.12] group-focus-within:-translate-x-3 group-focus-within:text-blue/[0.12]"
+                >
+                  {step.label}
+                </span>
+
+                <div className="relative mt-auto max-w-[560px] pt-24">
+                  <h3 className="text-[clamp(30px,4.2vw,56px)] font-semibold leading-[0.98] tracking-[-0.052em] text-text">
+                    {step.title}
+                  </h3>
+                  <p className="mt-5 max-w-[500px] text-[14px] leading-[1.68] text-text/60 [text-wrap:pretty] sm:text-[15px]">
+                    {step.blurb}
+                    {step.ctaLabel && (
+                      <>
+                        {" "}
+                        <CalTextLink className="text-[14px] sm:text-[15px]">
+                          {step.ctaLabel}
+                        </CalTextLink>
+                      </>
+                    )}
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

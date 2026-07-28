@@ -1,76 +1,66 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { Reveal } from "@/components/ui/reveal";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
-  "Positioning · UI/UX · Development",
-  "Flows · Campaigns · Retention",
-  "Technical SEO · Motion · Launch",
+  "Positioning / UI/UX / Development",
+  "Flows / Campaigns / Retention",
+  "Technical SEO / Motion / Launch",
 ];
 
 export function Services({ data }: { data: ServicesSection }) {
   return (
     <section
       id="services"
-      className="premium-section scroll-mt-24 overflow-hidden bg-[radial-gradient(900px_520px_at_7%_18%,rgba(242,170,88,.055),transparent_70%),linear-gradient(180deg,#0d111b_0%,#090c13_100%)] px-5 py-[100px] sm:px-8 sm:py-[130px] lg:px-12"
+      className="editorial-section scroll-mt-20 overflow-hidden bg-paper px-5 py-[105px] text-day-ink sm:px-8 sm:py-[145px] lg:px-12"
     >
-      <div className="mx-auto max-w-[1180px]">
-        <div className="grid items-end gap-8 lg:grid-cols-[1.35fr_.65fr]">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="grid items-end gap-9 border-b border-day-ink/18 pb-10 lg:grid-cols-[1.25fr_.55fr] lg:pb-14">
           <div>
             <Reveal>
-              <div className="section-kicker text-amber-soft">{data.label}</div>
+              <div className="section-kicker !text-day-ink/58">{data.label}</div>
             </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-5 max-w-[760px] text-[clamp(42px,5.4vw,72px)] font-semibold leading-[0.98] tracking-[-0.05em] text-text [text-wrap:balance]">
+            <Reveal delay={0.04}>
+              <h2 className="mt-7 max-w-[820px] text-[clamp(46px,6.8vw,96px)] font-semibold leading-[0.91] tracking-[-0.065em] [text-wrap:balance]">
                 {data.heading}
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={0.1}>
-            <p className="max-w-[390px] pb-1 text-[15px] leading-[1.65] text-text/52 [text-wrap:pretty] lg:ml-auto">
-              A deliberately small stack. One person owns the taste, the build and what happens
-              after launch—so the idea does not get lost between handoffs.
+          <Reveal delay={0.08}>
+            <p className="max-w-[390px] text-[14px] leading-[1.68] text-day-ink/62 [text-wrap:pretty] lg:ml-auto">
+              One person keeps the idea intact from the first sketch to launch—and stays close
+              enough to make the work earn its keep.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+        <div className="border-b border-day-ink/18">
           {data.rows.map((service, index) => (
-            <Reveal key={service.id} delay={index * 0.07}>
-              <article
-                style={{ "--service-accent": service.stroke } as CSSProperties}
-                className="surface-card group relative flex min-h-[340px] flex-col overflow-hidden rounded-[26px] p-6 transition-[transform,border-color,background-color] duration-500 ease-out hover:-translate-y-1 hover:border-white/[0.18] sm:min-h-[360px] sm:p-8"
-              >
-                <div
+            <Reveal key={service.id} delay={index * 0.045}>
+              <article className="group grid min-h-[220px] border-t border-day-ink/18 px-0 py-8 transition-[background-color,color,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] first:border-t-0 hover:bg-day-ink hover:px-5 hover:text-paper focus-within:bg-day-ink focus-within:px-5 focus-within:text-paper sm:py-10 lg:grid-cols-[0.18fr_1.08fr_.74fr] lg:items-center lg:gap-10 lg:hover:px-8">
+                <span
                   aria-hidden="true"
-                  className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--service-accent)] opacity-0 blur-[70px] transition-opacity duration-500 group-hover:opacity-25"
-                />
-                <div className="relative flex items-start justify-between gap-4">
-                  <span className="text-[12px] font-semibold tracking-[0.13em] text-text/35">
-                    / {service.n}
-                  </span>
-                  <span className="rounded-full border border-white/[0.1] px-2.5 py-1 text-[8.5px] font-semibold uppercase tracking-[0.16em] text-text/42">
+                  className="text-[44px] font-semibold leading-none tracking-[-0.055em] text-day-ink/20 transition-colors duration-500 group-hover:text-amber group-focus-within:text-amber sm:text-[58px]"
+                >
+                  {service.n}
+                </span>
+
+                <div className="mt-5 lg:mt-0">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-day-ink/45 transition-colors group-hover:text-paper/50 group-focus-within:text-paper/50">
                     {service.shift}
                   </span>
-                </div>
-
-                <div className="relative mt-auto pt-16">
-                  {service.favorite && (
-                    <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-amber/20 bg-amber/[0.07] px-2.5 py-1 text-[8.5px] font-semibold uppercase tracking-[0.16em] text-amber-soft">
-                      <span className="h-1 w-1 rounded-full bg-amber" />
-                      Personal favorite
-                    </span>
-                  )}
-                  <h3 className="max-w-[310px] text-[27px] font-semibold leading-[1.05] tracking-[-0.035em] text-text sm:text-[30px]">
+                  <h3 className="mt-3 max-w-[560px] text-[clamp(30px,3.8vw,54px)] font-semibold leading-[1] tracking-[-0.052em] transition-transform duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-2 group-focus-within:translate-x-2">
                     {service.title}
                   </h3>
-                  <p className="mt-4 max-w-[330px] text-[14.5px] leading-[1.65] text-text/55 [text-wrap:pretty]">
+                </div>
+
+                <div className="mt-7 lg:mt-0">
+                  <p className="max-w-[420px] text-[14px] leading-[1.65] text-day-ink/62 transition-colors group-hover:text-paper/66 group-focus-within:text-paper/66">
                     {service.blurb}
                   </p>
-                  <div className="mt-7 border-t border-white/[0.09] pt-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/34">
-                    {DELIVERABLES[index] ?? "Strategy · Craft · Delivery"}
+                  <div className="mt-6 border-t border-current/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] opacity-55">
+                    {DELIVERABLES[index] ?? "Strategy / Craft / Delivery"}
                   </div>
                 </div>
               </article>

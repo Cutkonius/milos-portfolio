@@ -8,14 +8,14 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 1,
+  version: 2,
 
   site: {
     metaTitle: "Miloš Novaković — built in daylight, sold after dark",
     metaDescription:
-      "Websites designed and built with AI at unfair speed, then marketed long after everyone goes to bed: email flows, SEO, the occasional ad.",
+      "Independent web design and development by Miloš Novaković: focused strategy, distinctive interfaces and growth systems that stay useful after launch.",
     ogTitle: "Miloš Novaković — built in daylight, sold after dark",
-    ogDescription: "Websites built with AI at unfair speed, marketed while you sleep.",
+    ogDescription: "Distinctive websites designed, built and grown by one accountable pair of hands.",
     siteName: "Miloš Novaković",
     email: EMAIL,
     calLink: CAL_LINK,
@@ -38,22 +38,22 @@ export const DEFAULT_CONTENT: ContentDoc = {
 
   hero: {
     day: {
-      label: "19:58 · You caught me mid-shift",
+      label: "Independent digital studio · Serbia",
       title: "Built in daylight.",
-      body: "The day job: websites designed and built with AI at unfair speed. Kickoff to keys in weeks, not quarters.",
+      body: "I design and build high-conviction websites—strategy, interface and production kept in one pair of hands. From first sketch to launch in weeks.",
     },
     night: {
       title: "Sold after dark.",
-      body: "The night job: email flows, SEO and the occasional ad, quietly working long after everyone (including me) goes to bed.",
+      body: "Then I make the work useful after launch: email, search and measured growth systems that keep doing their job when nobody is watching.",
     },
     sunHint: "SCROLL, OR DRAG THE SUN",
-    cornerLeft: "Zdravo. Miloš, 24 · Serbia · GMT+1, both shifts",
+    cornerLeft: "Miloš Novaković · Serbia · design and development",
     openForProjectsLabel: "Open for projects",
   },
 
   work: {
-    label: "20:41 · Fresh off the day shift · Selected work, 2026",
-    sublabel: "WooCommerce · AI-assisted build · launching soon",
+    label: "Selected work · 2026",
+    sublabel: "Commerce · Product design · Build",
     projects: [
       {
         id: "vujicauto",
@@ -62,9 +62,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: true,
         featured: true,
         title: "vujicauto",
-        statusLink: "in the paint shop →",
+        statusLink: "Launching 2026",
         description:
-          "A parts counter for a seller who knows his torque specs. Search by vehicle, a catalog that behaves, a checkout that doesn't stall on a hill. Rolling out of the shop soon. Case study to follow.",
+          "A vehicle-first commerce experience for a parts seller who knows the difference between more choice and a better choice. Clear search, disciplined catalog structure and a checkout built to keep momentum.",
         urlBar: "vujicauto.rs",
         badge: "01",
         screenshot: {
@@ -111,7 +111,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
         id: "redacted-1",
         kind: "redacted",
         order: 1,
-        published: true,
+        published: false,
         label: "02 · Top secret",
         cardTitle: "[REDACTED]",
         blurb: "An NDA is an NDA. You will never learn about this one. (It went great.)",
@@ -120,7 +120,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
         id: "reserved-1",
         kind: "reserved",
         order: 2,
-        published: true,
+        published: false,
         label: "03 · Reserved for you",
         cardTitle: "This slot is yours.",
         blurb: "The night shift has capacity for exactly one more website. Ideally yours.",
@@ -130,45 +130,45 @@ export const DEFAULT_CONTENT: ContentDoc = {
   },
 
   services: {
-    label: "22:06 · What I do between sunsets",
-    heading: "Three trades, one pair of hands.",
+    label: "Services · From idea to audience",
+    heading: "Three disciplines. One standard.",
     rows: [
       {
         id: "s1",
         n: "01",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Websites, built with AI",
+        title: "Websites with a point of view",
         favorite: false,
         blurb:
-          "Design to deployment in weeks. AI types fast; I make it tasteful, accessible and unmistakably yours.",
-        shift: "The day shift",
+          "Strategy, interface and production in one continuous line. AI accelerates the craft; judgment decides what ships.",
+        shift: "Strategy / Design / Build",
       },
       {
         id: "s2",
         n: "02",
         stroke: "rgba(245,169,78,0.5)",
-        title: "Email people actually open",
+        title: "Email worth opening",
         favorite: true,
         blurb:
-          "Flows and campaigns with subject lines like tiny poems, except these ones pay rent.",
-        shift: "The night shift",
+          "Lifecycle flows and campaigns written to be useful first, memorable second and measurable throughout.",
+        shift: "Lifecycle / Retention",
       },
       {
         id: "s3",
         n: "03",
         stroke: "rgba(238,241,247,0.28)",
-        title: "The rest of the megaphone",
+        title: "Search, motion and launch",
         favorite: false,
         blurb:
-          "SEO, the occasional ad, motion where it earns its place. Enough to get found without shouting.",
-        shift: "Also the night shift",
+          "Technical SEO, motion where it earns its place and a launch system designed to compound after handoff.",
+        shift: "Growth / Delivery",
       },
     ],
   },
 
   process: {
-    label: "00:52 · How a project rolls out of the shop",
-    heading: "Four steps. Zero mystery.",
+    label: "Process · Clear from day one",
+    heading: "Four moves. No fog.",
     steps: [
       {
         id: "p1",
@@ -178,7 +178,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
         ring: "rgba(245,169,78,0.16)",
         title: "The short call",
         blurb: "Fifteen minutes. You talk, I take notes, we find out if we fit.",
-        ctaLabel: "It is literally called the short informative call →",
+        ctaLabel: "Book the short call ↗",
       },
       {
         id: "p2",
@@ -206,45 +206,60 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "The night shift",
+        title: "After launch",
         blurb:
-          "Email flows first, SEO close behind. The marketing clocks in when you clock out. Receipts below.",
+          "Email, search and iteration keep the work useful after the launch-day applause has faded.",
       },
     ],
   },
 
   about: {
-    label: "23:37 · The human bit",
-    heading: "Runs on espresso and deadlines.",
+    label: "About · The person behind the work",
+    heading: "Engineer’s rigor. Editor’s eye.",
     paragraphs: [
-      "I'm Miloš Novaković. 24, software-engineering student, professionally curious. I build websites with AI the way a good mechanic uses a lift: same craftsmanship, a lot less waiting. Then I do the part most builders skip and market the thing, mostly by email, until it earns its keep.",
+      "I’m Miloš Novaković, a software-engineering student with an editor’s eye for what should stay and what should go. I design, build and launch the work myself, so the original idea survives every handoff—because there are no handoffs.",
       "Fluent in Serbian, English and subject lines. Favorite word: *shipped*.",
     ],
     fileHeading: "Personnel file, abridged",
     fileRows: [
       { k: "Based", v: "Serbia · GMT+1" },
       { k: "Studies", v: "Software engineering" },
-      { k: "Shift hours", v: "Both of them" },
-      { k: "Caffeine", v: "Above the recommended dose" },
+      { k: "Model", v: "Independent / hands-on" },
+      { k: "Approach", v: "Direct / curious / accountable" },
     ],
     statusLabel: "STATUS",
-    statusValue: "Awake. Probably.",
+    statusValue: "Independent / available",
     photo: { key: "static:milos", alt: "Miloš Novaković" },
   },
 
   contact: {
-    label: "02:13 · The part where it pays off",
-    heading: "Everyone is asleep. The website is not.",
+    label: "Start a project",
+    heading: "Your website should earn its keep.",
     pitch:
-      "That is the whole pitch. Want a website that works both shifts? The calendar is right there. Fifteen minutes, no slides, no jargon, maybe one bad joke.",
-    receiptsNote: "Last night, unsupervised · simulated until vujicauto launches",
+      "Bring the ambition, the awkward problem and whatever already exists. In fifteen focused minutes we will know whether there is a sharp project here—and whether I am the right person to build it.",
+    receiptsNote: "What stays working after launch",
     receipts: [
-      { id: "r1", icon: "✓", title: "Order: brake pads, front axle", meta: "vujicauto.rs · 02:13" },
-      { id: "r2", icon: "↑", title: "“delovi za auto”, page 1, spot 3", meta: "Google Search · 03:07" },
-      { id: "r3", icon: "↺", title: "Cart rescued by email: €148", meta: "email flow · 04:26" },
+      {
+        id: "r1",
+        icon: "01",
+        title: "The right buyer lands on the right category",
+        meta: "Search structure / discovery",
+      },
+      {
+        id: "r2",
+        icon: "02",
+        title: "An unfinished cart gets a useful second chance",
+        meta: "Lifecycle email / recovery",
+      },
+      {
+        id: "r3",
+        icon: "03",
+        title: "The catalog answers before sales has to",
+        meta: "Product UX / conversion",
+      },
     ],
-    nightTotal: 412,
-    nightTotalMeta: "3 orders",
+    nightTotal: 3,
+    nightTotalMeta: "systems working",
     ctaLabel: "Book the short call",
     footerCopyright: "© 2026 Miloš Novaković · built in daylight, sold after dark",
     footerEmail: EMAIL,

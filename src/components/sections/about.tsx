@@ -1,91 +1,96 @@
 "use client";
 
+import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { MediaImage } from "@/components/cms/media-image";
 import { renderEmphasis } from "@/components/cms/emphasis";
+import heroCanvas from "@/images/hero-canvas.webp";
 import type { AboutSection } from "@/lib/cms/types";
 
 export function About({ data }: { data: AboutSection }) {
-  const FILE_ROWS = data.fileRows;
   return (
     <section
       id="about"
-      className="premium-section relative scroll-mt-24 overflow-hidden bg-[radial-gradient(700px_520px_at_82%_42%,rgba(242,170,88,.075),transparent_70%),linear-gradient(180deg,#090c13_0%,#0a0d15_100%)] px-5 py-[105px] sm:px-8 sm:py-[135px] lg:px-12"
+      className="editorial-section scroll-mt-20 overflow-hidden bg-[#080d16] px-5 py-[110px] sm:px-8 sm:py-[150px] lg:px-12"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[4%] top-[12%] h-[560px] w-[420px] rounded-[50%] border border-amber/[0.06]"
-      />
-      <div className="relative mx-auto grid max-w-[1180px] items-center gap-16 lg:grid-cols-[1.1fr_.9fr] lg:gap-20">
-        <div>
-          <Reveal>
-            <div className="section-kicker text-amber-soft">{data.label}</div>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="mt-5 max-w-[670px] text-[clamp(42px,5.2vw,70px)] font-semibold leading-[1.01] tracking-[-0.05em] text-text [text-wrap:balance]">
-              {data.heading}
-            </h2>
-          </Reveal>
-          {data.paragraphs.map((paragraph, i) => (
-            <Reveal key={i} delay={0.1 + i * 0.04}>
-              <p className="mt-[20px] max-w-[600px] text-[15.5px] leading-[1.75] text-text/58 [text-wrap:pretty] sm:text-base">
-                {renderEmphasis(paragraph)}
-              </p>
-            </Reveal>
-          ))}
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal>
+          <div className="section-kicker text-amber-soft">{data.label}</div>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <h2 className="mt-7 max-w-[960px] text-[clamp(48px,7.4vw,106px)] font-semibold leading-[0.91] tracking-[-0.067em] text-text [text-wrap:balance]">
+            {data.heading}
+          </h2>
+        </Reveal>
 
-          <Reveal delay={0.18}>
-            <div className="surface-card mt-8 max-w-[540px] rounded-[22px] p-4 sm:p-5">
-              <div className="time-label border-b border-white/[0.08] pb-3 !text-[9.5px] text-text/34">
-                {data.fileHeading}
-              </div>
-              <dl>
-                {FILE_ROWS.map((row) => (
-                  <div key={row.k} className="flex items-baseline gap-3 border-b border-white/[0.055] py-[10px] last:border-0 last:pb-0">
-                    <dt className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-text/38">
-                      {row.k}
-                    </dt>
-                    <span
-                      aria-hidden="true"
-                      className="flex-1 -translate-y-1 border-b border-dotted border-text/[0.28]"
-                    />
-                    <dd className="text-[13.5px] font-medium text-text/82 sm:text-[14px]">{row.v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.1} className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-[410px]">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-3 rounded-[32px] border border-white/[0.055] sm:-inset-4 sm:rounded-[36px]"
-            />
-            <div className="relative h-[470px] w-full overflow-hidden rounded-[26px] border border-white/[0.13] shadow-[0_40px_110px_rgba(0,0,0,0.52)] sm:h-[520px] sm:rounded-[30px]">
-              <MediaImage
-                image={data.photo}
-                sizes="(min-width: 1024px) 410px, (min-width: 640px) 400px, 100vw"
-                className="h-full w-full object-cover object-[50%_16%] saturate-[.88] contrast-[1.04]"
-              />
+        <div className="mt-14 grid items-start gap-16 lg:mt-20 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20">
+          <Reveal delay={0.07}>
+            <figure className="relative mx-auto w-full max-w-[520px] pb-12 lg:mx-0">
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgba(7,9,16,.42))]"
-              />
-              <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/20 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/65 backdrop-blur-md">
-                Both shifts · 2026
+                className="absolute bottom-0 left-0 top-[11%] w-[78%] overflow-hidden border-y border-text/16"
+              >
+                <Image
+                  src={heroCanvas}
+                  alt=""
+                  fill
+                  sizes="420px"
+                  className="object-cover object-[50%_18%] opacity-75"
+                />
               </div>
-            </div>
-            <div className="absolute -bottom-5 right-3 min-w-[170px] rounded-[18px] border border-white/[0.14] bg-[rgba(13,17,28,0.82)] px-4 py-3.5 shadow-[0_18px_45px_rgba(0,0,0,.3)] backdrop-blur-2xl animate-floaty sm:-right-5 sm:bottom-8">
-              <div className="flex items-center gap-2 text-[9.5px] font-semibold tracking-[0.16em] text-amber">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber shadow-[0_0_9px_rgba(242,170,88,.8)]" />
-                {data.statusLabel}
+
+              <div className="relative ml-[12%] h-[500px] w-[82%] overflow-hidden border border-text/18 sm:h-[610px]">
+                <MediaImage
+                  image={data.photo}
+                  sizes="(min-width: 1024px) 430px, (min-width: 640px) 460px, 84vw"
+                  className="h-full w-full object-cover object-[50%_13%] saturate-[.82] contrast-[1.06]"
+                />
               </div>
-              <div className="mt-1 text-[13px] font-semibold text-text">{data.statusValue}</div>
-            </div>
+
+              <figcaption className="relative ml-[12%] mt-4 flex w-[82%] items-start justify-between gap-5 border-t border-text/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/50">
+                <span>Miloš Novaković / Serbia</span>
+                <span className="text-right">
+                  {data.statusLabel} — {data.statusValue}
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          <div className="lg:pt-8">
+            {data.paragraphs.map((paragraph, index) => (
+              <Reveal key={index} delay={0.06 + index * 0.04}>
+                <p
+                  className={`max-w-[680px] leading-[1.68] text-text/65 [text-wrap:pretty] ${
+                    index === 0
+                      ? "text-[clamp(19px,2.25vw,29px)] tracking-[-0.025em]"
+                      : "mt-7 text-[15px] sm:text-[16px]"
+                  }`}
+                >
+                  {renderEmphasis(paragraph)}
+                </p>
+              </Reveal>
+            ))}
+
+            <Reveal delay={0.14}>
+              <div className="mt-12 border-t border-text/18 pt-4">
+                <div className="time-label text-text/48">{data.fileHeading}</div>
+                <dl className="mt-5 grid sm:grid-cols-2">
+                  {data.fileRows.map((row) => (
+                    <div
+                      key={row.k}
+                      className="border-t border-text/14 py-4 sm:odd:pr-7 sm:even:border-l sm:even:pl-7"
+                    >
+                      <dt className="text-[8.5px] font-semibold uppercase tracking-[0.16em] text-text/44">
+                        {row.k}
+                      </dt>
+                      <dd className="mt-2 text-[14px] font-medium text-text/82">{row.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
