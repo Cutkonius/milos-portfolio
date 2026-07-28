@@ -146,34 +146,77 @@ input::placeholder {
 .ink-action {
   --action-fill: #7898d8;
   --action-ink: #07101e;
+  --action-lift: -1px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(173, 191, 235, 0.58);
+  cursor: pointer;
+  border: 1px solid rgba(173, 191, 235, 0.64);
+  border-radius: 14px;
   background: var(--action-fill);
   color: var(--action-ink);
-  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(7, 16, 30, 0.12),
+    0 8px 22px rgba(7, 16, 30, 0.14);
+  transform: translateZ(0);
+  transition:
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
 }
 
 .ink-action:focus-visible {
-  outline-offset: -3px;
+  outline: 2px solid #f2f4f8;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 5px #07101e,
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(7, 16, 30, 0.12),
+    0 10px 26px rgba(7, 16, 30, 0.18);
 }
 
 .nav-shell .ink-action {
+  --action-lift: 0px;
   margin: 3px;
-  border-radius: 14px;
-  clip-path: none;
+  min-height: 44px;
+  border-radius: 13px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(7, 16, 30, 0.1);
+}
+
+.nav-shell .ink-action:focus-visible {
+  outline-color: #07101e;
+  outline-offset: -4px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(7, 16, 30, 0.1);
 }
 
 .ink-action::before {
   position: absolute;
   inset: 0;
   z-index: -1;
+  border-radius: inherit;
   content: "";
   background: #eeeae1;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ink-action:focus-visible::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.ink-action:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(7, 16, 30, 0.16),
+    0 4px 12px rgba(7, 16, 30, 0.12);
 }
 
 .email-action {
@@ -206,15 +249,23 @@ input::placeholder {
   background: rgba(242, 244, 248, 0.16);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .nav-underline:hover::after,
   .nav-underline:focus-visible::after {
     transform: scaleX(1);
     transform-origin: left;
   }
 
-  .ink-action:hover::before,
-  .ink-action:focus-visible::before {
+  .ink-action:hover {
+    transform: translateY(var(--action-lift));
+    border-color: rgba(173, 191, 235, 0.88);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -1px 0 rgba(7, 16, 30, 0.1),
+      0 12px 28px rgba(7, 16, 30, 0.18);
+  }
+
+  .ink-action:hover::before {
     transform: scaleX(1);
     transform-origin: left;
   }

@@ -1,16 +1,57 @@
 "use client";
 
+import { getImageProps } from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
+import processStudioDesktop from "@/images/process-studio-desktop-v1.webp";
+import processStudioMobile from "@/images/process-studio-mobile-v1.webp";
 import type { ProcessSection } from "@/lib/cms/types";
 
 export function Process({ data }: { data: ProcessSection }) {
+  const commonImageProps = {
+    alt: "",
+    sizes: "100vw",
+    quality: 82,
+  };
+  const {
+    props: { srcSet: desktopSrcSet },
+  } = getImageProps({
+    ...commonImageProps,
+    src: processStudioDesktop,
+    width: 3840,
+    height: 2160,
+  });
+  const {
+    props: { srcSet: mobileSrcSet, ...mobileImageProps },
+  } = getImageProps({
+    ...commonImageProps,
+    src: processStudioMobile,
+    width: 1440,
+    height: 2560,
+  });
+
   return (
     <section
       id="process"
       className="editorial-section scroll-mt-20 overflow-visible bg-[#0d131e] px-5 py-[110px] sm:px-8 sm:py-[150px] lg:px-12"
     >
-      <div className="mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[0.43fr_0.57fr] lg:gap-20">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <picture>
+          <source media="(min-width: 640px)" srcSet={desktopSrcSet} />
+          <img
+            {...mobileImageProps}
+            srcSet={mobileSrcSet}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-45 saturate-[.78]"
+          />
+        </picture>
+        <span className="absolute inset-0 bg-[#0d131e]/60" />
+      </div>
+
+      <div className="relative mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[0.43fr_0.57fr] lg:gap-20">
         <div>
           <div className="lg:sticky lg:top-[118px]">
             <Reveal>

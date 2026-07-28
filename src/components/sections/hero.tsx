@@ -180,7 +180,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
           type="button"
           onClick={revealNight}
           aria-label="Continue to the night shift"
-          className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-300 ease-out hover:scale-[1.06] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.06]"
+          className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:scale-[1.025] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.025] active:scale-[0.97]"
         >
           <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.11em] text-[#4c4135] sm:-top-9">
             {data.sunHint}

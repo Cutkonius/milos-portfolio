@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
+import emailSequenceMachine from "@/images/email-sequence-machine-v1.webp";
 import servicesPhotogram from "@/images/services-photogram-v1.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
@@ -37,21 +38,35 @@ export function Services({ data }: { data: ServicesSection }) {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="grid overflow-hidden border-b border-day-ink/18 lg:grid-cols-[0.72fr_0.28fr]">
-            <div className="relative h-[170px] border-b border-day-ink/18 sm:h-[230px] lg:h-[260px] lg:border-b-0 lg:border-r">
+          <div className="grid grid-cols-2 overflow-hidden border-b border-day-ink/18 lg:grid-cols-[0.52fr_0.28fr_0.20fr]">
+            <div className="relative h-[160px] border-b border-r border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0">
               <Image
                 src={servicesPhotogram}
                 alt="Blueprint film, typographic proofs and a steel rule on a production table"
                 fill
                 quality={82}
-                sizes="(min-width: 1280px) 920px, (min-width: 1024px) 72vw, 100vw"
+                sizes="(min-width: 1280px) 665px, (min-width: 1024px) 52vw, 50vw"
                 className="object-cover"
               />
             </div>
 
             <div
               aria-hidden="true"
-              className="flex min-h-[132px] flex-col justify-between px-4 py-5 sm:px-6 sm:py-6 lg:min-h-0"
+              className="relative h-[160px] border-b border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0 lg:border-r"
+            >
+              <Image
+                src={emailSequenceMachine}
+                alt=""
+                fill
+                quality={82}
+                sizes="(min-width: 1280px) 360px, (min-width: 1024px) 28vw, 50vw"
+                className="object-cover object-center saturate-[.86]"
+              />
+            </div>
+
+            <div
+              aria-hidden="true"
+              className="col-span-2 flex min-h-[132px] flex-col justify-between px-4 py-5 sm:px-6 sm:py-6 lg:col-span-1 lg:min-h-0"
             >
               <div className="flex items-center gap-3 text-[10.5px] font-semibold uppercase tracking-[0.11em] text-day-ink/62">
                 <span>01 / Website</span>
