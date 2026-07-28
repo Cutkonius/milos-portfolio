@@ -126,7 +126,7 @@ input::placeholder {
 .nav-underline::after {
   position: absolute;
   right: 0;
-  bottom: -6px;
+  bottom: 4px;
   left: 0;
   height: 1px;
   content: "";
@@ -151,6 +151,10 @@ input::placeholder {
   background: var(--action-fill);
   color: var(--action-ink);
   clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+}
+
+.ink-action:focus-visible {
+  outline-offset: -3px;
 }
 
 .ink-action::before {

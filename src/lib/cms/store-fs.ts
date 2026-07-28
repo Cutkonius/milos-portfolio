@@ -1,5 +1,5 @@
 /**
- * Filesystem backend for the CMS store — a local-dev convenience so a plain
+ * Filesystem backend for the CMS store. This is a local-dev convenience so a plain
  * `next dev` works without any Netlify context. It is imported *dynamically*
  * from `store.ts` only when the Blobs backend is inactive, so its `process.cwd()`
  * + recursive directory reads never land in the production function bundle

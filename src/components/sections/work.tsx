@@ -29,7 +29,7 @@ export function Work({ data }: { data: WorkSection }) {
         aria-hidden="true"
         className="absolute bottom-0 right-0 border-l border-t border-text/20 bg-[#0b1018] px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-text/62 sm:px-6"
       >
-        Open proof / 01
+        Storefront system / 01
       </span>
     </div>
   ) : null;
@@ -64,7 +64,7 @@ export function Work({ data }: { data: WorkSection }) {
                   {featured.title}
                 </h2>
                 <span className="pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-soft">
-                  Launching 2026
+                  {featured.statusLink ?? "In production / 2026"}
                 </span>
               </div>
             </Reveal>
@@ -82,8 +82,8 @@ export function Work({ data }: { data: WorkSection }) {
                 {[
                   ["Year", "2026"],
                   ["Discipline", "Commerce"],
-                  ["Scope", "Design / Build / SEO"],
-                  ["Status", "Launching"],
+                  ["Scope", "Positioning / UX / Build"],
+                  ["Status", "In production"],
                 ].map(([term, value]) => (
                   <div
                     key={term}
@@ -117,11 +117,12 @@ export function Work({ data }: { data: WorkSection }) {
             <Reveal delay={0.04}>
               <div className="border-t border-text/16 pt-4">
                 <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-amber-soft">
-                  System, not a skin
+                  The organizing idea
                 </span>
                 <p className="mt-4 max-w-[290px] text-[13.5px] leading-[1.65] text-text/56">
-                  Vehicle-first search, a catalog built for real inventory and checkout with no
-                  unnecessary turns.
+                  Buyers usually know the vehicle before they know the part number. The catalog
+                  starts there, reducing guesswork before product, price and checkout enter the
+                  conversation.
                 </p>
                 {featured.caseStudy?.enabled && (
                   <Link

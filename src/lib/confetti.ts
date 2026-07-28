@@ -28,7 +28,7 @@ export function burst(x?: number, y?: number) {
   });
 }
 
-/** The big one — booking successes deserve fireworks. */
+/** The big one. Booking successes deserve fireworks. */
 export function storm() {
   if (reducedMotion()) return;
   const end = Date.now() + 1400;

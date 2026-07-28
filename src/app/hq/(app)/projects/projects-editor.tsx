@@ -161,8 +161,8 @@ function newProject(kind: ProjectKind, order: number): Project {
     published: true,
     label: "Reserved for you",
     cardTitle: "This slot is yours.",
-    blurb: "The night shift has capacity for exactly one more website.",
-    ctaLabel: "Claim it, book the short call →",
+    blurb: "A focused engagement for a website whose next decision should feel easier.",
+    ctaLabel: "Check the fit →",
   };
 }
 

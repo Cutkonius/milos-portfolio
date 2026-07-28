@@ -16,7 +16,7 @@ export function useSectionSave<K extends keyof ContentDoc>(section: K) {
     try {
       const res = await saveSection(section, value);
       if (res.ok) {
-        toast("Saved to draft — preview or publish when ready.");
+        toast("Saved to draft. Preview or publish when ready.");
         // Refresh so the Publish bar reflects the new unpublished changes.
         router.refresh();
         return true;
@@ -24,7 +24,7 @@ export function useSectionSave<K extends keyof ContentDoc>(section: K) {
       toast(`Save failed: ${res.error}`);
       return false;
     } catch {
-      toast("Save failed — check your connection.");
+      toast("Save failed. Check your connection.");
       return false;
     } finally {
       setSaving(false);

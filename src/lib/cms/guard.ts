@@ -4,7 +4,7 @@ import { HQ_COOKIE } from "./admin-auth";
 
 /**
  * Server-side admin check for Route Handlers and Server Actions. The proxy
- * already gates the admin host, but every mutation re-verifies here — proxy
+ * already gates the admin host, but every mutation re-verifies here. Proxy
  * gating is not a security boundary for Server Functions (they POST to the
  * route where used, which a matcher could skip).
  */

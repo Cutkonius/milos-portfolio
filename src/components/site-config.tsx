@@ -3,7 +3,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { CAL_LINK, EMAIL } from "@/lib/cal";
 
-/** Cal.com's embed namespace is the event slug — the last path segment. */
+/** Cal.com's embed namespace is the event slug, the last path segment. */
 function namespaceFromLink(link: string): string {
   return link.split("/").filter(Boolean).pop() || "call";
 }

@@ -31,7 +31,7 @@ export function SeedBanner() {
   return (
     <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber/25 bg-amber/[0.06] px-4 py-3.5">
       <div className="text-sm text-text/75">
-        The store is empty — the site is showing built-in defaults. Publish them so you can edit
+        The store is empty. The site is showing built-in defaults. Publish them so you can edit
         from here.
       </div>
       <Button size="sm" disabled={busy} onClick={seed}>

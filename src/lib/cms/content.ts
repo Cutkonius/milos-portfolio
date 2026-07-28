@@ -36,6 +36,52 @@ function mergeSection<T>(def: T, stored: Partial<T> | undefined): T {
 function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
   const d = DEFAULT_CONTENT;
   if (!stored) return d;
+
+  /*
+   * Version 3 is an editorial redesign rather than a new optional field set.
+   * Promote older documents to the new narrative while keeping the operational
+   * settings and any user-supplied media that cannot be recreated from copy.
+   */
+  if ((stored.version ?? 0) < d.version) {
+    const storedFeatured = stored.work?.projects?.find((project) => project.id === "vujicauto");
+    const projects = d.work.projects.map((project) => {
+      if (project.id !== "vujicauto" || !storedFeatured) return project;
+      return {
+        ...project,
+        screenshot: storedFeatured.screenshot ?? project.screenshot,
+        productShot: storedFeatured.productShot ?? project.productShot,
+        caseStudy: project.caseStudy
+          ? {
+              ...project.caseStudy,
+              liveUrl: storedFeatured.caseStudy?.liveUrl ?? project.caseStudy.liveUrl,
+              gallery: storedFeatured.caseStudy?.gallery ?? project.caseStudy.gallery,
+            }
+          : undefined,
+      };
+    });
+
+    return {
+      ...d,
+      site: {
+        ...d.site,
+        siteName: stored.site?.siteName ?? d.site.siteName,
+        email: stored.site?.email ?? d.site.email,
+        calLink: stored.site?.calLink ?? d.site.calLink,
+        openForProjects: stored.site?.openForProjects ?? d.site.openForProjects,
+        launched: stored.site?.launched ?? d.site.launched,
+      },
+      work: { ...d.work, projects },
+      about: {
+        ...d.about,
+        photo: stored.about?.photo ?? d.about.photo,
+      },
+      contact: {
+        ...d.contact,
+        footerEmail: stored.contact?.footerEmail ?? stored.site?.email ?? d.contact.footerEmail,
+      },
+    };
+  }
+
   return {
     version: stored.version ?? d.version,
     site: mergeSection(d.site, stored.site),
@@ -50,7 +96,7 @@ function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
 }
 
 /**
- * Public read (the published doc). Memoized per render. Never throws — the
+ * Public read (the published doc). Memoized per render. Never throws. The
  * public site falls back to defaults if the store is empty or unreachable.
  */
 export const getContent = cache(async (): Promise<ContentDoc> => {
@@ -80,7 +126,7 @@ export async function getContentAdmin(): Promise<{ content: ContentDoc; etag: st
   return { content: withDefaults(pub?.value ?? null), etag: pub?.etag ?? null };
 }
 
-/** Save the working copy. Not public until published — no revalidation. */
+/** Save the working copy. Not public until published, so no revalidation. */
 export async function saveDraft(next: ContentDoc): Promise<{ etag: string | null }> {
   return writeJSON(CMS_STORE, DRAFT_KEY, next);
 }
@@ -100,7 +146,7 @@ export async function publish(): Promise<boolean> {
   return true;
 }
 
-/** Throw away draft edits — reset the working copy to what's published. */
+/** Throw away draft edits and reset the working copy to what's published. */
 export async function discardDraft(): Promise<void> {
   await saveDraft(await getPublished());
 }

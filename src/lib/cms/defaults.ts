@@ -4,18 +4,19 @@ import type { ContentDoc } from "./types";
 /**
  * The site's content as it shipped hardcoded, lifted verbatim into data.
  * Serves two jobs: the initial seed written into Netlify Blobs, and the
- * fallback returned when the store is empty or unreachable — so the public
+ * fallback returned when the store is empty or unreachable, so the public
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 2,
+  version: 3,
 
   site: {
-    metaTitle: "Miloš Novaković — built in daylight, sold after dark",
+    metaTitle: "Miloš Novaković | Websites that make the next step obvious",
     metaDescription:
-      "Independent web design and development by Miloš Novaković: focused strategy, distinctive interfaces and growth systems that stay useful after launch.",
-    ogTitle: "Miloš Novaković — built in daylight, sold after dark",
-    ogDescription: "Distinctive websites designed, built and grown by one accountable pair of hands.",
+      "Strategy, UI/UX and development in one focused engagement. Clearer positioning, sharper decisions and a website designed to turn attention into action.",
+    ogTitle: "Make the value clear. Make the next step easy.",
+    ogDescription:
+      "Independent strategy, design and development for websites that help the right buyer understand the value and act with confidence.",
     siteName: "Miloš Novaković",
     email: EMAIL,
     calLink: CAL_LINK,
@@ -31,29 +32,31 @@ export const DEFAULT_CONTENT: ContentDoc = {
       { href: "#about", label: "About" },
       { href: "#process", label: "Process" },
     ],
-    ctaLabel: "Book a call",
+    ctaLabel: "Check the fit",
     clockStartMin: 19 * 60 + 58,
     clockEndMin: 26 * 60 + 13,
   },
 
   hero: {
     day: {
-      label: "Independent digital studio · Serbia",
+      label: "Independent strategy / design / development",
       title: "Built in daylight.",
-      body: "I design and build high-conviction websites—strategy, interface and production kept in one pair of hands. From first sketch to launch in weeks.",
+      body:
+        "I turn complex offers into clear websites that help the right buyer understand the value, trust the choice and take the next step. Strategy, UI/UX and development stay with one person from first decision to launch.",
     },
     night: {
-      title: "Sold after dark.",
-      body: "Then I make the work useful after launch: email, search and measured growth systems that keep doing their job when nobody is watching.",
+      title: "Useful after launch.",
+      body:
+        "After launch, search foundations, lifecycle email and focused iteration keep reducing friction between interest and action.",
     },
-    sunHint: "SCROLL, OR DRAG THE SUN",
-    cornerLeft: "Miloš Novaković · Serbia · design and development",
-    openForProjectsLabel: "Open for projects",
+    sunHint: "See the full system",
+    cornerLeft: "Miloš Novaković / Strategy / UI/UX / Development",
+    openForProjectsLabel: "Now accepting",
   },
 
   work: {
-    label: "Selected work · 2026",
-    sublabel: "Commerce · Product design · Build",
+    label: "Selected work / Decisions made visible",
+    sublabel: "Commerce / Positioning / UX / Development",
     projects: [
       {
         id: "vujicauto",
@@ -62,14 +65,14 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: true,
         featured: true,
         title: "vujicauto",
-        statusLink: "Launching 2026",
+        statusLink: "In production / 2026",
         description:
-          "A vehicle-first commerce experience for a parts seller who knows the difference between more choice and a better choice. Clear search, disciplined catalog structure and a checkout built to keep momentum.",
+          "Vujić Auto needed buyers to find the right part without turning every visit into a phone call. I shaped the offer, vehicle-first search, catalog and checkout around one job: move people from uncertainty to the correct part with less friction.",
         urlBar: "vujicauto.rs",
         badge: "01",
         screenshot: {
           key: "static:vujicauto-screen",
-          alt: "Vujić Auto storefront — hero with 'Tačan deo. Prava cena. Kod vas za 48h.'",
+          alt: "Vujić Auto storefront showing vehicle-first parts discovery",
         },
         productShot: {
           key: "static:vujicauto-product",
@@ -79,29 +82,28 @@ export const DEFAULT_CONTENT: ContentDoc = {
         caseStudy: {
           enabled: false,
           intro:
-            "How a parts counter for a seller who knows his torque specs went from a spreadsheet to a storefront that behaves.",
+            "How a vehicle-first storefront helps buyers reach the correct part with less uncertainty.",
           liveUrl: "https://vujicauto.rs",
-          tags: ["WooCommerce", "AI-assisted build", "SEO", "Email flows"],
-          metrics: [
-            { id: "m1", value: "48h", label: "Part to doorstep" },
-            { id: "m2", value: "weeks", label: "Kickoff to launch" },
-            { id: "m3", value: "24/7", label: "Sells while he sleeps" },
-          ],
+          tags: ["Commerce", "Information architecture", "UI/UX", "Development"],
+          metrics: [],
           blocks: [
             {
               id: "b1",
               heading: "The problem",
-              body: "Right part, right price, no drama. Buyers needed to find the exact component for their vehicle without a phone call — and the shop needed a checkout that doesn't stall on a hill.",
+              body:
+                "Buyers often know the vehicle before they know the part number. The experience needed to turn that knowledge into a confident product choice without making a phone call the default.",
             },
             {
               id: "b2",
               heading: "The build",
-              body: "A WooCommerce storefront built with AI at unfair speed: search by vehicle, a catalog that behaves, and a checkout that gets out of the way. Design to deployment in weeks, not quarters.",
+              body:
+                "The storefront organizes search, catalog and checkout around the buyer's decision path. Each step removes a specific uncertainty before asking for the next commitment.",
             },
             {
               id: "b3",
-              heading: "The night shift",
-              body: "Then the part most builders skip: email flows and SEO that keep working long after everyone clocks out. The website earns its keep on its own.",
+              heading: "After launch",
+              body:
+                "Search foundations, lifecycle email and measured iteration extend the same logic after the first visit.",
             },
           ],
           gallery: [],
@@ -114,7 +116,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: false,
         label: "02 · Top secret",
         cardTitle: "[REDACTED]",
-        blurb: "An NDA is an NDA. You will never learn about this one. (It went great.)",
+        blurb: "An NDA is an NDA. You will never learn about this one.",
       },
       {
         id: "reserved-1",
@@ -123,104 +125,105 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: false,
         label: "03 · Reserved for you",
         cardTitle: "This slot is yours.",
-        blurb: "The night shift has capacity for exactly one more website. Ideally yours.",
-        ctaLabel: "Claim it, book the short call →",
+        blurb: "A focused engagement for a website whose next decision should feel easier.",
+        ctaLabel: "Check the fit →",
       },
     ],
   },
 
   services: {
-    label: "Services · From idea to audience",
-    heading: "Three disciplines. One standard.",
+    label: "The offer / From attention to action",
+    heading: "Clearer value. Lower friction. Easier action.",
     rows: [
       {
         id: "s1",
         n: "01",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Websites with a point of view",
+        title: "Clarify the offer",
         favorite: false,
         blurb:
-          "Strategy, interface and production in one continuous line. AI accelerates the craft; judgment decides what ships.",
-        shift: "Strategy / Design / Build",
+          "Turn a complex offer into a clear story. The right information appears in the order a real decision needs it.",
+        shift: "Positioning / UX / Interface",
       },
       {
         id: "s2",
         n: "02",
         stroke: "rgba(245,169,78,0.5)",
-        title: "Email worth opening",
+        title: "Build the decision path",
         favorite: true,
         blurb:
-          "Lifecycle flows and campaigns written to be useful first, memorable second and measurable throughout.",
-        shift: "Lifecycle / Retention",
+          "Responsive development removes friction from the moments that matter, from first impression to enquiry, checkout or booking.",
+        shift: "Development / Performance / Motion",
       },
       {
         id: "s3",
         n: "03",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Search, motion and launch",
+        title: "Extend the value after launch",
         favorite: false,
         blurb:
-          "Technical SEO, motion where it earns its place and a launch system designed to compound after handoff.",
-        shift: "Growth / Delivery",
+          "Search foundations, lifecycle email and measured iteration give the site useful work to do after launch.",
+        shift: "SEO / Lifecycle / Iteration",
       },
     ],
   },
 
   process: {
-    label: "Process · Clear from day one",
-    heading: "Four moves. No fog.",
+    label: "Process / Know what happens next",
+    heading: "Four clear commitments.",
     steps: [
       {
         id: "p1",
-        label: "DAY 0",
+        label: "FIRST / 15 MINUTES",
         stroke: "rgba(245,169,78,0.55)",
         dot: "#f5a94e",
         ring: "rgba(245,169,78,0.16)",
-        title: "The short call",
-        blurb: "Fifteen minutes. You talk, I take notes, we find out if we fit.",
-        ctaLabel: "Book the short call ↗",
+        title: "Check the fit",
+        blurb:
+          "We look at the business goal, the buyer's hesitation and the most valuable next step. If I am not the right fit, I will say so.",
+        ctaLabel: "Book the 15-minute fit call",
       },
       {
         id: "p2",
-        label: "DAYS 1–20",
+        label: "EARLY IN THE BUILD",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#d99a5b",
         ring: "rgba(217,154,91,0.14)",
-        title: "The build",
+        title: "Decide with something real",
         blurb:
-          "You get a link on day one and watch the site grow up. Progress you can click, not promises.",
+          "You receive a working link early. We test ideas in the browser, where the actual experience lives.",
       },
       {
         id: "p3",
-        label: "DAY 21",
+        label: "BEFORE LAUNCH",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#8fabff",
         ring: "rgba(143,171,255,0.14)",
-        title: "The keys",
+        title: "Remove the friction",
         blurb:
-          "Launch day. Training included, documentation included, hostage handovers not included.",
+          "Responsive behavior, accessibility, performance and key journeys are checked before the site meets your buyers.",
       },
       {
         id: "p4",
-        label: "EVERY NIGHT",
+        label: "AFTER LAUNCH",
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "After launch",
+        title: "Learn what deserves the next iteration",
         blurb:
-          "Email, search and iteration keep the work useful after the launch-day applause has faded.",
+          "Search, email and focused improvements follow real behavior, not assumptions.",
       },
     ],
   },
 
   about: {
-    label: "About · The person behind the work",
-    heading: "Engineer’s rigor. Editor’s eye.",
+    label: "About / One accountable partner",
+    heading: "Technical enough to build it. Editorial enough to know what to leave out.",
     paragraphs: [
-      "I’m Miloš Novaković, a software-engineering student with an editor’s eye for what should stay and what should go. I design, build and launch the work myself, so the original idea survives every handoff—because there are no handoffs.",
-      "Fluent in Serbian, English and subject lines. Favorite word: *shipped*.",
+      "I’m Miloš Novaković, an independent designer-developer in Serbia studying software engineering. I work across positioning, interface and production so the idea does not get diluted between specialists.",
+      "You work directly with the person making the decisions and writing the code. That keeps feedback short, ownership clear and the final site coherent.",
     ],
-    fileHeading: "Personnel file, abridged",
+    fileHeading: "Working model",
     fileRows: [
       { k: "Based", v: "Serbia · GMT+1" },
       { k: "Studies", v: "Software engineering" },
@@ -233,35 +236,35 @@ export const DEFAULT_CONTENT: ContentDoc = {
   },
 
   contact: {
-    label: "Start a project",
-    heading: "Your website should earn its keep.",
+    label: "Start with the decision",
+    heading: "What should your website make easier?",
     pitch:
-      "Bring the ambition, the awkward problem and whatever already exists. In fifteen focused minutes we will know whether there is a sharp project here—and whether I am the right person to build it.",
-    receiptsNote: "What stays working after launch",
+      "Bring the offer, page or funnel that feels harder than it should. In 15 focused minutes, we will look at the buyer, the hesitation blocking action and the smallest useful next move. You leave with a clearer next step, whether we work together or not.",
+    receiptsNote: "Three places where clarity earns its keep",
     receipts: [
       {
         id: "r1",
         icon: "01",
-        title: "The right buyer lands on the right category",
-        meta: "Search structure / discovery",
+        title: "A clear route to the relevant category",
+        meta: "Information architecture / Search",
       },
       {
         id: "r2",
         icon: "02",
-        title: "An unfinished cart gets a useful second chance",
-        meta: "Lifecycle email / recovery",
+        title: "Unfinished intent gets a relevant follow-up",
+        meta: "Lifecycle email / Recovery",
       },
       {
         id: "r3",
         icon: "03",
-        title: "The catalog answers before sales has to",
-        meta: "Product UX / conversion",
+        title: "The product page answers the next real question",
+        meta: "Product UX / Decision support",
       },
     ],
     nightTotal: 3,
-    nightTotalMeta: "systems working",
-    ctaLabel: "Book the short call",
-    footerCopyright: "© 2026 Miloš Novaković · built in daylight, sold after dark",
+    nightTotalMeta: "connected decision points",
+    ctaLabel: "Book a 15-minute fit call",
+    footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Useful after launch.",
     footerEmail: EMAIL,
     footerLockLabel: "Lock up behind you",
   },

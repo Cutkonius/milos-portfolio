@@ -70,7 +70,7 @@ export function VaultDoor() {
         return;
       }
       if (res.status === 429) {
-        setError("Too many tries. The doorman took a break — come back in a few minutes.");
+        setError("Too many tries. The doorman took a break. Come back in a few minutes.");
       } else if (res.status === 500) {
         setError("The gate isn't wired up (missing env vars on the server).");
       } else {

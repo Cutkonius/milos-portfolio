@@ -35,7 +35,7 @@ export async function generateMetadata({
   const found = await findCase(slug);
   if (!found) return {};
   const { project, site } = found;
-  const title = `${project.title} — ${site.siteName}`;
+  const title = `${project.title} | ${site.siteName}`;
   const description = project.caseStudy?.intro || project.description || "";
   return {
     title,

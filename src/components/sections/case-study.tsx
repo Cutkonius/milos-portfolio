@@ -150,7 +150,7 @@ export function CaseStudyView({
           <div className="mt-14 grid gap-4 sm:grid-cols-2">
             {cs.gallery.map((img, i) => (
               <Reveal key={i} delay={(i % 2) * 0.06}>
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/[0.1]">
+                <div className="relative aspect-[4/3] overflow-hidden border-y border-white/[0.1]">
                   <MediaImage image={img} fill sizes="(min-width: 640px) 420px, 100vw" className="object-cover object-top" />
                 </div>
               </Reveal>
@@ -159,21 +159,22 @@ export function CaseStudyView({
         )}
 
         {/* CTA */}
-        <div className="mt-24 rounded-3xl border border-white/[0.12] bg-white/[0.03] px-7 py-12 text-center">
+        <div className="mt-24 border-y border-white/[0.12] px-2 py-12 text-center">
           <h2 className="text-[clamp(26px,3.4vw,38px)] font-semibold tracking-[-0.02em] text-text [text-wrap:balance]">
-            Want a website that works both shifts?
+            What should your website make easier?
           </h2>
           <p className="mx-auto mt-3 max-w-[440px] text-[15px] leading-[1.6] text-text/60 [text-wrap:pretty]">
-            Fifteen minutes, no slides, maybe one bad joke.
+            Bring the page, offer or decision path that feels harder than it should. We can
+            identify the friction in 15 minutes.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <BookCallButton label="Book the short call" />
-            <EmailPill />
+            <BookCallButton label="Book a 15-minute fit call" />
+            <EmailPill label="Email Miloš" />
           </div>
         </div>
 
         <div className="mt-14 border-t border-white/[0.1] pt-6 text-[12.5px] text-text/45">
-          © 2026 {site.siteName} · built in daylight, sold after dark
+          © 2026 {site.siteName} / Built in daylight. Useful after launch.
         </div>
       </main>
     </div>

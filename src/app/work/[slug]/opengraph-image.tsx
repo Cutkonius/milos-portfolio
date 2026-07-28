@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { getContent } from "@/lib/cms/content";
 import type { Project } from "@/lib/cms/types";
 
-export const alt = "Case study — Miloš Novaković";
+export const alt = "Case study | Miloš Novaković";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

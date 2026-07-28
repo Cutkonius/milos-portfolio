@@ -4,7 +4,7 @@ import { useRef, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 
 /** On-view rise, matching the design's data-reveal curve. State-driven
- *  (useInView + animate) — deterministic across hydration timing. */
+ *  (useInView + animate), deterministic across hydration timing. */
 export function Reveal({
   children,
   delay = 0,

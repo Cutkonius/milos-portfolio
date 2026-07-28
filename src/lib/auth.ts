@@ -1,5 +1,5 @@
 /**
- * Vault auth — HMAC-signed expiring tokens using Web Crypto only,
+ * Vault auth: HMAC-signed expiring tokens using Web Crypto only,
  * so the same code runs in the Edge proxy and in Node route handlers.
  * No credentials or secrets ever reach the client bundle.
  */

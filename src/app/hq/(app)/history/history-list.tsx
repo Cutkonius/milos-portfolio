@@ -23,7 +23,7 @@ export function HistoryList({ items }: { items: Item[] }) {
     const res = await restoreVersionAction(key);
     setBusy(null);
     if (res.ok) {
-      toast("Restored — live in a moment.");
+      toast("Restored. Live in a moment.");
       router.refresh();
     } else {
       toast(`Restore failed: ${res.error}`);
@@ -35,7 +35,7 @@ export function HistoryList({ items }: { items: Item[] }) {
       <PageHeader
         kicker="Time machine"
         title="History"
-        description="Every save is a restore point. Roll back any time — restoring also snapshots the current version, so it's reversible."
+        description="Every save is a restore point. Roll back any time. Restoring also snapshots the current version, so it's reversible."
       />
 
       {items.length === 0 ? (

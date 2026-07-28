@@ -15,11 +15,11 @@ import { PreviewBanner } from "./preview-banner";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Preview — HQ",
+  title: "Preview | HQ",
   robots: { index: false, follow: false },
 };
 
-/** The public home page rendered from the DRAFT — admin-only, never indexed. */
+/** The public home page rendered from the draft. Admin-only, never indexed. */
 export default async function PreviewPage() {
   const { content } = await getContentAdmin();
 

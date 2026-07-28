@@ -19,7 +19,7 @@ function fail(err: unknown, fallback: string): SaveResult {
 
 /**
  * Read-modify-write a single section of the DRAFT. Reads the working copy,
- * replaces the named section, and saves it back — nothing goes live until the
+ * replaces the named section, and saves it back. Nothing goes live until the
  * draft is published.
  */
 export async function saveSection(section: keyof ContentDoc, value: unknown): Promise<SaveResult> {

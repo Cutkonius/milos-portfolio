@@ -1,5 +1,5 @@
 /**
- * Admin (CMS) session — a second, independent HMAC-cookie session layered on
+ * Admin (CMS) session: a second, independent HMAC-cookie session layered on
  * top of the site's existing vault auth (`@/lib/auth`). It reuses the same
  * Web-Crypto token scheme so it runs in both the proxy and Node route handlers,
  * but with its own cookie and secret so the CMS and the public vault are fully
@@ -13,7 +13,7 @@ export const HQ_TOKEN_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 /**
  * Is this request addressed to the CMS host? Prefers an explicit `ADMIN_HOST`
- * (e.g. `hq.milosnovakovic.com`); otherwise any `hq.*` host — which also covers
+ * (e.g. `hq.milosnovakovic.com`); otherwise any `hq.*` host, which also covers
  * `hq.localhost` for local development.
  */
 export function isAdminHost(host: string | null | undefined): boolean {

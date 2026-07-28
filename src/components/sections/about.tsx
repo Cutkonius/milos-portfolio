@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { MediaImage } from "@/components/cms/media-image";
 import { renderEmphasis } from "@/components/cms/emphasis";
-import heroCanvas from "@/images/hero-canvas.webp";
+import canvasFragments from "@/images/canvas-fragments-v2.webp";
 import type { AboutSection } from "@/lib/cms/types";
 
 export function About({ data }: { data: AboutSection }) {
@@ -28,14 +28,14 @@ export function About({ data }: { data: AboutSection }) {
             <figure className="relative mx-auto w-full max-w-[520px] pb-12 lg:mx-0">
               <div
                 aria-hidden="true"
-                className="absolute bottom-0 left-0 top-[11%] w-[78%] overflow-hidden border-y border-text/16"
+                className="absolute bottom-[7%] left-0 h-[34%] w-full overflow-hidden border-y border-text/16"
               >
                 <Image
-                  src={heroCanvas}
+                  src={canvasFragments}
                   alt=""
                   fill
-                  sizes="420px"
-                  className="object-cover object-[50%_18%] opacity-75"
+                  sizes="(min-width: 1024px) 520px, 92vw"
+                  className="object-cover object-center opacity-90"
                 />
               </div>
 
@@ -50,7 +50,7 @@ export function About({ data }: { data: AboutSection }) {
               <figcaption className="relative ml-[12%] mt-4 flex w-[82%] items-start justify-between gap-5 border-t border-text/18 pt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-text/50">
                 <span>Miloš Novaković / Serbia</span>
                 <span className="text-right">
-                  {data.statusLabel} — {data.statusValue}
+                  {data.statusLabel} / {data.statusValue}
                 </span>
               </figcaption>
             </figure>

@@ -44,7 +44,7 @@ function recordFail(ip: string) {
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export async function POST(req: NextRequest) {
-  // Same-origin check — a login CSRF here is near-useless to an attacker,
+  // Same-origin check. A login CSRF here is near-useless to an attacker,
   // but the check costs nothing. Opaque ("null") or malformed Origin values
   // count as a mismatch rather than crashing the handler.
   const origin = req.headers.get("origin");

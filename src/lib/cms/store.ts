@@ -1,9 +1,9 @@
 /**
  * Storage adapter for the CMS. Two interchangeable backends behind one API:
  *
- *  - Netlify Blobs — used in production and under `netlify dev`, detected by
+ *  - Netlify Blobs: used in production and under `netlify dev`, detected by
  *    the injected blobs context. Credentials are auto-populated there.
- *  - Filesystem   — used by a plain `next dev` (no Netlify context). Its
+ *  - Filesystem: used by a plain `next dev` (no Netlify context). Its
  *    implementation lives in `./store-fs` and is imported dynamically only on
  *    that path, so it never bloats the production function bundle.
  *
@@ -51,11 +51,11 @@ function blobStore(name: string, consistency: "strong" | "eventual" = "eventual"
 /**
  * Loads the dev-only filesystem backend. The `NODE_ENV` guard is statically
  * eliminable, so a production build dead-code-drops the `import("./store-fs")`
- * entirely — its `fs`/`process.cwd()` code never enters the function bundle.
+ * entirely. Its `fs`/`process.cwd()` code never enters the function bundle.
  */
 async function fsBackend() {
   if (process.env.NODE_ENV === "production") {
-    throw new Error("The filesystem CMS backend is development-only — configure Netlify Blobs.");
+    throw new Error("The filesystem CMS backend is development-only. Configure Netlify Blobs.");
   }
   return import("./store-fs");
 }

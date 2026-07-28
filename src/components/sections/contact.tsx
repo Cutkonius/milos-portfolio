@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Reveal } from "@/components/ui/reveal";
-import heroCanvas from "@/images/hero-canvas.webp";
+import canvasFragments from "@/images/canvas-fragments-v2.webp";
 import type { ContactSection, Receipt } from "@/lib/cms/types";
 
 function OvernightLedger({
@@ -46,7 +46,9 @@ function OvernightLedger({
   return (
     <div ref={wrapRef} className="w-full lg:ml-auto">
       <div className="flex items-end justify-between gap-5 border-b border-text/18 pb-4">
-        <span className="time-label text-text/56">Overnight ledger</span>
+        <span className="time-label max-w-[250px] text-text/56">
+          What the system is designed to improve
+        </span>
         <span className="max-w-[280px] text-right text-[9px] leading-[1.45] uppercase tracking-[0.13em] text-text/44">
           {note}
         </span>
@@ -84,7 +86,7 @@ function OvernightLedger({
 
       <div className="grid items-end gap-4 border-b border-text/18 py-7 sm:grid-cols-[1fr_auto]">
         <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text/48">
-          Always-on total / {totalMeta}
+          Total / {totalMeta}
         </span>
         <span className="text-[clamp(62px,9vw,112px)] font-semibold leading-[0.78] tracking-[-0.07em] text-amber tabular-nums">
           {String(total).padStart(2, "0")}
@@ -110,11 +112,11 @@ export function Contact({ data }: { data: ContactSection }) {
       className="editorial-section relative overflow-hidden bg-[#05080d] px-5 pb-0 pt-[115px] sm:px-8 sm:pt-[155px] lg:px-12"
     >
       <Image
-        src={heroCanvas}
+        src={canvasFragments}
         alt=""
         fill
-        sizes="100vw"
-        className="pointer-events-none object-cover object-bottom opacity-[0.12] mix-blend-screen"
+        sizes="(min-width: 1280px) 1600px, 100vw"
+        className="pointer-events-none object-cover object-center opacity-[0.13] mix-blend-screen"
       />
 
       <div className="relative mx-auto max-w-[1280px]">
@@ -137,7 +139,7 @@ export function Contact({ data }: { data: ContactSection }) {
             <Reveal delay={0.12}>
               <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-2">
                 <BookCallButton label={data.ctaLabel} />
-                <EmailPill />
+                <EmailPill label="Prefer email? Write to Miloš" />
               </div>
             </Reveal>
           </div>

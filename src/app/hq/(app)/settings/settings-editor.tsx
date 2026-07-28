@@ -69,13 +69,13 @@ export function SettingsEditor({ initial }: { initial: SiteSettings }) {
             <Toggle
               checked={data.openForProjects}
               onChange={(v) => set({ openForProjects: v })}
-              label="Open for projects — shows the hero availability badge"
+              label="Open for projects. Shows the hero availability badge"
             />
             <div>
               <Toggle
                 checked={data.launched}
                 onChange={(v) => set({ launched: v })}
-                label="Launched — makes the site indexable (drops noindex)"
+                label="Launched. Makes the site indexable (drops noindex)"
               />
               <p className="mt-1.5 text-xs text-text/40">
                 Note: the pre-launch vault login wall is separate. See the go-live checklist to

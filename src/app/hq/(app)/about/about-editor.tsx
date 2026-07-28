@@ -26,7 +26,7 @@ export function AboutEditor({ initial }: { initial: AboutSection }) {
 
   return (
     <div>
-      <PageHeader kicker="23:37 · The human bit" title="About" description="The human bit — bio, personnel file, photo." />
+      <PageHeader kicker="23:37 · The human bit" title="About" description="The human bit: bio, personnel file, photo." />
 
       <div className="flex flex-col gap-5">
         <Card>

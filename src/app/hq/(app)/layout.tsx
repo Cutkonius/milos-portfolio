@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// The admin always reads the live store — never a build-time snapshot.
+// The admin always reads the live store, never a build-time snapshot.
 export const dynamic = "force-dynamic";
 
 export default async function HqAppLayout({ children }: { children: React.ReactNode }) {

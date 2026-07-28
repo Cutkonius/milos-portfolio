@@ -59,7 +59,7 @@ export default async function HqDashboard() {
           Evening, Miloš.
         </h1>
         <p className="mt-1.5 text-sm text-text/55 [text-wrap:pretty]">
-          Run the whole site from here — edit freely, publish when you&apos;re ready.
+          Run the whole site from here. Edit freely, publish when you&apos;re ready.
         </p>
       </div>
 

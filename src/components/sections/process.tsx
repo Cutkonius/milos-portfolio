@@ -23,8 +23,8 @@ export function Process({ data }: { data: ProcessSection }) {
             </Reveal>
             <Reveal delay={0.08}>
               <p className="mt-7 max-w-[390px] text-[14px] leading-[1.7] text-text/58">
-                A visible process, one accountable pair of hands, and no disappearing act between
-                the kickoff and the keys.
+                You see the work early, make decisions while they are cheap to change and always
+                know what needs your attention.
               </p>
             </Reveal>
           </div>

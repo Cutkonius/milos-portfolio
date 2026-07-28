@@ -15,7 +15,7 @@ function useCalAttrs() {
 /** Primary booking CTA: a cut-corner editorial slab with an ink-wipe hover. */
 export function BookCallButton({
   size = "lg",
-  label = "Book a short call",
+  label = "Book a 15-minute fit call",
 }: {
   size?: "sm" | "lg";
   label?: string;
@@ -24,7 +24,7 @@ export function BookCallButton({
   const sizeClasses =
     size === "lg"
       ? "gap-6 px-5 py-[13px] text-[13.5px] sm:px-6 sm:text-[14px]"
-      : "gap-4 px-4 py-[10px] text-[12px]";
+      : "min-h-11 gap-4 px-4 py-[10px] text-[12px]";
 
   return (
     <button
@@ -66,7 +66,13 @@ export function CalTextLink({
 }
 
 /** Secondary text action. Kept under the legacy export name for CMS consumers. */
-export function EmailPill({ size = "lg" }: { size?: "sm" | "lg" }) {
+export function EmailPill({
+  size = "lg",
+  label,
+}: {
+  size?: "sm" | "lg";
+  label?: string;
+}) {
   const { email } = useSiteConfig();
   return (
     <a
@@ -75,7 +81,7 @@ export function EmailPill({ size = "lg" }: { size?: "sm" | "lg" }) {
         size === "lg" ? "px-1 py-[12px] text-[13.5px]" : "px-1 py-2 text-[12px]"
       }`}
     >
-      {email}
+      {label ?? email}
     </a>
   );
 }

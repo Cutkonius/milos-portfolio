@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
-import heroCanvas from "@/images/hero-canvas.webp";
+import heroDesktop from "@/images/hero-canvas-desktop-v2.webp";
+import heroMobile from "@/images/hero-canvas-mobile-v2.webp";
 import type { Hero as HeroData } from "@/lib/cms/types";
 
 function CurrentMonth() {
@@ -28,21 +29,53 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const dayRef = useRef<HTMLDivElement>(null);
   const nightRef = useRef<HTMLDivElement>(null);
-  const sunRef = useRef<HTMLButtonElement>(null);
+  const sunMotionRef = useRef<HTMLDivElement>(null);
+
+  const commonImageProps = {
+    alt: "",
+    sizes: "100vw",
+    quality: 82,
+    fetchPriority: "high" as const,
+  };
+  const {
+    props: { srcSet: desktopSrcSet },
+  } = getImageProps({
+    ...commonImageProps,
+    src: heroDesktop,
+    width: 3840,
+    height: 2160,
+  });
+  const {
+    props: { srcSet: mobileSrcSet, ...mobileImageProps },
+  } = getImageProps({
+    ...commonImageProps,
+    src: heroMobile,
+    width: 1440,
+    height: 2560,
+  });
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
     let raf = 0;
+    let previousProgress = -1;
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
         const y = window.scrollY;
         const vh = window.innerHeight;
-        if (y > vh * 1.35) return;
+        if (y > vh * 1.35) {
+          if (sunMotionRef.current) {
+            sunMotionRef.current.style.visibility = "hidden";
+            sunMotionRef.current.style.pointerEvents = "none";
+          }
+          return;
+        }
         const progress = Math.min(1.15, Math.max(0, y / vh));
+        if (Math.abs(progress - previousProgress) < 0.001) return;
+        previousProgress = progress;
 
         if (canvasRef.current) {
           canvasRef.current.style.transform = `translate3d(0, ${progress * 14}px, 0) scale(1.035)`;
@@ -53,9 +86,11 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
         if (nightRef.current) {
           nightRef.current.style.transform = `translate3d(0, ${progress * -12}px, 0)`;
         }
-        if (sunRef.current) {
-          sunRef.current.style.transform = `translate3d(0, ${progress * 116}px, 0)`;
-          sunRef.current.style.opacity = String(Math.max(0, 1 - progress * 1.55));
+        if (sunMotionRef.current) {
+          sunMotionRef.current.style.transform = `translate3d(0, ${progress * 116}px, 0)`;
+          sunMotionRef.current.style.opacity = String(Math.max(0, 1 - progress * 1.55));
+          sunMotionRef.current.style.visibility = progress >= 0.66 ? "hidden" : "visible";
+          sunMotionRef.current.style.pointerEvents = progress >= 0.66 ? "none" : "auto";
         }
       });
     };
@@ -69,7 +104,11 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
   }, []);
 
   const revealNight = () => {
-    window.scrollTo({ top: window.innerHeight * 0.48, behavior: "smooth" });
+    window.dispatchEvent(
+      new CustomEvent<number>("portfolio:scroll-to", {
+        detail: window.innerHeight * 0.48,
+      })
+    );
   };
 
   return (
@@ -82,16 +121,15 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
         aria-hidden="true"
         className="absolute -inset-[2.5%] will-change-transform"
       >
-        <Image
-          src={heroCanvas}
-          alt=""
-          fill
-          fetchPriority="high"
-          loading="eager"
-          quality={75}
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <picture>
+          <source media="(min-width: 640px)" srcSet={desktopSrcSet} />
+          <img
+            {...mobileImageProps}
+            srcSet={mobileSrcSet}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+        </picture>
       </div>
 
       <div
@@ -103,7 +141,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             <span className="time-label max-w-[220px] text-[#4b4b49]">{data.day.label}</span>
             {open && (
               <span className="time-label text-right text-[#3f464f]">
-                Available — <CurrentMonth />
+                {data.openForProjectsLabel} / <CurrentMonth />
               </span>
             )}
           </div>
@@ -138,8 +176,8 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
                   {data.night.body}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-6">
-                  <BookCallButton />
-                  <EmailPill />
+                  <BookCallButton label="Book a 15-minute fit call" />
+                  <EmailPill label="Email Miloš" />
                 </div>
               </div>
             </div>
@@ -147,22 +185,26 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
 
           <div className="hidden items-end justify-between gap-5 text-[9.5px] font-medium uppercase tracking-[0.14em] text-text/48 sm:flex">
             <span>{data.cornerLeft}</span>
-            <span>Independent design / build / growth</span>
+            <span>Independent from first decision to launch</span>
           </div>
         </div>
       </div>
 
-      <button
-        ref={sunRef}
-        type="button"
-        onClick={revealNight}
-        aria-label="Scroll to the night side"
-        className="group absolute left-1/2 top-[calc(59%-29px)] z-10 -ml-[29px] h-[58px] w-[58px] rounded-full border border-[#b96f1f]/30 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] will-change-[transform,opacity] transition-transform duration-500 hover:scale-[1.04] sm:top-[calc(59%-37px)] sm:-ml-[37px] sm:h-[74px] sm:w-[74px]"
+      <div
+        ref={sunMotionRef}
+        className="absolute left-1/2 top-[calc(59%-29px)] z-10 -ml-[29px] h-[58px] w-[58px] will-change-[transform,opacity] sm:top-[calc(59%-37px)] sm:-ml-[37px] sm:h-[74px] sm:w-[74px]"
       >
-        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.16em] text-[#4c4135] sm:-top-9">
-          Scroll into night
-        </span>
-      </button>
+        <button
+          type="button"
+          onClick={revealNight}
+          aria-label="See the full system"
+          className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-300 ease-out hover:scale-[1.06] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.06]"
+        >
+          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.16em] text-[#4c4135] sm:-top-9">
+            {data.sunHint}
+          </span>
+        </button>
+      </div>
     </section>
   );
 }

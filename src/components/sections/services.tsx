@@ -1,12 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
+import canvasFragments from "@/images/canvas-fragments-v2.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
-  "Positioning / UI/UX / Development",
-  "Flows / Campaigns / Retention",
-  "Technical SEO / Motion / Launch",
+  "Message hierarchy / User journeys / Visual system",
+  "Responsive build / Performance / Quality assurance",
+  "Technical SEO / Email journeys / Post-launch learning",
 ];
 
 export function Services({ data }: { data: ServicesSection }) {
@@ -29,11 +31,27 @@ export function Services({ data }: { data: ServicesSection }) {
           </div>
           <Reveal delay={0.08}>
             <p className="max-w-[390px] text-[14px] leading-[1.68] text-day-ink/62 [text-wrap:pretty] lg:ml-auto">
-              One person keeps the idea intact from the first sketch to launch—and stays close
-              enough to make the work earn its keep.
+              You do not need separate people translating strategy into design, then design into
+              code. One accountable partner keeps the message, interface and build working toward
+              the same decision.
             </p>
           </Reveal>
         </div>
+
+        <Reveal delay={0.1}>
+          <div
+            aria-hidden="true"
+            className="relative h-[84px] overflow-hidden border-b border-day-ink/18 sm:h-[118px]"
+          >
+            <Image
+              src={canvasFragments}
+              alt=""
+              fill
+              sizes="(min-width: 1280px) 1280px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </Reveal>
 
         <div className="border-b border-day-ink/18">
           {data.rows.map((service, index) => (

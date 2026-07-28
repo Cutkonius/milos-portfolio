@@ -15,7 +15,7 @@ export function PublishBar({ hasChanges }: { hasChanges: boolean }) {
     const res = await publishAction();
     setBusy(null);
     if (res.ok) {
-      toast("Published — live in a moment.");
+      toast("Published. Live in a moment.");
       router.refresh();
     } else {
       toast(`Publish failed: ${res.error}`);
