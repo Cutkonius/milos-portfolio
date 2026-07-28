@@ -6,9 +6,8 @@ import servicesPhotogram from "@/images/services-photogram-v1.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
-  "Audience and offer / Sitemap / Page-by-page content plan",
-  "Responsive design / Working website / Testing and launch",
-  "Search setup / Email flows / Analytics and improvements",
+  "Structure and content / UI/UX design / Development and launch",
+  "Complete ESP setup / Automated flows / Written email sequences",
 ];
 
 export function Services({ data }: { data: ServicesSection }) {
@@ -30,9 +29,9 @@ export function Services({ data }: { data: ServicesSection }) {
             </Reveal>
           </div>
           <Reveal delay={0.08}>
-            <p className="max-w-[420px] text-[15px] leading-[1.68] text-day-ink/72 [text-wrap:pretty] sm:text-[16px] lg:ml-auto">
-              I handle the offer, page structure, interface and code. You work with one person from
-              the first plan to launch, so the message and the finished site stay consistent.
+            <p className="max-w-[430px] text-[15px] leading-[1.68] text-day-ink/72 [text-wrap:pretty] sm:text-[16px] lg:ml-auto">
+              You can hire me for either service or combine both. I use AI to work faster and
+              explore more options, while my knowledge and experience guide every final decision.
             </p>
           </Reveal>
         </div>
@@ -55,14 +54,14 @@ export function Services({ data }: { data: ServicesSection }) {
               className="flex min-h-[132px] flex-col justify-between px-4 py-5 sm:px-6 sm:py-6 lg:min-h-0"
             >
               <div className="flex items-center gap-3 text-[10.5px] font-semibold uppercase tracking-[0.11em] text-day-ink/62">
-                <span>01 / Message</span>
+                <span>01 / Website</span>
                 <span className="h-px flex-1 bg-day-ink/20" />
-                <span>03 / System</span>
+                <span>02 / Email</span>
               </div>
               <div className="mt-7 flex items-baseline justify-between gap-3 whitespace-nowrap text-[clamp(27px,4vw,50px)] font-semibold leading-none tracking-[-0.06em] lg:flex-col lg:items-start lg:gap-0 lg:whitespace-normal">
-                <span>Clarity</span>
-                <span className="editorial text-[0.62em] text-amber-deep">into</span>
-                <span>Action</span>
+                <span>Build</span>
+                <span className="editorial text-[0.62em] text-amber-deep">then</span>
+                <span>Follow up</span>
               </div>
             </div>
           </div>

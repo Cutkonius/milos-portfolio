@@ -8,15 +8,15 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 6,
+  version: 7,
 
   site: {
-    metaTitle: "Miloš Novaković | Website strategy, UI/UX design and development",
+    metaTitle: "Miloš Novaković | Websites and email marketing systems",
     metaDescription:
-      "I plan, design and build websites for service businesses and online stores. One partner for messaging, page structure, UI/UX, development and launch.",
-    ogTitle: "Websites that make the offer clear and the next step easy.",
+      "I build websites from scratch and set up complete email marketing systems, including the email platform, automated flows and written sequences. AI-assisted, experience-led.",
+    ogTitle: "Websites from scratch. Email systems that follow through.",
     ogDescription:
-      "Strategy, UI/UX design and development, handled directly by one person from the first plan to launch.",
+      "Complete website builds, email platform setup, automated flows and written sequences. AI-assisted execution, guided by knowledge and experience.",
     siteName: "Miloš Novaković",
     email: EMAIL,
     calLink: CAL_LINK,
@@ -39,18 +39,18 @@ export const DEFAULT_CONTENT: ContentDoc = {
 
   hero: {
     day: {
-      label: "Website strategy / UI/UX design / development",
+      label: "Websites from scratch / Email marketing systems",
       title: "Built in daylight.",
       body:
-        "I plan, design and build websites for service businesses and online stores, from the offer and page structure to launch.",
+        "I plan, design and build complete websites from zero, covering structure, UI/UX, responsive development and launch.",
     },
     night: {
       title: "Sold after dark.",
       body:
-        "Clear messaging, fast pages and intuitive paths help visitors understand the offer and enquire, book or buy.",
+        "I set up the email platform (ESP), build automated flows and write the sequences that keep the conversation moving after someone leaves the site.",
     },
-    sunHint: "See how the site works",
-    cornerLeft: "Strategy / UI/UX / Development / From first plan to launch",
+    sunHint: "See what works after launch",
+    cornerLeft: "Websites / ESP setup / Flows / Email sequences",
     openForProjectsLabel: "Now accepting / August",
   },
 
@@ -124,52 +124,42 @@ export const DEFAULT_CONTENT: ContentDoc = {
         published: false,
         label: "03 · Reserved for you",
         cardTitle: "This slot is yours.",
-        blurb: "A focused project for a website that needs clearer pages and an easier next step.",
+        blurb: "A focused project for a new website, an email marketing system or both.",
         ctaLabel: "Book a call →",
       },
     ],
   },
 
   services: {
-    label: "Services / Strategy, UI/UX and development",
-    heading: "One partner to plan, design and build your website.",
+    label: "Services / Websites and email marketing",
+    heading: "Websites from scratch. Email marketing from setup to sequence.",
     rows: [
       {
         id: "s1",
         n: "01",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Plan the website",
+        title: "Build the website from scratch",
         favorite: false,
         blurb:
-          "Clarify who the website is for, what each page needs to say and which action matters most before design begins.",
-        shift: "Strategy / Offer / Page structure",
+          "I take the site from a blank page to launch: structure, content direction, interface design, responsive development, motion, testing and deployment.",
+        shift: "Strategy / UI/UX / Development",
       },
       {
         id: "s2",
         n: "02",
         stroke: "rgba(245,169,78,0.5)",
-        title: "Design and build it",
+        title: "Set up email marketing",
         favorite: true,
         blurb:
-          "Design and develop a responsive, accessible website with clear interactions, useful motion and fast loading.",
-        shift: "UI/UX / Development / Motion",
-      },
-      {
-        id: "s3",
-        n: "03",
-        stroke: "rgba(238,241,247,0.28)",
-        title: "Improve it after launch",
-        favorite: false,
-        blurb:
-          "Set up search basics, useful email follow-ups and focused improvements based on how people actually use the site.",
-        shift: "Technical SEO / Email / Iteration",
+          "I configure the email platform (ESP), audience structure and core automations, then write the sequences for welcome, nurture, recovery and sales.",
+        shift: "ESP setup / Flows / Email copywriting",
       },
     ],
   },
 
   process: {
-    label: "Process / What working together looks like",
-    heading: "A clear process from first call to launch.",
+    label: "Process / From brief to go-live",
+    heading: "A clear process for websites and email.",
     steps: [
       {
         id: "p1",
@@ -177,57 +167,57 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(245,169,78,0.55)",
         dot: "#f5a94e",
         ring: "rgba(245,169,78,0.16)",
-        title: "Confirm the project and fit",
+        title: "Choose the right scope",
         blurb:
-          "We discuss what the website needs to achieve, who it is for, what is not working now and the scope that would solve it. If I am not the right fit, I will tell you.",
+          "We discuss what you sell, who you need to reach and what is already in place. Then we decide whether the project needs a website, email marketing or both.",
         ctaLabel: "Book a 15-minute call",
       },
       {
         id: "p2",
-        label: "STRATEGY AND FIRST PAGES",
+        label: "PLAN THE SYSTEM",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#d99a5b",
         ring: "rgba(217,154,91,0.14)",
-        title: "Agree on the message and structure",
+        title: "Map the work before building",
         blurb:
-          "I turn the offer into a sitemap, page plan and first working screens. You review real pages in the browser, not abstract presentations.",
+          "For a website, I map the pages, message and user paths. For email, I map the ESP setup, segments, flows and sequence goals.",
       },
       {
         id: "p3",
-        label: "DESIGN AND DEVELOPMENT",
+        label: "BUILD AND SET UP",
         stroke: "rgba(238,241,247,0.3)",
         dot: "#8fabff",
         ring: "rgba(143,171,255,0.14)",
-        title: "Build and test the complete site",
+        title: "Build the website or email system",
         blurb:
-          "I complete the responsive design, development, motion, accessibility, performance and the paths to enquiry, booking or purchase.",
+          "I build the agreed website, email marketing system or both, then share working versions for review.",
       },
       {
         id: "p4",
-        label: "LAUNCH AND AFTER",
+        label: "TEST AND GO LIVE",
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "Launch, measure and improve",
+        title: "Launch, check and improve",
         blurb:
-          "I set up search basics and analytics, then use real behavior to decide what to improve next.",
+          "I test the website or email automation, fix issues and put it live. After launch, real results guide the next improvements.",
       },
     ],
   },
 
   about: {
-    label: "About / Direct collaboration",
-    heading: "Strategy, design and development with one person responsible.",
+    label: "About / AI-assisted, experience-led",
+    heading: "Websites and email marketing, handled directly by me.",
     paragraphs: [
-      "I’m Miloš Novaković, an independent website designer and developer based in Serbia. I help businesses clarify their offer, plan the right pages, design the interface and build the finished site.",
-      "You work directly with me from the first call to launch. There is no handoff between a strategist, designer and developer, so decisions stay clear and the final site stays consistent.",
+      "I’m Miloš Novaković. I build websites from scratch and set up complete email marketing systems, including email platform (ESP) configuration, automated flows and written sequences.",
+      "I use AI throughout research, copy, design exploration and development to work faster and test more options. My knowledge and experience still guide the strategy, decisions, editing and final quality.",
     ],
     fileHeading: "Working model",
     fileRows: [
       { k: "Based", v: "Serbia / CET" },
-      { k: "Role", v: "Designer and developer" },
-      { k: "Services", v: "Strategy / UI/UX / Development" },
-      { k: "Model", v: "Direct / independent" },
+      { k: "Role", v: "Designer / Developer / Email marketer" },
+      { k: "Websites", v: "Strategy / UI/UX / Development" },
+      { k: "Email", v: "ESP setup / Flows / Sequences" },
     ],
     statusLabel: "Availability",
     statusValue: "August projects",
@@ -235,33 +225,27 @@ export const DEFAULT_CONTENT: ContentDoc = {
   },
 
   contact: {
-    label: "Start a website project",
-    heading: "What does your website need to make easier?",
+    label: "Start a project",
+    heading: "Do you need a website, email marketing or both?",
     pitch:
-      "Tell me what you sell, who needs to understand it and what you want visitors to do. In a 15-minute call, we will identify the main problem, the right scope and the clearest next step. If the project is a fit, I will explain how I would approach it.",
-    receiptsNote: "From the first visit to an enquiry, booking or order",
+      "Tell me what you sell, what is already in place and where people get stuck. In a 15-minute call, we will decide whether you need a new website, an email marketing system or both, then define a practical scope.",
+    receiptsNote: "Choose one service or combine both",
     receipts: [
       {
         id: "r1",
         icon: "01",
-        title: "Help visitors find the right product or service",
-        meta: "Navigation / Search / Page structure",
+        title: "A complete website built from scratch",
+        meta: "Structure / UI/UX / Development",
       },
       {
         id: "r2",
         icon: "02",
-        title: "Explain the offer and answer common questions",
-        meta: "Messaging / Content / Product UX",
-      },
-      {
-        id: "r3",
-        icon: "03",
-        title: "Make the next step easy to complete",
-        meta: "Enquiry / Booking / Checkout",
+        title: "A complete email marketing system",
+        meta: "Email platform setup / Automated flows / Written sequences",
       },
     ],
-    nightTotal: 3,
-    nightTotalMeta: "key parts of the website",
+    nightTotal: 2,
+    nightTotalMeta: "core services",
     ctaLabel: "Book a 15-minute call",
     footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Sold after dark.",
     footerEmail: EMAIL,

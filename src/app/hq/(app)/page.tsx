@@ -5,7 +5,7 @@ import { Kicker } from "../_components/ui";
 
 const QUICK_LINKS: { href: string; label: string; desc: string; icon: IconName }[] = [
   { href: "/projects", label: "Projects", desc: "Case studies, NDA & reserved cards", icon: "projects" },
-  { href: "/services", label: "Services", desc: "The three trades", icon: "services" },
+  { href: "/services", label: "Services", desc: "Two core offers", icon: "services" },
   { href: "/process", label: "Process", desc: "The four steps", icon: "process" },
   { href: "/hero", label: "Hero", desc: "Day / night headline", icon: "hero" },
   { href: "/about", label: "About", desc: "Bio, personnel file, photo", icon: "about" },

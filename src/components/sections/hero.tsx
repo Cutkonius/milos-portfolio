@@ -167,7 +167,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
 
           <div className="hidden items-end justify-between gap-5 text-[11px] font-medium uppercase tracking-[0.11em] text-text/64 sm:flex">
             <span>{data.cornerLeft}</span>
-            <span>One partner from first plan to launch</span>
+            <span>AI-assisted execution / Experience-led decisions</span>
           </div>
         </div>
       </div>

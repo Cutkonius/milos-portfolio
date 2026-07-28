@@ -48,7 +48,7 @@ function OvernightLedger({
     <div ref={wrapRef} className="w-full lg:ml-auto">
       <div className="flex flex-col items-start gap-3 border-b border-text/18 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
         <span className="time-label max-w-[250px] text-text/70">
-          What I can improve on your website
+          What I can build for you
         </span>
         <span className="max-w-[300px] text-[11px] leading-[1.5] text-text/64 sm:text-right">
           {note}

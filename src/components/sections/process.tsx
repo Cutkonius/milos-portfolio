@@ -23,8 +23,8 @@ export function Process({ data }: { data: ProcessSection }) {
             </Reveal>
             <Reveal delay={0.08}>
               <p className="mt-7 max-w-[420px] text-[15px] leading-[1.7] text-text/72 sm:text-[16px]">
-                You see working pages early, know what I need from you and can make changes before
-                they become expensive.
+                You see working pages, email flows and copy early. You always know what is ready,
+                what needs a decision and what happens next.
               </p>
             </Reveal>
           </div>
