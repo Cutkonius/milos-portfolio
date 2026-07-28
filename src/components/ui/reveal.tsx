@@ -16,7 +16,7 @@ export function Reveal({
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.12 });
+  const inView = useInView(ref, { once: true, amount: 0.14 });
 
   return (
     <motion.div
@@ -25,10 +25,10 @@ export function Reveal({
       animate={
         reduced
           ? { opacity: inView ? 1 : 0 }
-          : { opacity: inView ? 1 : 0, y: inView ? 0 : 26 }
+          : { opacity: inView ? 1 : 0, y: inView ? 0 : 18, scale: inView ? 1 : 0.992 }
       }
-      transition={{ duration: 0.8, delay: inView ? delay : 0, ease: [0.2, 0.7, 0.2, 1] }}
-      style={reduced ? undefined : { opacity: 0, y: 26 }}
+      transition={{ duration: 0.72, delay: inView ? delay : 0, ease: [0.22, 1, 0.36, 1] }}
+      style={reduced ? undefined : { opacity: 0, y: 18, scale: 0.992 }}
       className={className}
     >
       {children}

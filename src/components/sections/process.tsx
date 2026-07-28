@@ -7,70 +7,86 @@ import { CalTextLink } from "@/components/book-call";
 import type { ProcessSection } from "@/lib/cms/types";
 
 export function Process({ data }: { data: ProcessSection }) {
-  const STEPS = data.steps;
   const railRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(railRef, { once: true, amount: 0.35 });
+  const inView = useInView(railRef, { once: true, amount: 0.3 });
   const reduced = useReducedMotion();
 
   return (
     <section
       id="process"
-      className="relative scroll-mt-16 bg-[linear-gradient(180deg,#0c0f18_0%,#0a0c12_100%)] px-6 py-[120px] md:px-12"
+      className="premium-section relative scroll-mt-24 overflow-hidden bg-[radial-gradient(800px_420px_at_54%_100%,rgba(113,157,255,.065),transparent_70%),linear-gradient(180deg,#0a0d15_0%,#080b12_100%)] px-5 py-[105px] sm:px-8 sm:py-[135px] lg:px-12"
     >
-      <div className="relative mx-auto max-w-[1120px]">
+      <div className="relative mx-auto max-w-[1180px]">
         <Reveal>
-          <div className="time-label text-blue-soft">{data.label}</div>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="mt-3.5 max-w-[620px] text-[40px] font-semibold tracking-[-0.025em] text-text [text-wrap:balance] sm:text-[52px]">
-            {data.heading}
-          </h2>
+          <div className="section-kicker text-blue-soft">{data.label}</div>
         </Reveal>
 
-        <div ref={railRef} className="relative mt-[60px]">
-          {/* Rail (drawn in on view) — spans the row on large screens */}
+        <div className="mt-5 grid items-end gap-6 lg:grid-cols-[1fr_.55fr]">
+          <Reveal delay={0.05}>
+            <h2 className="max-w-[760px] text-[clamp(42px,5.3vw,70px)] font-semibold leading-[1] tracking-[-0.05em] text-text [text-wrap:balance]">
+              {data.heading}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="max-w-[370px] text-[14.5px] leading-[1.65] text-text/48 lg:ml-auto">
+              You always know what is happening, what comes next and who is accountable for it.
+            </p>
+          </Reveal>
+        </div>
+
+        <div ref={railRef} className="relative mt-14">
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 top-[7px] hidden h-0.5 rounded-full bg-text/[0.09] lg:block"
+            className="absolute inset-x-6 top-[8px] hidden h-px rounded-full bg-text/[0.09] lg:block"
           />
           <motion.div
             aria-hidden="true"
             initial={false}
-            animate={{ width: inView ? "100%" : "0%" }}
-            transition={reduced ? { duration: 0 } : { duration: 1.8, ease: [0.25, 0.6, 0.2, 1] }}
-            className="absolute left-0 top-[7px] hidden h-0.5 rounded-full bg-[linear-gradient(90deg,#f5a94e_0%,#d99a5b_40%,#8fabff_75%,#5b8cff_100%)] shadow-[0_0_12px_rgba(245,169,78,0.35)] lg:block"
+            animate={{ width: inView ? "calc(100% - 48px)" : "0%" }}
+            transition={
+              reduced
+                ? { duration: 0 }
+                : { duration: 1.45, ease: [0.22, 1, 0.36, 1] }
+            }
+            className="absolute left-6 top-[8px] hidden h-px rounded-full bg-[linear-gradient(90deg,#f2aa58_0%,#d99a5b_40%,#a5bdff_75%,#719dff_100%)] shadow-[0_0_14px_rgba(242,170,88,0.32)] lg:block"
             style={{ width: 0 }}
           />
+          <div
+            aria-hidden="true"
+            className="absolute bottom-6 left-[7px] top-2 w-px bg-[linear-gradient(#f2aa58,#719dff)] opacity-45 sm:hidden"
+          />
 
-          <div className="grid gap-x-[clamp(16px,2.5vw,36px)] gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.id} delay={i * 0.08}>
-                <div className="relative pt-[38px]">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {data.steps.map((step, index) => (
+              <Reveal key={step.id} delay={index * 0.07}>
+                <div className="relative ml-8 h-full sm:ml-0 lg:pt-[42px]">
                   <span
                     aria-hidden="true"
-                    className="absolute left-0 top-0 h-4 w-4 rounded-full"
-                    style={{ background: s.dot, boxShadow: `0 0 0 5px ${s.ring}` }}
+                    className="absolute -left-[31px] top-6 z-10 h-3.5 w-3.5 rounded-full lg:left-2 lg:top-[1px]"
+                    style={{ background: step.dot, boxShadow: `0 0 0 5px ${step.ring}` }}
                   />
-                  <div
-                    aria-hidden="true"
-                    className="whitespace-nowrap text-[clamp(24px,2.9vw,38px)] font-semibold leading-none tracking-[-0.02em] text-transparent"
-                    style={{ WebkitTextStroke: `1px ${s.stroke}` }}
-                  >
-                    {s.label}
-                  </div>
-                  <h3 className="mt-3 text-xl font-semibold text-text">
-                    <span className="sr-only">{s.label} — </span>
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-[1.6] text-text/60 [text-wrap:pretty]">
-                    {s.blurb}
-                    {s.ctaLabel && (
-                      <>
-                        {" "}
-                        <CalTextLink className="text-sm">{s.ctaLabel}</CalTextLink>
-                      </>
-                    )}
-                  </p>
+                  <article className="surface-card flex h-full min-h-[250px] flex-col rounded-[22px] p-5 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-white/[0.18] sm:p-6">
+                    <div
+                      aria-hidden="true"
+                      className="whitespace-nowrap text-[22px] font-semibold leading-none tracking-[-0.02em] text-transparent"
+                      style={{ WebkitTextStroke: `1px ${step.stroke}` }}
+                    >
+                      {step.label}
+                    </div>
+                    <h3 className="mt-auto pt-12 text-[20px] font-semibold tracking-[-0.02em] text-text">
+                      <span className="sr-only">{step.label} — </span>
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-[13.5px] leading-[1.65] text-text/55 [text-wrap:pretty]">
+                      {step.blurb}
+                      {step.ctaLabel && (
+                        <>
+                          {" "}
+                          <CalTextLink className="text-[13.5px]">{step.ctaLabel}</CalTextLink>
+                        </>
+                      )}
+                    </p>
+                  </article>
                 </div>
               </Reveal>
             ))}

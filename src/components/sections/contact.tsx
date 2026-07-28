@@ -65,8 +65,8 @@ function Receipts({
       : { opacity: inView ? 1 : 0, y: inView ? 0 : 26, scale: inView ? 1 : 0.98 };
 
   return (
-    <div ref={wrapRef} className="flex min-w-[min(300px,100%)] max-w-[440px] flex-1 flex-col gap-3 sm:min-w-[min(340px,100%)]">
-      <div className="time-label text-right !text-[10.5px] !tracking-[0.16em] text-text/40">
+    <div ref={wrapRef} className="flex w-full max-w-[470px] flex-col gap-3 lg:ml-auto">
+      <div className="time-label text-left !text-[9.5px] !tracking-[0.15em] text-text/34 lg:text-right">
         {note}
       </div>
       {RECEIPTS.map((r, i) => (
@@ -74,18 +74,18 @@ function Receipts({
           key={r.id}
           initial={false}
           animate={item()}
-          transition={{ duration: 0.65, delay: inView ? i * 0.18 : 0, ease: [0.2, 0.8, 0.25, 1] }}
+          transition={{ duration: 0.58, delay: inView ? i * 0.14 : 0, ease: [0.22, 1, 0.36, 1] }}
           style={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
-          className="flex items-center gap-3.5 rounded-[18px] border border-white/[0.13] bg-white/[0.06] px-[18px] py-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl"
+          className="surface-card group flex items-center gap-3.5 rounded-[19px] px-[18px] py-4 backdrop-blur-2xl transition-[transform,border-color] duration-300 hover:translate-x-1 hover:border-white/[0.18]"
         >
           <span
             aria-hidden="true"
-            className="grid h-[38px] w-[38px] flex-none place-items-center rounded-xl bg-blue/[0.18] text-[15px] font-bold text-blue-soft"
+            className="grid h-[38px] w-[38px] flex-none place-items-center rounded-full border border-blue/20 bg-blue/[0.13] text-[14px] font-bold text-blue-soft transition-colors duration-300 group-hover:bg-blue/[0.2]"
           >
             {r.icon}
           </span>
           <span className="flex-1">
-            <span className="block text-sm font-semibold text-text">{r.title}</span>
+            <span className="block text-[13.5px] font-semibold text-text">{r.title}</span>
             <span className="mt-0.5 block text-xs text-text/50">{r.meta}</span>
           </span>
         </motion.div>
@@ -94,12 +94,12 @@ function Receipts({
         initial={false}
         animate={item()}
         transition={{
-          duration: 0.65,
-          delay: inView ? RECEIPTS.length * 0.18 : 0,
-          ease: [0.2, 0.8, 0.25, 1],
+          duration: 0.58,
+          delay: inView ? RECEIPTS.length * 0.14 : 0,
+          ease: [0.22, 1, 0.36, 1],
         }}
         style={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
-        className="flex items-center justify-between rounded-2xl border border-blue/30 bg-[#141a2b] px-[18px] py-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+        className="flex items-center justify-between rounded-[19px] border border-blue/30 bg-[linear-gradient(135deg,rgba(113,157,255,.14),rgba(113,157,255,.055))] px-[18px] py-4 shadow-[0_20px_50px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,.06)]"
       >
         <span className="text-sm font-semibold text-text">Night total</span>
         <span className="text-sm font-bold text-amber tabular-nums">
@@ -123,39 +123,47 @@ export function Contact({ data }: { data: ContactSection }) {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#0a0c12_0%,#07090d_100%)] px-6 pb-0 pt-[130px] md:px-12"
+      className="premium-section relative overflow-hidden bg-[radial-gradient(850px_560px_at_18%_26%,rgba(113,157,255,.11),transparent_68%),linear-gradient(180deg,#080b12_0%,#05070b_100%)] px-5 pb-0 pt-[115px] sm:px-8 sm:pt-[145px] lg:px-12"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_460px_at_20%_20%,rgba(91,140,255,0.1),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.28))]"
       />
       <Stars stars={CONTACT_STARS} />
 
       {/* Crescent moon */}
       <div
         aria-hidden="true"
-        className="absolute right-[14%] top-24 h-14 w-14 rounded-full bg-[#dfe7f8] shadow-[0_0_44px_rgba(223,231,248,0.35)]"
+        className="absolute right-[9%] top-[84px] h-16 w-16 rounded-full bg-[#e2e8f6] shadow-[0_0_58px_rgba(223,231,248,0.3)] sm:right-[14%] sm:top-24"
       >
-        <div className="absolute -left-3 -top-1.5 h-[52px] w-[52px] rounded-full bg-[#0a0c12]" />
+        <div className="absolute -left-3.5 -top-2 h-[60px] w-[60px] rounded-full bg-[#080b12]" />
+        <div className="absolute -inset-4 rounded-full border border-white/[0.06]" />
       </div>
 
-      <div className="relative mx-auto flex max-w-[1120px] flex-wrap items-center gap-14">
-        <div className="min-w-[min(300px,100%)] flex-[1.1] sm:min-w-[min(340px,100%)]">
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(90px,18vw,250px)] font-semibold leading-none tracking-[-0.07em] text-white/[0.018]"
+      >
+        AFTER DARK
+      </div>
+
+      <div className="relative mx-auto grid max-w-[1180px] items-center gap-16 lg:grid-cols-[1.08fr_.92fr] lg:gap-20">
+        <div>
           <Reveal>
-            <div className="time-label text-blue-soft">{data.label}</div>
+            <div className="section-kicker text-blue-soft">{data.label}</div>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="mt-3.5 text-[clamp(38px,4.6vw,60px)] font-semibold leading-tight tracking-[-0.03em] text-text [text-wrap:balance]">
+            <h2 className="mt-5 max-w-[690px] text-[clamp(44px,5.7vw,78px)] font-semibold leading-[0.98] tracking-[-0.055em] text-text [text-wrap:balance]">
               {data.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-4 max-w-[480px] text-base leading-[1.6] text-text/[0.62] [text-wrap:pretty]">
+            <p className="mt-6 max-w-[520px] text-[15.5px] leading-[1.7] text-text/[0.55] [text-wrap:pretty]">
               {data.pitch}
             </p>
           </Reveal>
           <Reveal delay={0.15}>
-            <div className="mt-[30px] flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-2.5">
               <BookCallButton label={data.ctaLabel} />
               <EmailPill />
             </div>
@@ -171,7 +179,7 @@ export function Contact({ data }: { data: ContactSection }) {
       </div>
 
       {/* Footer bar */}
-      <div className="relative mx-auto mt-[90px] flex max-w-[1120px] flex-wrap items-center justify-between gap-3 border-t border-text/[0.1] pb-[30px] pt-[26px] text-[12.5px] text-text/45">
+      <div className="relative mx-auto mt-[100px] flex max-w-[1180px] flex-wrap items-center justify-between gap-4 border-t border-text/[0.09] pb-[32px] pt-[24px] text-[11.5px] text-text/38">
         <span>{data.footerCopyright}</span>
         <span className="flex gap-5">
           <a

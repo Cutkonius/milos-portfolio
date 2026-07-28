@@ -24,8 +24,16 @@ export async function generateMetadata(): Promise<Metadata> {
       description: site.ogDescription,
       siteName: site.siteName,
       type: "website",
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: `${site.siteName} — built in daylight, sold after dark`,
+        },
+      ],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: { card: "summary_large_image", images: ["/og.png"] },
     // Keep the site out of the index until it is launched from the CMS.
     robots: site.launched ? undefined : { index: false, follow: false },
   };

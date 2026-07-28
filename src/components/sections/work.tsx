@@ -9,10 +9,10 @@ import type { Project, WorkSection } from "@/lib/cms/types";
 
 function RedactedCard({ p }: { p: Project }) {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 rounded-[18px] border border-white/[0.11] bg-white/[0.035] p-7">
+    <div className="surface-card group flex h-full min-h-[280px] flex-col justify-end gap-2 overflow-hidden rounded-[24px] p-7 transition-transform duration-500 hover:-translate-y-1">
       <div className="time-label text-text/45">{p.label}</div>
       <div className="text-[22px] font-semibold text-text/85">{p.cardTitle}</div>
-      <div aria-hidden="true" className="mt-1 flex flex-col gap-[7px]">
+      <div aria-hidden="true" className="my-2 flex flex-col gap-[7px] opacity-80 transition-opacity duration-500 group-hover:opacity-100">
         <div className="h-[11px] w-[82%] rounded-md bg-text/[0.22] blur-[4px]" />
         <div className="h-[11px] w-[64%] rounded-md bg-text/[0.18] blur-[4px]" />
         <div className="h-[11px] w-[73%] rounded-md bg-text/[0.14] blur-[4px]" />
@@ -24,7 +24,7 @@ function RedactedCard({ p }: { p: Project }) {
 
 function ReservedCard({ p }: { p: Project }) {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 rounded-[18px] border border-dashed border-text/[0.22] p-7">
+    <div className="group flex h-full min-h-[280px] flex-col justify-end gap-2 rounded-[24px] border border-dashed border-text/[0.22] bg-[radial-gradient(350px_220px_at_100%_0%,rgba(113,157,255,.08),transparent_72%)] p-7 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-blue/45">
       <div className="time-label text-text/45">{p.label}</div>
       <div className="text-[22px] font-semibold text-text/85">{p.cardTitle}</div>
       <p className="text-sm leading-[1.55] text-text/55 [text-wrap:pretty]">{p.blurb}</p>
@@ -38,14 +38,14 @@ function ReservedCard({ p }: { p: Project }) {
 /** A secondary case study rendered as a compact image + caption card. */
 function CaseCard({ p }: { p: Project }) {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-[18px] border border-white/[0.11] bg-white/[0.04]">
+    <div className="surface-card flex h-full flex-col overflow-hidden rounded-[24px]">
       {p.screenshot && (
-        <div className="relative h-[220px]">
+        <div className="relative h-[240px] overflow-hidden">
           <MediaImage
             image={p.screenshot}
             fill
             sizes="(min-width: 768px) 40vw, 100vw"
-            className="object-cover object-top"
+            className="object-cover object-top transition-transform duration-700 hover:scale-[1.025]"
           />
         </div>
       )}
@@ -80,13 +80,13 @@ export function Work({ data }: { data: WorkSection }) {
       key: `${featured.id}-product`,
       wrap: wide,
       node: (
-        <div className="h-full overflow-hidden rounded-[18px] border border-white/[0.11] bg-white/[0.04]">
-          <div className="relative h-[280px]">
+        <div className="surface-card group h-full overflow-hidden rounded-[24px]">
+          <div className="relative h-[280px] sm:h-[310px]">
             <MediaImage
               image={featured.productShot}
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover object-top"
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.025]"
             />
           </div>
         </div>
@@ -103,36 +103,46 @@ export function Work({ data }: { data: WorkSection }) {
   return (
     <section
       id="work"
-      className="relative scroll-mt-16 bg-[linear-gradient(180deg,#0d1017_0%,#10141f_100%)] px-6 pb-[120px] pt-[130px] md:px-12"
+      className="premium-section relative scroll-mt-24 overflow-hidden bg-[radial-gradient(950px_520px_at_86%_5%,rgba(113,157,255,.1),transparent_68%),linear-gradient(180deg,#0b0e16_0%,#0d111b_100%)] px-5 pb-[110px] pt-[120px] sm:px-8 sm:pb-[140px] sm:pt-[150px] lg:px-12"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(760px_420px_at_82%_0%,rgba(91,140,255,0.09),transparent_70%)]"
+        className="pointer-events-none absolute -right-[12%] top-[8%] h-[520px] w-[520px] rounded-full border border-white/[0.035]"
       />
-      <div className="relative mx-auto max-w-[1120px]">
+      <div className="relative mx-auto max-w-[1180px]">
         <Reveal>
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <div className="time-label text-amber-soft">{data.label}</div>
-            <div className="text-[13px] text-text/50">{data.sublabel}</div>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="section-kicker text-amber-soft">{data.label}</div>
+            <div className="rounded-full border border-white/[0.1] bg-white/[0.035] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-text/42">
+              {data.sublabel}
+            </div>
           </div>
         </Reveal>
 
         {featured && (
           <>
             <Reveal delay={0.05}>
-              <div className="mt-3.5 flex flex-wrap items-baseline gap-[18px]">
-                <h2 className="text-[44px] font-semibold tracking-[-0.025em] text-text sm:text-6xl">
+              <div className="mt-8 flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-soft/65">
+                    Featured build · 01
+                  </div>
+                  <h2 className="text-[clamp(48px,7vw,90px)] font-semibold leading-none tracking-[-0.055em] text-text">
                   {featured.title}
-                </h2>
+                  </h2>
+                </div>
                 {featured.statusLink && (
-                  <span className="text-sm font-medium text-blue-soft">{featured.statusLink}</span>
+                  <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-blue/20 bg-blue/[0.07] px-3 py-1.5 text-[11px] font-medium text-blue-soft">
+                    <span className="h-1.5 w-1.5 rounded-full bg-blue shadow-[0_0_9px_rgba(113,157,255,.8)]" />
+                    {featured.statusLink}
+                  </span>
                 )}
               </div>
             </Reveal>
 
             {featured.description && (
               <Reveal delay={0.1}>
-                <p className="mt-3.5 max-w-[620px] text-base leading-[1.6] text-text/65 [text-wrap:pretty]">
+                <p className="mt-5 max-w-[670px] text-[15.5px] leading-[1.7] text-text/58 [text-wrap:pretty] sm:text-[17px]">
                   {featured.description}
                 </p>
               </Reveal>
@@ -151,16 +161,16 @@ export function Work({ data }: { data: WorkSection }) {
 
             {featured.screenshot && (
               <Reveal delay={0.12}>
-                <div className="mt-9 overflow-hidden rounded-[22px] border border-white/[0.11] bg-white/[0.04] shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-                  <div className="flex items-center gap-2 border-b border-white/[0.09] px-[18px] py-3">
+                <div className="surface-card mt-10 overflow-hidden rounded-[26px] shadow-[0_36px_110px_rgba(0,0,0,0.42)] sm:rounded-[30px]">
+                  <div className="flex items-center gap-2 border-b border-white/[0.08] bg-white/[0.018] px-4 py-3.5 sm:px-5">
                     <span aria-hidden="true" className="h-[9px] w-[9px] rounded-full bg-white/[0.22]" />
                     <span aria-hidden="true" className="h-[9px] w-[9px] rounded-full bg-white/[0.22]" />
-                    <span className="flex-1 text-center text-[11.5px] font-medium tracking-[0.06em] text-text/55">
+                    <span className="mx-auto rounded-full border border-white/[0.08] bg-black/20 px-5 py-1.5 text-center text-[10.5px] font-medium tracking-[0.06em] text-text/48">
                       {featured.urlBar}
                     </span>
                     <span className="text-[11px] font-semibold text-blue-soft">{featured.badge}</span>
                   </div>
-                  <div className="relative h-[320px] sm:h-[540px]">
+                  <div className="relative h-[290px] overflow-hidden sm:h-[560px]">
                     <MediaImage
                       image={featured.screenshot}
                       fill
@@ -175,7 +185,7 @@ export function Work({ data }: { data: WorkSection }) {
         )}
 
         {cards.length > 0 && (
-          <div className="mt-5 flex flex-wrap gap-5">
+          <div className="mt-4 flex flex-wrap gap-4 sm:mt-5 sm:gap-5">
             {cards.map((c, i) => (
               <Reveal key={c.key} delay={0.05 + i * 0.05} className={c.wrap}>
                 {c.node}
