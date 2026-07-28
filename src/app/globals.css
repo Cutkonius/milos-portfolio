@@ -157,6 +157,12 @@ input::placeholder {
   outline-offset: -3px;
 }
 
+.nav-shell .ink-action {
+  margin: 3px;
+  border-radius: 14px;
+  clip-path: none;
+}
+
 .ink-action::before {
   position: absolute;
   inset: 0;

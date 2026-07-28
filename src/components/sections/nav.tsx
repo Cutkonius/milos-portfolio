@@ -133,9 +133,8 @@ export function Nav({ data }: { data: NavData }) {
           color: menuOpen ? "#eeeae1" : "var(--nav-ink)",
           background: menuOpen ? "#070910" : "var(--nav-bg)",
           borderColor: menuOpen ? "rgba(238,234,225,.18)" : "var(--nav-line)",
-          clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
         }}
-        className="pointer-events-auto relative inline-flex h-[50px] w-max max-w-[calc(100vw-2rem)] items-stretch border shadow-[0_10px_36px_rgba(4,7,12,.12)] backdrop-blur-xl transition-[color,background-color,border-color] duration-500 sm:h-[52px]"
+        className="nav-shell pointer-events-auto relative inline-flex h-[50px] w-max max-w-[calc(100vw-2rem)] items-stretch overflow-hidden rounded-[18px] border shadow-[0_10px_36px_rgba(4,7,12,.12)] backdrop-blur-xl transition-[color,background-color,border-color] duration-500 sm:h-[52px]"
       >
         <nav aria-label="Main" className="flex min-w-0 items-stretch">
           <div className="hidden items-stretch lg:flex">
@@ -241,7 +240,7 @@ export function Nav({ data }: { data: NavData }) {
               </div>
 
               <p className="mt-auto max-w-[280px] pt-8 text-[12px] leading-relaxed text-text/52">
-                Built for clarity. Useful after launch.
+                Built in daylight. Sold after dark.
               </p>
             </div>
           </motion.div>

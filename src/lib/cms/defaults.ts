@@ -8,7 +8,7 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 3,
+  version: 4,
 
   site: {
     metaTitle: "Miloš Novaković | Websites that make the next step obvious",
@@ -42,14 +42,14 @@ export const DEFAULT_CONTENT: ContentDoc = {
       label: "Independent strategy / design / development",
       title: "Built in daylight.",
       body:
-        "I turn complex offers into clear websites that help the right buyer understand the value, trust the choice and take the next step. Strategy, UI/UX and development stay with one person from first decision to launch.",
+        "I turn complex offers into clear websites, carrying strategy, UI/UX and development from the first decision to launch.",
     },
     night: {
-      title: "Useful after launch.",
+      title: "Sold after dark.",
       body:
-        "After launch, search foundations, lifecycle email and focused iteration keep reducing friction between interest and action.",
+        "When the lights go out, the website keeps working: clarifying the value, answering hesitation and guiding the right people toward action.",
     },
-    sunHint: "See the full system",
+    sunHint: "Enter the night shift",
     cornerLeft: "Miloš Novaković / Strategy / UI/UX / Development",
     openForProjectsLabel: "Now accepting",
   },
@@ -264,7 +264,7 @@ export const DEFAULT_CONTENT: ContentDoc = {
     nightTotal: 3,
     nightTotalMeta: "connected decision points",
     ctaLabel: "Book a 15-minute fit call",
-    footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Useful after launch.",
+    footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Sold after dark.",
     footerEmail: EMAIL,
     footerLockLabel: "Lock up behind you",
   },

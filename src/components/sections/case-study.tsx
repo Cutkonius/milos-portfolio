@@ -174,7 +174,7 @@ export function CaseStudyView({
         </div>
 
         <div className="mt-14 border-t border-white/[0.1] pt-6 text-[12.5px] text-text/45">
-          © 2026 {site.siteName} / Built in daylight. Useful after launch.
+          © 2026 {site.siteName} / Built in daylight. Sold after dark.
         </div>
       </main>
     </div>

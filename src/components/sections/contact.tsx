@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Reveal } from "@/components/ui/reveal";
-import canvasFragments from "@/images/canvas-fragments-v2.webp";
 import type { ContactSection, Receipt } from "@/lib/cms/types";
 
 function OvernightLedger({
@@ -111,13 +109,20 @@ export function Contact({ data }: { data: ContactSection }) {
       id="contact"
       className="editorial-section relative overflow-hidden bg-[#05080d] px-5 pb-0 pt-[115px] sm:px-8 sm:pt-[155px] lg:px-12"
     >
-      <Image
-        src={canvasFragments}
-        alt=""
-        fill
-        sizes="(min-width: 1280px) 1600px, 100vw"
-        className="pointer-events-none object-cover object-center opacity-[0.13] mix-blend-screen"
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span className="absolute bottom-0 left-[8%] top-0 border-l border-blue-soft/[0.07]" />
+        <span className="absolute bottom-0 right-[18%] top-0 border-l border-blue-soft/[0.07]" />
+        <span
+          className="absolute -right-[0.18em] top-[0.06em] text-[clamp(74px,10vw,150px)] font-semibold uppercase leading-none tracking-[-0.055em]"
+          style={{
+            color: "transparent",
+            WebkitTextStroke: "1px rgba(173,191,235,.1)",
+            writingMode: "vertical-rl",
+          }}
+        >
+          After dark
+        </span>
+      </div>
 
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal>

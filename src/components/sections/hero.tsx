@@ -146,13 +146,13 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             )}
           </div>
 
-          <div className="my-auto max-w-[930px] pb-6 sm:pb-10">
-            <h1 className="display-heading max-w-[900px] text-[clamp(52px,9vw,132px)]">
+          <div className="my-auto flex w-full flex-col items-center pb-6 text-center sm:pb-10">
+            <h1 className="display-heading mx-auto max-w-[1080px] text-[clamp(52px,9vw,132px)]">
               {data.day.title}
             </h1>
-            <div className="mt-4 grid max-w-[760px] grid-cols-[36px_1fr] gap-3 sm:mt-6 sm:grid-cols-[58px_1fr] sm:gap-5">
-              <span aria-hidden="true" className="mt-[10px] h-px bg-[#121722]/40" />
-              <p className="max-w-[520px] text-[13px] leading-[1.55] text-[#343a43] [text-wrap:pretty] sm:text-[15.5px]">
+            <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
+              <span aria-hidden="true" className="h-px w-12 bg-[#121722]/40 sm:w-16" />
+              <p className="text-[13px] leading-[1.55] text-[#343a43] [text-wrap:pretty] sm:text-[15.5px]">
                 {data.day.body}
               </p>
             </div>
@@ -165,17 +165,17 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
         className="absolute inset-x-0 bottom-0 top-[59%] will-change-transform px-5 pb-5 pt-10 text-text sm:px-8 sm:pb-7 sm:pt-14 lg:px-12"
       >
         <div className="mx-auto flex h-full max-w-[1280px] flex-col">
-          <div className="my-auto max-w-[1040px] lg:ml-[8%]">
-            <h2 className="display-heading max-w-[1000px] text-[clamp(49px,8.7vw,126px)]">
+          <div className="my-auto flex w-full flex-col items-center text-center">
+            <h2 className="display-heading mx-auto max-w-[1100px] text-[clamp(49px,8.7vw,126px)]">
               {data.night.title}
             </h2>
-            <div className="mt-4 grid max-w-[790px] grid-cols-[36px_1fr] gap-3 sm:mt-6 sm:grid-cols-[58px_1fr] sm:gap-5">
-              <span aria-hidden="true" className="mt-[10px] h-px bg-text/38" />
-              <div>
-                <p className="max-w-[530px] text-[12.5px] leading-[1.58] text-text/64 [text-wrap:pretty] sm:text-[15.5px]">
+            <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
+              <span aria-hidden="true" className="h-px w-12 bg-text/38 sm:w-16" />
+              <div className="flex flex-col items-center">
+                <p className="text-[12.5px] leading-[1.58] text-text/64 [text-wrap:pretty] sm:text-[15.5px]">
                   {data.night.body}
                 </p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-6">
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:mt-5">
                   <BookCallButton label="Book a 15-minute fit call" />
                   <EmailPill label="Email Miloš" />
                 </div>
@@ -197,7 +197,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
         <button
           type="button"
           onClick={revealNight}
-          aria-label="See the full system"
+          aria-label="Continue to the night shift"
           className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-300 ease-out hover:scale-[1.06] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.06]"
         >
           <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.16em] text-[#4c4135] sm:-top-9">

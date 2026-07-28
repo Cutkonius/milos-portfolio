@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
-import canvasFragments from "@/images/canvas-fragments-v2.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
@@ -41,15 +39,18 @@ export function Services({ data }: { data: ServicesSection }) {
         <Reveal delay={0.1}>
           <div
             aria-hidden="true"
-            className="relative h-[84px] overflow-hidden border-b border-day-ink/18 sm:h-[118px]"
+            className="overflow-hidden border-b border-day-ink/18 py-5 sm:py-7"
           >
-            <Image
-              src={canvasFragments}
-              alt=""
-              fill
-              sizes="(min-width: 1280px) 1280px, 100vw"
-              className="object-cover"
-            />
+            <div className="flex items-center gap-4 text-[8.5px] font-semibold uppercase tracking-[0.17em] text-day-ink/46 sm:text-[9px]">
+              <span>01 / Message</span>
+              <span className="h-px flex-1 bg-day-ink/20" />
+              <span>03 / System</span>
+            </div>
+            <div className="mt-4 flex items-baseline justify-between gap-3 whitespace-nowrap text-[clamp(29px,5.5vw,74px)] font-semibold leading-none tracking-[-0.065em] sm:mt-6">
+              <span>Clarity</span>
+              <span className="editorial text-[0.62em] text-amber-deep">into</span>
+              <span>Action</span>
+            </div>
           </div>
         </Reveal>
 
