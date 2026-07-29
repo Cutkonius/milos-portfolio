@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
-import emailLoopMachine from "@/images/email-loop-machine-v2.webp";
-import websiteUnzipped from "@/images/website-unzipped-v2.webp";
+import emailDecoNoir from "@/images/email-deco-noir-v3.webp";
+import websiteDecoNoir from "@/images/website-deco-noir-v3.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
@@ -41,8 +41,8 @@ export function Services({ data }: { data: ServicesSection }) {
           <div className="grid grid-cols-2 overflow-hidden border-b border-day-ink/18 lg:grid-cols-[0.52fr_0.28fr_0.20fr]">
             <div className="relative h-[160px] border-b border-r border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0">
               <Image
-                src={websiteUnzipped}
-                alt="A brass zipper opens a blank page into a cobalt paper staircase lit by an amber sun"
+                src={websiteDecoNoir}
+                alt="An Art Deco illustration of a brass zipper opening into a cobalt staircase and amber sun"
                 fill
                 quality={82}
                 sizes="(min-width: 1280px) 665px, (min-width: 1024px) 52vw, 50vw"
@@ -55,12 +55,12 @@ export function Services({ data }: { data: ServicesSection }) {
               className="relative h-[160px] border-b border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0 lg:border-r"
             >
               <Image
-                src={emailLoopMachine}
+                src={emailDecoNoir}
                 alt=""
                 fill
                 quality={82}
                 sizes="(min-width: 1280px) 360px, (min-width: 1024px) 28vw, 50vw"
-                className="object-cover object-center saturate-[.9]"
+                className="object-cover object-center"
               />
             </div>
 

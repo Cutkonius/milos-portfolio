@@ -3,8 +3,8 @@
 import { getImageProps } from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
-import processMarbleRunDesktop from "@/images/process-marble-run-desktop-v2.webp";
-import processMarbleRunMobile from "@/images/process-marble-run-mobile-v2.webp";
+import processDecoNoirDesktop from "@/images/process-deco-noir-desktop-v3.webp";
+import processDecoNoirMobile from "@/images/process-deco-noir-mobile-v3.webp";
 import type { ProcessSection } from "@/lib/cms/types";
 
 export function Process({ data }: { data: ProcessSection }) {
@@ -17,7 +17,7 @@ export function Process({ data }: { data: ProcessSection }) {
     props: { srcSet: desktopSrcSet },
   } = getImageProps({
     ...commonImageProps,
-    src: processMarbleRunDesktop,
+    src: processDecoNoirDesktop,
     width: 3840,
     height: 2160,
   });
@@ -25,7 +25,7 @@ export function Process({ data }: { data: ProcessSection }) {
     props: { srcSet: mobileSrcSet, ...mobileImageProps },
   } = getImageProps({
     ...commonImageProps,
-    src: processMarbleRunMobile,
+    src: processDecoNoirMobile,
     width: 1440,
     height: 2560,
   });
