@@ -38,6 +38,24 @@ function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
   if (!stored) return d;
 
   /*
+   * Version 9 is a focused clarity pass. Preserve every published section
+   * except the hero and process copy that this release intentionally replaces.
+   */
+  if ((stored.version ?? 0) === 8 && d.version === 9) {
+    return {
+      version: d.version,
+      site: mergeSection(d.site, stored.site),
+      nav: mergeSection(d.nav, stored.nav),
+      hero: d.hero,
+      work: mergeSection(d.work, stored.work),
+      services: mergeSection(d.services, stored.services),
+      process: d.process,
+      about: mergeSection(d.about, stored.about),
+      contact: mergeSection(d.contact, stored.contact),
+    };
+  }
+
+  /*
    * Editorial versions replace the public narrative rather than only adding
    * optional fields. Promote older documents to the latest copy while keeping
    * operational settings and media that should remain available in the CMS.

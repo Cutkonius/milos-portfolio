@@ -1,19 +1,12 @@
 "use client";
 
 import { getImageProps } from "next/image";
-import { BookCallButton, EmailPill } from "@/components/book-call";
+import { BookCallButton } from "@/components/book-call";
 import heroDesktop from "@/images/hero-nocturne-desktop-v5.webp";
 import heroMobile from "@/images/hero-nocturne-mobile-v5.webp";
 import type { Hero as HeroData } from "@/lib/cms/types";
 
-const LEGACY_OUTCOME = "Sold after dark.";
-
 export function Hero({ data, open }: { data: HeroData; open: boolean }) {
-  const outcome =
-    data.night.title.trim().toLowerCase() === LEGACY_OUTCOME.toLowerCase()
-      ? "Useful after launch."
-      : data.night.title;
-
   const commonImageProps = {
     alt: "",
     sizes: "100vw",
@@ -40,7 +33,7 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
   return (
     <section
       id="top"
-      className="hero-nocturne relative min-h-[760px] overflow-hidden bg-[#050713] text-text sm:min-h-[820px] lg:h-[100svh] lg:min-h-[800px]"
+      className="hero-nocturne relative min-h-[720px] overflow-hidden bg-[#050713] text-text sm:min-h-[780px] lg:h-[100svh] lg:min-h-[760px]"
     >
       <div aria-hidden="true" className="absolute inset-0">
         <picture>
@@ -52,46 +45,37 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
             className="h-full w-full object-cover object-center"
           />
         </picture>
-        <span className="absolute inset-0 bg-[#050713]/18 sm:bg-[#050713]/10" />
+        <span className="absolute inset-0 bg-[#050713]/32 sm:bg-[#050713]/14" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[760px] max-w-[1440px] flex-col px-5 pb-7 pt-[92px] sm:min-h-[820px] sm:px-8 sm:pb-9 sm:pt-[112px] lg:h-[100svh] lg:min-h-[800px] lg:px-12">
-        <div className="flex items-start justify-between gap-6">
-          <span className="time-label max-w-[260px] text-text/74">{data.day.label}</span>
-          {open && (
-            <span className="time-label max-w-[190px] text-right text-amber">
-              {data.openForProjectsLabel}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-1 items-start pt-[9vh] sm:pt-[11vh] lg:items-center lg:pt-0">
-          <div className="hero-copy mx-auto w-full max-w-[690px] text-center sm:mx-0 lg:-mt-2 lg:max-w-[760px]">
-            <div aria-hidden="true" className="deco-crown mx-auto mb-7 w-[132px] sm:mb-9" />
-            <h1 className="display-heading text-[clamp(54px,8.2vw,120px)] [text-wrap:balance]">
+      <div className="relative mx-auto flex min-h-[720px] max-w-[1440px] flex-col justify-center px-5 pb-12 pt-[104px] sm:min-h-[780px] sm:px-8 sm:pb-16 sm:pt-[120px] lg:h-[100svh] lg:min-h-[760px] lg:px-12">
+        <div className="flex items-center">
+          <div className="hero-copy mx-auto w-full max-w-[720px] text-center lg:mx-0 lg:max-w-[760px] lg:text-left">
+            <h1 className="display-heading text-[clamp(54px,8vw,112px)] [text-wrap:balance]">
               <span className="block text-text">{data.day.title}</span>
-              <span className="mt-[0.12em] block text-amber">{outcome}</span>
+              <span className="mt-[0.12em] block text-amber">{data.night.title}</span>
             </h1>
 
-            <div className="mx-auto mt-7 max-w-[620px] sm:mt-9">
-              <p className="text-[16px] leading-[1.62] text-text/84 [text-wrap:pretty] sm:text-[17px]">
-                {data.day.body}
-              </p>
-              <p className="mx-auto mt-3 max-w-[560px] text-[14px] leading-[1.6] text-blue-soft/88 [text-wrap:pretty] sm:text-[15px]">
-                {data.night.body}
-              </p>
-            </div>
+            <p className="mx-auto mt-7 max-w-[620px] text-[18px] leading-[1.6] text-text/86 [text-wrap:pretty] sm:mt-8 sm:text-[20px] lg:mx-0">
+              {data.day.body}
+            </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 sm:mt-10">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-9 lg:justify-start">
               <BookCallButton label="Book a 15-minute call" />
-              <EmailPill label="Email Miloš" />
+              <a
+                href="#work"
+                className="email-action inline-flex min-h-[54px] items-center px-1 text-[16px] font-semibold text-text/82 transition-colors hover:text-text"
+              >
+                See selected work →
+              </a>
             </div>
-          </div>
-        </div>
 
-        <div className="deco-footer-rail flex items-end justify-between gap-5 pt-5 text-[12px] font-medium uppercase tracking-[0.105em] text-text/72">
-          <span className="max-w-[440px]">{data.cornerLeft}</span>
-          <span className="hidden text-right sm:block">AI-assisted / Experience-led</span>
+            {open && (
+              <p className="mt-5 text-[16px] font-medium text-amber">
+                {data.openForProjectsLabel}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>

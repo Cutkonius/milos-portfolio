@@ -103,7 +103,7 @@ export function Contact({ data }: { data: ContactSection }) {
           <Reveal delay={0.12}>
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-2">
               <BookCallButton label={data.ctaLabel} />
-              <EmailPill label="Prefer email? Write to Miloš" />
+              <EmailPill label="Email me" />
             </div>
           </Reveal>
 

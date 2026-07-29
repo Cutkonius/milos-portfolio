@@ -8,7 +8,7 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 8,
+  version: 9,
 
   site: {
     metaTitle: "Miloš Novaković | Websites and email marketing systems",
@@ -39,19 +39,18 @@ export const DEFAULT_CONTENT: ContentDoc = {
 
   hero: {
     day: {
-      label: "Websites from scratch / Email marketing systems",
-      title: "Built in daylight.",
+      label: "Websites and email marketing",
+      title: "Websites from scratch.",
       body:
-        "I build complete websites from scratch and set up email marketing systems, including the ESP, automated flows and written sequences.",
+        "I plan, design and build complete websites, and set up email platforms, automated flows and written sequences.",
     },
     night: {
-      title: "Useful after launch.",
-      body:
-        "AI helps me research, explore and build faster. Knowledge and experience still guide every decision and the final quality.",
+      title: "Email systems, end to end.",
+      body: "Built in daylight. Useful after launch.",
     },
     sunHint: "Explore the work",
     cornerLeft: "Websites / ESP setup / Flows / Email sequences",
-    openForProjectsLabel: "Now accepting / August",
+    openForProjectsLabel: "Available for August projects",
   },
 
   work: {
@@ -158,8 +157,8 @@ export const DEFAULT_CONTENT: ContentDoc = {
   },
 
   process: {
-    label: "Process / From brief to go-live",
-    heading: "A clear process for websites and email.",
+    label: "How it works",
+    heading: "From first call to launch, in four clear steps.",
     steps: [
       {
         id: "p1",
@@ -167,10 +166,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(245,169,78,0.55)",
         dot: "#f5a94e",
         ring: "rgba(245,169,78,0.16)",
-        title: "Choose the right scope",
+        title: "Define the scope",
         blurb:
-          "We discuss what you sell, who you need to reach and what is already in place. Then we decide whether the project needs a website, email marketing or both.",
-        ctaLabel: "Book a 15-minute call",
+          "We decide whether you need a website, email marketing or both, and agree on the goal.",
       },
       {
         id: "p2",
@@ -178,9 +176,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(238,241,247,0.3)",
         dot: "#d99a5b",
         ring: "rgba(217,154,91,0.14)",
-        title: "Map the work before building",
+        title: "Plan the system",
         blurb:
-          "For a website, I map the pages, message and user paths. For email, I map the ESP setup, segments, flows and sequence goals.",
+          "I map the pages, message and user paths, or the ESP, segments, flows and sequence goals.",
       },
       {
         id: "p3",
@@ -188,9 +186,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(238,241,247,0.3)",
         dot: "#8fabff",
         ring: "rgba(143,171,255,0.14)",
-        title: "Build the website or email system",
+        title: "Build and review",
         blurb:
-          "I build the agreed website, email marketing system or both, then share working versions for review.",
+          "I build the working website or email system and share it early for focused feedback.",
       },
       {
         id: "p4",
@@ -198,9 +196,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "Launch, check and improve",
+        title: "Test and launch",
         blurb:
-          "I test the website or email automation, fix issues and put it live. After launch, real results guide the next improvements.",
+          "I test every critical path, fix the details and launch. Real results guide the next improvements.",
       },
     ],
   },

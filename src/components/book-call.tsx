@@ -12,7 +12,7 @@ function useCalAttrs() {
   };
 }
 
-/** Primary booking CTA: a soft-corner Art Deco control with an inset frame. */
+/** Primary booking CTA: a clear, soft-corner action. */
 export function BookCallButton({
   size = "lg",
   label = "Book a 15-minute call",
@@ -23,8 +23,8 @@ export function BookCallButton({
   const calAttrs = useCalAttrs();
   const sizeClasses =
     size === "lg"
-      ? "min-h-12 gap-5 px-5 py-3 text-[13.5px] sm:px-6 sm:text-[14px]"
-      : "min-h-11 gap-3.5 px-4 py-2.5 text-[12px]";
+      ? "min-h-[54px] gap-5 px-6 py-3 text-[15px] sm:text-[16px]"
+      : "min-h-11 gap-3 px-4 py-2.5 text-[14px]";
 
   return (
     <button
@@ -35,11 +35,11 @@ export function BookCallButton({
       <span className="relative z-10">{label}</span>
       <span
         aria-hidden="true"
-        className={`deco-arrow relative z-10 grid flex-none place-items-center rounded-[8px] border border-current/20 bg-current/[0.07] transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[2px] ${
-          size === "lg" ? "h-7 w-7 text-[14px]" : "h-6 w-6 text-[12px]"
+        className={`relative z-10 grid flex-none place-items-center transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[3px] ${
+          size === "lg" ? "h-6 w-6 text-[20px]" : "h-5 w-5 text-[16px]"
         }`}
       >
-        ↗
+        →
       </span>
     </button>
   );
@@ -65,7 +65,7 @@ export function CalTextLink({
   );
 }
 
-/** Secondary text action. Kept under the legacy export name for CMS consumers. */
+/** Secondary outlined action. Kept under the legacy export name for CMS consumers. */
 export function EmailPill({
   size = "lg",
   label,
@@ -74,14 +74,23 @@ export function EmailPill({
   label?: string;
 }) {
   const { email } = useSiteConfig();
+  const sizeClasses =
+    size === "lg"
+      ? "min-h-[54px] gap-5 px-6 py-3 text-[15px] sm:text-[16px]"
+      : "min-h-11 gap-3 px-4 py-2.5 text-[14px]";
+
   return (
     <a
       href={`mailto:${email}`}
-      className={`email-action inline-flex items-center font-medium text-text/76 transition-colors duration-300 hover:text-text focus-visible:text-text ${
-        size === "lg" ? "px-1 py-[12px] text-[13.5px]" : "px-1 py-2 text-[12px]"
-      }`}
+      className={`outline-action group inline-flex items-center justify-between font-semibold ${sizeClasses}`}
     >
-      {label ?? email}
+      <span>{label ?? email}</span>
+      <span
+        aria-hidden="true"
+        className="grid h-5 w-5 place-items-center text-[16px] transition-transform duration-300 group-hover:translate-x-[3px]"
+      >
+        →
+      </span>
     </a>
   );
 }
