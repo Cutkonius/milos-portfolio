@@ -33,7 +33,7 @@ export function Process({ data }: { data: ProcessSection }) {
   return (
     <section
       id="process"
-      className="editorial-section scroll-mt-20 overflow-visible bg-[#0d131e] px-5 py-[110px] sm:px-8 sm:py-[150px] lg:px-12"
+      className="editorial-section deco-section scroll-mt-20 overflow-visible bg-[#080d1b] px-5 py-[110px] sm:px-8 sm:py-[150px] lg:px-12"
     >
       <div
         aria-hidden="true"
@@ -45,10 +45,10 @@ export function Process({ data }: { data: ProcessSection }) {
             {...mobileImageProps}
             srcSet={mobileSrcSet}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[64%_center] opacity-[0.48] saturate-[.9] sm:object-[72%_center]"
+            className="absolute inset-0 h-full w-full object-cover object-[64%_center] opacity-[0.36] saturate-[.92] sm:object-[72%_center]"
           />
         </picture>
-        <span className="absolute inset-0 bg-[#0d131e]/60" />
+        <span className="absolute inset-0 bg-[#080d1b]/68" />
       </div>
 
       <div className="relative mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[0.43fr_0.57fr] lg:gap-20">
@@ -58,7 +58,7 @@ export function Process({ data }: { data: ProcessSection }) {
               <div className="section-kicker text-blue-soft">{data.label}</div>
             </Reveal>
             <Reveal delay={0.04}>
-              <h2 className="mt-7 max-w-[600px] text-[clamp(48px,6.4vw,88px)] font-semibold leading-[0.92] tracking-[-0.064em] text-text [text-wrap:balance]">
+              <h2 className="mt-7 max-w-[600px] text-[clamp(48px,6.4vw,88px)] font-semibold leading-[0.95] tracking-[-0.038em] text-text [text-wrap:balance]">
                 {data.heading}
               </h2>
             </Reveal>
@@ -71,28 +71,28 @@ export function Process({ data }: { data: ProcessSection }) {
           </div>
         </div>
 
-        <div className="border-b border-text/16">
+        <div className="process-rail border-b border-text/16 pl-7 sm:pl-10">
           {data.steps.map((step, index) => (
             <Reveal key={step.id} delay={index * 0.035}>
-              <article className="group relative flex min-h-[360px] flex-col overflow-hidden border-t border-text/16 py-8 transition-[background-color,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] hover:bg-[#111a29] hover:px-5 focus-within:bg-[#111a29] focus-within:px-5 sm:min-h-[410px] sm:py-10">
+              <article className="group relative flex min-h-[330px] flex-col overflow-hidden border-t border-text/16 py-8 sm:min-h-[380px] sm:py-10">
                 <div className="flex items-start justify-between gap-6">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text/64">
+                  <span className="text-[12px] font-semibold uppercase tracking-[0.09em] text-amber transition-transform duration-500 group-hover:translate-x-1">
                     0{index + 1}
                   </span>
-                  <span className="text-right text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-soft/88">
+                  <span className="text-right text-[12px] font-semibold uppercase tracking-[0.09em] text-blue-soft/88">
                     {step.label}
                   </span>
                 </div>
 
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-2 top-[22%] text-[clamp(76px,12vw,176px)] font-semibold leading-none tracking-[-0.075em] text-text/[0.035] transition-[color,transform] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-x-3 group-hover:text-blue/[0.12] group-focus-within:-translate-x-3 group-focus-within:text-blue/[0.12]"
+                  className="pointer-events-none absolute -right-2 top-[24%] text-[clamp(68px,10vw,142px)] font-semibold uppercase leading-none tracking-[0.01em] text-text/[0.035] transition-[color,transform] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-x-1 group-hover:text-blue/[0.12] group-focus-within:-translate-x-1 group-focus-within:text-blue/[0.12]"
                 >
                   {step.label}
                 </span>
 
-                <div className="relative mt-auto max-w-[560px] pt-24">
-                  <h3 className="text-[clamp(30px,4.2vw,56px)] font-semibold leading-[0.98] tracking-[-0.052em] text-text">
+                <div className="relative mt-auto max-w-[560px] pt-20 transition-transform duration-500 group-hover:translate-x-1 group-focus-within:translate-x-1">
+                  <h3 className="text-[clamp(30px,4.2vw,56px)] font-semibold leading-[1.02] tracking-[-0.03em] text-text">
                     {step.title}
                   </h3>
                   <p className="mt-5 max-w-[520px] text-[15px] leading-[1.68] text-text/74 [text-wrap:pretty] sm:text-[16px]">

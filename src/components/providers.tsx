@@ -11,11 +11,11 @@ function useLenis() {
     const lenis = reduced
       ? null
       : new Lenis({
-          duration: 0.95,
+          duration: 0.82,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           anchors: true,
           smoothWheel: true,
-          wheelMultiplier: 0.9,
+          wheelMultiplier: 1,
         });
     let raf = 0;
     const loop = (time: number) => {

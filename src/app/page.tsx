@@ -20,7 +20,7 @@ export default async function Home() {
     <Providers>
       <SiteConfigProvider calLink={content.site.calLink} email={content.site.email}>
         <JsonLd data={personSchema(content.site, base)} />
-        <div className="relative">
+        <div className="nocturne-site relative">
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:bg-amber focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#1c1206]"

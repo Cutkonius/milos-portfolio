@@ -12,7 +12,7 @@ function useCalAttrs() {
   };
 }
 
-/** Primary booking CTA: a soft-corner editorial control with an ink-wipe hover. */
+/** Primary booking CTA: a soft-corner Art Deco control with an inset frame. */
 export function BookCallButton({
   size = "lg",
   label = "Book a 15-minute call",
@@ -35,7 +35,7 @@ export function BookCallButton({
       <span className="relative z-10">{label}</span>
       <span
         aria-hidden="true"
-        className={`relative z-10 grid flex-none place-items-center rounded-full border border-current/15 bg-current/[0.06] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[2px] ${
+        className={`deco-arrow relative z-10 grid flex-none place-items-center rounded-[8px] border border-current/20 bg-current/[0.07] transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[2px] ${
           size === "lg" ? "h-7 w-7 text-[14px]" : "h-6 w-6 text-[12px]"
         }`}
       >

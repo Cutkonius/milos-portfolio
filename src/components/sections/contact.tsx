@@ -1,104 +1,44 @@
 "use client";
 
 import { getImageProps } from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion, useInView, useReducedMotion } from "motion/react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
 import { Reveal } from "@/components/ui/reveal";
-import afterDarkArchitecture from "@/images/after-dark-architecture-v1.webp";
-import afterDarkArchitectureMobile from "@/images/after-dark-architecture-mobile-v1.webp";
+import contactDesktop from "@/images/contact-nocturne-desktop-v5.webp";
+import contactMobile from "@/images/contact-nocturne-mobile-v5.webp";
 import type { ContactSection, Receipt } from "@/lib/cms/types";
 
-function OvernightLedger({
-  receipts,
-  note,
-  target,
-  totalMeta,
-}: {
-  receipts: Receipt[];
-  note: string;
-  target: number;
-  totalMeta: string;
-}) {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(wrapRef, { once: true, amount: 0.3 });
-  const reduced = useReducedMotion();
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let raf = 0;
-    if (reduced) {
-      const timer = window.setTimeout(() => setTotal(target), 0);
-      return () => window.clearTimeout(timer);
-    }
-
-    const startedAt = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - startedAt) / 1300);
-      setTotal(Math.round(target * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, reduced, target]);
-
+function WaysToWork({ receipts, note }: { receipts: Receipt[]; note: string }) {
   return (
-    <div ref={wrapRef} className="w-full lg:ml-auto">
-      <div className="flex flex-col items-start gap-3 border-b border-text/18 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
-        <span className="time-label max-w-[250px] text-text/70">
-          What I can build for you
-        </span>
-        <span className="max-w-[300px] text-[11px] leading-[1.5] text-text/64 sm:text-right">
+    <div className="mt-14 w-full max-w-[760px] sm:mt-16">
+      <div className="flex flex-col items-start gap-3 border-b border-amber/34 pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
+        <span className="time-label text-text/76">Two ways to work together</span>
+        <span className="max-w-[300px] text-[12px] leading-[1.5] text-text/72 sm:text-right">
           {note}
         </span>
       </div>
 
-      <div>
+      <div className="border-b border-text/18">
         {receipts.map((receipt, index) => (
-          <motion.div
-            key={receipt.id}
-            initial={false}
-            animate={{
-              opacity: inView ? 1 : 0,
-              x: reduced ? 0 : inView ? 0 : 14,
-            }}
-            transition={{
-              duration: reduced ? 0 : 0.66,
-              delay: inView ? index * 0.09 : 0,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            style={{ opacity: 0, x: reduced ? 0 : 14 }}
-            className="grid grid-cols-[38px_1fr] gap-x-3 border-b border-text/14 py-5 sm:grid-cols-[44px_1fr_auto] sm:items-center"
-          >
-            <span className="text-[11px] font-semibold tracking-[0.12em] text-blue-soft/76">
-              0{index + 1}
-            </span>
-            <span className="text-[15px] font-medium leading-snug text-text/88">
-              {receipt.title}
-            </span>
-            <span className="col-start-2 mt-1 text-[12.5px] text-text/66 sm:col-auto sm:mt-0 sm:text-right">
-              {receipt.meta}
-            </span>
-          </motion.div>
+          <Reveal key={receipt.id} delay={index * 0.05}>
+            <div className="group grid grid-cols-[48px_1fr] gap-x-4 border-t border-text/16 py-6 first:border-t-0 sm:grid-cols-[58px_1fr_0.75fr] sm:items-center sm:gap-x-6">
+              <span className="text-[13px] font-semibold tracking-[0.09em] text-amber transition-transform duration-500 group-hover:translate-x-1">
+                0{index + 1}
+              </span>
+              <span className="text-[16px] font-medium leading-snug text-text/92">
+                {receipt.title}
+              </span>
+              <span className="col-start-2 mt-2 text-[13px] leading-[1.5] text-blue-soft/82 sm:col-auto sm:mt-0 sm:text-right">
+                {receipt.meta}
+              </span>
+            </div>
+          </Reveal>
         ))}
-      </div>
-
-      <div className="grid items-end gap-4 border-b border-text/18 py-7 sm:grid-cols-[1fr_auto]">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text/64">
-          Total / {totalMeta}
-        </span>
-        <span className="text-[clamp(62px,9vw,112px)] font-semibold leading-[0.78] tracking-[-0.07em] text-amber tabular-nums">
-          {String(total).padStart(2, "0")}
-        </span>
       </div>
     </div>
   );
 }
 
 export function Contact({ data }: { data: ContactSection }) {
-  const router = useRouter();
   const commonImageProps = {
     alt: "",
     sizes: "100vw",
@@ -108,7 +48,7 @@ export function Contact({ data }: { data: ContactSection }) {
     props: { srcSet: desktopSrcSet },
   } = getImageProps({
     ...commonImageProps,
-    src: afterDarkArchitecture,
+    src: contactDesktop,
     width: 3840,
     height: 2160,
   });
@@ -116,22 +56,20 @@ export function Contact({ data }: { data: ContactSection }) {
     props: { srcSet: mobileSrcSet, ...mobileImageProps },
   } = getImageProps({
     ...commonImageProps,
-    src: afterDarkArchitectureMobile,
+    src: contactMobile,
     width: 1440,
     height: 2560,
   });
 
-  async function lockUp(event: React.MouseEvent) {
-    event.preventDefault();
-    await fetch("/api/logout", { method: "POST" });
-    router.replace("/vault");
-    router.refresh();
-  }
+  const copyright = data.footerCopyright.replace(
+    "Sold after dark.",
+    "Useful after launch."
+  );
 
   return (
     <section
       id="contact"
-      className="editorial-section relative overflow-hidden bg-[#05080d] px-5 pb-0 pt-[115px] sm:px-8 sm:pt-[155px] lg:px-12"
+      className="editorial-section deco-section relative min-h-[940px] overflow-hidden bg-[#050713] px-5 pb-0 pt-[115px] sm:min-h-[980px] sm:px-8 sm:pt-[155px] lg:px-12"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <picture>
@@ -140,71 +78,53 @@ export function Contact({ data }: { data: ContactSection }) {
             {...mobileImageProps}
             srcSet={mobileSrcSet}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-55 saturate-[.82]"
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
           />
         </picture>
-        <span className="absolute inset-0 bg-[#05080d]/45" />
-        <span
-          className="absolute -right-[0.18em] top-[0.06em] text-[clamp(74px,10vw,150px)] font-semibold uppercase leading-none tracking-[-0.055em]"
-          style={{
-            color: "transparent",
-            WebkitTextStroke: "1px rgba(173,191,235,.1)",
-            writingMode: "vertical-rl",
-          }}
-        >
-          After dark
-        </span>
+        <span className="absolute inset-0 bg-[#050713]/48 sm:bg-[#050713]/30" />
       </div>
 
-      <div className="relative mx-auto max-w-[1280px]">
-        <Reveal>
-          <div className="section-kicker text-blue-soft">{data.label}</div>
-        </Reveal>
+      <div className="relative mx-auto flex min-h-[825px] max-w-[1280px] flex-col sm:min-h-[825px]">
+        <div className="max-w-[720px]">
+          <Reveal>
+            <div className="section-kicker text-blue-soft">{data.label}</div>
+          </Reveal>
 
-        <div className="mt-7 grid items-start gap-16 lg:grid-cols-[1.02fr_.98fr] lg:gap-20">
-          <div>
-            <Reveal delay={0.04}>
-              <h2 className="max-w-[720px] text-[clamp(50px,7.2vw,102px)] font-semibold leading-[0.9] tracking-[-0.068em] text-text [text-wrap:balance]">
-                {data.heading}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <p className="mt-7 max-w-[580px] text-[16px] leading-[1.72] text-text/74 [text-wrap:pretty] sm:text-[17px]">
-                {data.pitch}
-              </p>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-2">
-                <BookCallButton label={data.ctaLabel} />
-                <EmailPill label="Prefer email? Write to Miloš" />
-              </div>
-            </Reveal>
-          </div>
+          <Reveal delay={0.04}>
+            <h2 className="mt-7 max-w-[700px] text-[clamp(50px,7.2vw,100px)] font-semibold leading-[0.94] tracking-[-0.038em] text-text [text-wrap:balance]">
+              {data.heading}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="mt-7 max-w-[610px] text-[16px] leading-[1.68] text-text/82 [text-wrap:pretty] sm:text-[17px]">
+              {data.pitch}
+            </p>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-2">
+              <BookCallButton label={data.ctaLabel} />
+              <EmailPill label="Prefer email? Write to Miloš" />
+            </div>
+          </Reveal>
 
-          <OvernightLedger
-            receipts={data.receipts}
-            note={data.receiptsNote}
-            target={data.nightTotal}
-            totalMeta={data.nightTotalMeta}
-          />
+          <WaysToWork receipts={data.receipts} note={data.receiptsNote} />
         </div>
 
-        <div className="mt-[110px] border-t border-text/16 pb-[34px] pt-[24px] text-[12px] text-text/62 sm:mt-[150px]">
+        <div className="mt-auto border-t border-text/18 pb-[34px] pt-[24px] text-[12.5px] text-text/72">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <span>{data.footerCopyright}</span>
+            <span>{copyright}</span>
             <span className="flex gap-6">
               <a
                 href={`mailto:${data.footerEmail}`}
-                className="email-action text-text/64 transition-colors hover:text-text"
+                className="email-action text-text/74 transition-colors hover:text-text"
               >
                 {data.footerEmail}
               </a>
               <a
-                href="#top"
-                onClick={lockUp}
-                className="email-action text-text/64 transition-colors hover:text-text"
+                href="/vault"
+                className="email-action text-text/74 transition-colors hover:text-text"
               >
-                {data.footerLockLabel}
+                Client login
               </a>
             </span>
           </div>

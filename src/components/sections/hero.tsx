@@ -1,17 +1,18 @@
 "use client";
 
 import { getImageProps } from "next/image";
-import { useEffect, useRef } from "react";
 import { BookCallButton, EmailPill } from "@/components/book-call";
-import heroDesktop from "@/images/hero-canvas-desktop-v2.webp";
-import heroMobile from "@/images/hero-canvas-mobile-v2.webp";
+import heroDesktop from "@/images/hero-nocturne-desktop-v5.webp";
+import heroMobile from "@/images/hero-nocturne-mobile-v5.webp";
 import type { Hero as HeroData } from "@/lib/cms/types";
 
+const LEGACY_OUTCOME = "Sold after dark.";
+
 export function Hero({ data, open }: { data: HeroData; open: boolean }) {
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const dayRef = useRef<HTMLDivElement>(null);
-  const nightRef = useRef<HTMLDivElement>(null);
-  const sunMotionRef = useRef<HTMLDivElement>(null);
+  const outcome =
+    data.night.title.trim().toLowerCase() === LEGACY_OUTCOME.toLowerCase()
+      ? "Useful after launch."
+      : data.night.title;
 
   const commonImageProps = {
     alt: "",
@@ -36,156 +37,62 @@ export function Hero({ data, open }: { data: HeroData; open: boolean }) {
     height: 2560,
   });
 
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-
-    let raf = 0;
-    let previousProgress = -1;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const y = window.scrollY;
-        const vh = window.innerHeight;
-        if (y > vh * 1.35) {
-          if (sunMotionRef.current) {
-            sunMotionRef.current.style.visibility = "hidden";
-            sunMotionRef.current.style.pointerEvents = "none";
-          }
-          return;
-        }
-        const progress = Math.min(1.15, Math.max(0, y / vh));
-        if (Math.abs(progress - previousProgress) < 0.001) return;
-        previousProgress = progress;
-
-        if (canvasRef.current) {
-          canvasRef.current.style.transform = `translate3d(0, ${progress * 14}px, 0) scale(1.035)`;
-        }
-        if (dayRef.current) {
-          dayRef.current.style.transform = `translate3d(0, ${progress * -24}px, 0)`;
-        }
-        if (nightRef.current) {
-          nightRef.current.style.transform = `translate3d(0, ${progress * -12}px, 0)`;
-        }
-        if (sunMotionRef.current) {
-          sunMotionRef.current.style.transform = `translate3d(0, ${progress * 116}px, 0)`;
-          sunMotionRef.current.style.opacity = String(Math.max(0, 1 - progress * 1.55));
-          sunMotionRef.current.style.visibility = progress >= 0.66 ? "hidden" : "visible";
-          sunMotionRef.current.style.pointerEvents = progress >= 0.66 ? "none" : "auto";
-        }
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const revealNight = () => {
-    window.dispatchEvent(
-      new CustomEvent<number>("portfolio:scroll-to", {
-        detail: window.innerHeight * 0.48,
-      })
-    );
-  };
-
   return (
     <section
       id="top"
-      className="relative h-[100svh] min-h-[680px] overflow-hidden bg-[#e4ddd4] sm:min-h-[760px] lg:min-h-[820px]"
+      className="hero-nocturne relative min-h-[760px] overflow-hidden bg-[#050713] text-text sm:min-h-[820px] lg:h-[100svh] lg:min-h-[800px]"
     >
-      <div
-        ref={canvasRef}
-        aria-hidden="true"
-        className="absolute -inset-[2.5%] will-change-transform"
-      >
+      <div aria-hidden="true" className="absolute inset-0">
         <picture>
           <source media="(min-width: 640px)" srcSet={desktopSrcSet} />
           <img
             {...mobileImageProps}
             srcSet={mobileSrcSet}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center"
           />
         </picture>
+        <span className="absolute inset-0 bg-[#050713]/18 sm:bg-[#050713]/10" />
       </div>
 
-      <div
-        ref={dayRef}
-        className="absolute inset-x-0 top-0 h-[59%] will-change-transform px-5 pb-10 pt-[92px] text-day-ink sm:px-8 sm:pt-[112px] lg:px-12"
-      >
-        <div className="mx-auto flex h-full max-w-[1280px] flex-col">
-          <div className="flex items-start justify-between gap-5">
-            <span className="time-label max-w-[220px] text-[#4b4b49]">{data.day.label}</span>
-            {open && (
-              <span className="time-label text-right text-[#3f464f]">
-                {data.openForProjectsLabel}
-              </span>
-            )}
-          </div>
+      <div className="relative mx-auto flex min-h-[760px] max-w-[1440px] flex-col px-5 pb-7 pt-[92px] sm:min-h-[820px] sm:px-8 sm:pb-9 sm:pt-[112px] lg:h-[100svh] lg:min-h-[800px] lg:px-12">
+        <div className="flex items-start justify-between gap-6">
+          <span className="time-label max-w-[260px] text-text/74">{data.day.label}</span>
+          {open && (
+            <span className="time-label max-w-[190px] text-right text-amber">
+              {data.openForProjectsLabel}
+            </span>
+          )}
+        </div>
 
-          <div className="my-auto flex w-full flex-col items-center pb-6 text-center sm:pb-10">
-            <h1 className="display-heading mx-auto max-w-[1080px] text-[clamp(52px,9vw,132px)]">
-              {data.day.title}
+        <div className="flex flex-1 items-start pt-[9vh] sm:pt-[11vh] lg:items-center lg:pt-0">
+          <div className="hero-copy mx-auto w-full max-w-[690px] text-center sm:mx-0 lg:-mt-2 lg:max-w-[760px]">
+            <div aria-hidden="true" className="deco-crown mx-auto mb-7 w-[132px] sm:mb-9" />
+            <h1 className="display-heading text-[clamp(54px,8.2vw,120px)] [text-wrap:balance]">
+              <span className="block text-text">{data.day.title}</span>
+              <span className="mt-[0.12em] block text-amber">{outcome}</span>
             </h1>
-            <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
-              <span aria-hidden="true" className="h-px w-12 bg-[#121722]/40 sm:w-16" />
-              <p className="text-[14.5px] leading-[1.58] text-[#2f353e] [text-wrap:pretty] sm:text-[16px]">
+
+            <div className="mx-auto mt-7 max-w-[620px] sm:mt-9">
+              <p className="text-[16px] leading-[1.62] text-text/84 [text-wrap:pretty] sm:text-[17px]">
                 {data.day.body}
               </p>
+              <p className="mx-auto mt-3 max-w-[560px] text-[14px] leading-[1.6] text-blue-soft/88 [text-wrap:pretty] sm:text-[15px]">
+                {data.night.body}
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 sm:mt-10">
+              <BookCallButton label="Book a 15-minute call" />
+              <EmailPill label="Email Miloš" />
             </div>
           </div>
         </div>
-      </div>
 
-      <div
-        ref={nightRef}
-        className="absolute inset-x-0 bottom-0 top-[59%] will-change-transform px-5 pb-5 pt-10 text-text sm:px-8 sm:pb-7 sm:pt-14 lg:px-12"
-      >
-        <div className="mx-auto flex h-full max-w-[1280px] flex-col">
-          <div className="my-auto flex w-full flex-col items-center text-center">
-            <h2 className="display-heading mx-auto max-w-[1100px] text-[clamp(49px,8.7vw,126px)]">
-              {data.night.title}
-            </h2>
-            <div className="mt-4 flex max-w-[620px] flex-col items-center gap-3 sm:mt-6 sm:gap-4">
-              <span aria-hidden="true" className="h-px w-12 bg-text/38 sm:w-16" />
-              <div className="flex flex-col items-center">
-                <p className="text-[14.5px] leading-[1.58] text-text/74 [text-wrap:pretty] sm:text-[16px]">
-                  {data.night.body}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:mt-5">
-                  <BookCallButton label="Book a 15-minute call" />
-                  <EmailPill label="Email Miloš" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="hidden items-end justify-between gap-5 text-[11px] font-medium uppercase tracking-[0.11em] text-text/64 sm:flex">
-            <span>{data.cornerLeft}</span>
-            <span>AI-assisted execution / Experience-led decisions</span>
-          </div>
+        <div className="deco-footer-rail flex items-end justify-between gap-5 pt-5 text-[12px] font-medium uppercase tracking-[0.105em] text-text/72">
+          <span className="max-w-[440px]">{data.cornerLeft}</span>
+          <span className="hidden text-right sm:block">AI-assisted / Experience-led</span>
         </div>
-      </div>
-
-      <div
-        ref={sunMotionRef}
-        className="absolute left-1/2 top-[calc(59%-29px)] z-10 -ml-[29px] h-[58px] w-[58px] will-change-[transform,opacity] sm:top-[calc(59%-37px)] sm:-ml-[37px] sm:h-[74px] sm:w-[74px]"
-      >
-        <button
-          type="button"
-          onClick={revealNight}
-          aria-label="Continue to the night shift"
-          className="group relative h-full w-full touch-manipulation rounded-full border border-[#b96f1f]/35 bg-[#e59b32] shadow-[inset_0_0_0_1px_rgba(255,238,201,.24)] transition-[transform,background-color,border-color] duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:scale-[1.025] hover:border-[#8b4e15]/60 hover:bg-[#eeaa46] focus-visible:scale-[1.025] active:scale-[0.97]"
-        >
-          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.11em] text-[#4c4135] sm:-top-9">
-            {data.sunHint}
-          </span>
-        </button>
       </div>
     </section>
   );

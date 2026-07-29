@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 type Toast = { id: number; message: string };
 
@@ -15,6 +15,7 @@ export function toast(message: string) {
 
 export function Toaster() {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     push = (t: Toast) => {
@@ -37,13 +38,12 @@ export function Toaster() {
         {toasts.map((t) => (
           <motion.div
             key={t.id}
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-            className="flex items-center gap-3 rounded-2xl border border-white/[0.13] bg-[rgba(16,20,32,0.85)] px-5 py-3 text-sm text-text shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl"
+            exit={reduced ? { opacity: 0 } : { opacity: 0, y: 6 }}
+            transition={{ duration: reduced ? 0 : 0.36, ease: [0.16, 1, 0.3, 1] }}
+            className="deco-toast relative border border-amber/55 bg-[#080d1b] px-5 py-3.5 text-[14px] text-text shadow-[0_14px_38px_rgba(0,0,0,0.34)]"
           >
-            <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-blue" />
             <span>{t.message}</span>
           </motion.div>
         ))}

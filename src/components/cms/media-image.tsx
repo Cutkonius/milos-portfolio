@@ -3,7 +3,7 @@
 import Image, { type StaticImageData } from "next/image";
 import vujicautoScreen from "@/images/vujicauto-screen.png";
 import vujicautoProduct from "@/images/vujicauto-product.png";
-import milos from "@/images/milos.png";
+import milos from "@/images/milos-nocturne-portrait-v5.webp";
 import type { ImageRef } from "@/lib/cms/types";
 
 /** Build-time default art, addressed by `static:<name>` image keys. */

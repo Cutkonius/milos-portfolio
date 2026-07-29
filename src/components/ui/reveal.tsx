@@ -18,17 +18,17 @@ export function Reveal({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.14 });
 
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       ref={ref}
       initial={false}
-      animate={
-        reduced
-          ? { opacity: inView ? 1 : 0 }
-          : { opacity: inView ? 1 : 0, y: inView ? 0 : 14 }
-      }
-      transition={{ duration: 0.82, delay: inView ? delay : 0, ease: [0.16, 1, 0.3, 1] }}
-      style={reduced ? undefined : { opacity: 0, y: 14 }}
+      animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 9 }}
+      transition={{ duration: 0.64, delay: inView ? delay : 0, ease: [0.16, 1, 0.3, 1] }}
+      style={{ opacity: 0, y: 9 }}
       className={className}
     >
       {children}

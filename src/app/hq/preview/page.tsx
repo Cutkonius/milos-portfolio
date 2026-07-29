@@ -26,7 +26,7 @@ export default async function PreviewPage() {
   return (
     <Providers>
       <SiteConfigProvider calLink={content.site.calLink} email={content.site.email}>
-        <div className="relative">
+        <div className="nocturne-site relative">
           <CalProvider />
           <Nav data={content.nav} />
 

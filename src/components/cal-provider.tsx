@@ -3,14 +3,11 @@
 import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useSiteConfig } from "@/components/site-config";
-import { storm } from "@/lib/confetti";
 import { toast } from "@/components/ui/toast";
 
 /**
- * Boots the Cal.com embed once: dark theme, brand color, and the payoff.
- * The confetti fires immediately on booking (its canvas stacks above Cal's
- * modal backdrop); the toast waits for the modal to close so it isn't
- * hidden behind the backdrop.
+ * Boots the Cal.com embed once. The confirmation waits for the modal to
+ * close so it is never hidden behind Cal's backdrop.
  */
 export function CalProvider() {
   const { calNamespace } = useSiteConfig();
@@ -23,8 +20,8 @@ export function CalProvider() {
       cal("ui", {
         theme: "dark",
         cssVarsPerTheme: {
-          dark: { "cal-brand": "#5b8cff" },
-          light: { "cal-brand": "#3b62c4" },
+          dark: { "cal-brand": "#f2b33d" },
+          light: { "cal-brand": "#173fae" },
         },
         hideEventTypeDetails: false,
         layout: "month_view",
@@ -33,7 +30,6 @@ export function CalProvider() {
         action: "bookingSuccessful",
         callback: () => {
           booked = true;
-          storm();
         },
       });
       cal("on", {
@@ -42,7 +38,6 @@ export function CalProvider() {
           if (!booked) return;
           booked = false;
           toast("Booked. You just made my day.");
-          storm();
         },
       });
     })();

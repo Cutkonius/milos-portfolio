@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: `${site.siteName} | built in daylight, sold after dark`,
+          alt: `${site.siteName} | built in daylight, useful after launch`,
         },
       ],
     },
@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#07090d",
+  themeColor: "#050713",
 };
 
 export default function RootLayout({
