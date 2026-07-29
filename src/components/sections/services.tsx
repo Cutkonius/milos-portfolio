@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
-import emailDecoNoir from "@/images/email-deco-noir-v3.webp";
-import websiteDecoNoir from "@/images/website-deco-noir-v3.webp";
+import emailNocturne from "@/images/email-nocturne-vector-v4.webp";
+import websiteNocturne from "@/images/website-nocturne-vector-v4.webp";
 import type { ServicesSection } from "@/lib/cms/types";
 
 const DELIVERABLES = [
@@ -41,8 +41,8 @@ export function Services({ data }: { data: ServicesSection }) {
           <div className="grid grid-cols-2 overflow-hidden border-b border-day-ink/18 lg:grid-cols-[0.52fr_0.28fr_0.20fr]">
             <div className="relative h-[160px] border-b border-r border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0">
               <Image
-                src={websiteDecoNoir}
-                alt="An Art Deco illustration of a brass zipper opening into a cobalt staircase and amber sun"
+                src={websiteNocturne}
+                alt="A lone figure approaches an illuminated Art Deco staircase opening onto a cobalt city"
                 fill
                 quality={82}
                 sizes="(min-width: 1280px) 665px, (min-width: 1024px) 52vw, 50vw"
@@ -55,7 +55,7 @@ export function Services({ data }: { data: ServicesSection }) {
               className="relative h-[160px] border-b border-day-ink/18 sm:h-[220px] lg:h-[260px] lg:border-b-0 lg:border-r"
             >
               <Image
-                src={emailDecoNoir}
+                src={emailNocturne}
                 alt=""
                 fill
                 quality={82}
