@@ -3,8 +3,8 @@
 import { getImageProps } from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { CalTextLink } from "@/components/book-call";
-import processStudioDesktop from "@/images/process-studio-desktop-v1.webp";
-import processStudioMobile from "@/images/process-studio-mobile-v1.webp";
+import processMarbleRunDesktop from "@/images/process-marble-run-desktop-v2.webp";
+import processMarbleRunMobile from "@/images/process-marble-run-mobile-v2.webp";
 import type { ProcessSection } from "@/lib/cms/types";
 
 export function Process({ data }: { data: ProcessSection }) {
@@ -17,7 +17,7 @@ export function Process({ data }: { data: ProcessSection }) {
     props: { srcSet: desktopSrcSet },
   } = getImageProps({
     ...commonImageProps,
-    src: processStudioDesktop,
+    src: processMarbleRunDesktop,
     width: 3840,
     height: 2160,
   });
@@ -25,7 +25,7 @@ export function Process({ data }: { data: ProcessSection }) {
     props: { srcSet: mobileSrcSet, ...mobileImageProps },
   } = getImageProps({
     ...commonImageProps,
-    src: processStudioMobile,
+    src: processMarbleRunMobile,
     width: 1440,
     height: 2560,
   });
@@ -45,7 +45,7 @@ export function Process({ data }: { data: ProcessSection }) {
             {...mobileImageProps}
             srcSet={mobileSrcSet}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-45 saturate-[.78]"
+            className="absolute inset-0 h-full w-full object-cover object-[64%_center] opacity-[0.48] saturate-[.9] sm:object-[72%_center]"
           />
         </picture>
         <span className="absolute inset-0 bg-[#0d131e]/60" />
