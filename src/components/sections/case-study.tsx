@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal } from "@/components/ui/reveal";
 import { MediaImage } from "@/components/cms/media-image";
@@ -21,6 +19,12 @@ export function CaseStudyView({
 
   return (
     <div className="nocturne-site case-nocturne relative min-h-[100dvh] overflow-hidden bg-[#050713] text-text">
+      <a
+        href="#case-main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:bg-amber focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-night"
+      >
+        Skip to case study
+      </a>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-0 h-[620px] w-[34vw] min-w-[240px] border-l border-blue/28 bg-[#11175e]"
@@ -43,7 +47,11 @@ export function CaseStudyView({
         </div>
       </header>
 
-      <main className="relative mx-auto max-w-[980px] px-5 pb-24 pt-32 sm:px-8 sm:pt-40">
+      <main
+        id="case-main"
+        tabIndex={-1}
+        className="relative mx-auto max-w-[980px] px-5 pb-24 pt-32 outline-none sm:px-8 sm:pt-40"
+      >
         <Reveal>
           <div className="section-kicker text-amber">Case study / Selected work</div>
         </Reveal>
@@ -80,7 +88,7 @@ export function CaseStudyView({
                     rel="noreferrer"
                     className="email-action text-amber transition-colors hover:text-text"
                   >
-                    Visit the site ↗
+                    Visit the site ↗<span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </>
               )}
@@ -183,18 +191,18 @@ export function CaseStudyView({
             What should your website make easier?
           </h2>
           <p className="mx-auto mt-4 max-w-[500px] text-[16px] leading-[1.65] text-text/74 [text-wrap:pretty]">
-            Bring the page or offer that is not working clearly enough. In 15 minutes, we can
-            identify the main problem and the best next step.
+            Bring the page or offer that is not working clearly enough. On a short project call,
+            we can identify the main problem and the best next step.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-x-7 gap-y-2">
-            <BookCallButton label="Book a 15-minute call" />
+            <BookCallButton label="Book a project call" />
             <EmailPill label="Email Miloš" />
           </div>
         </div>
 
-        <div className="mt-14 border-t border-text/16 pt-6 text-[12.5px] text-text/68">
+        <footer className="mt-14 border-t border-text/16 pt-6 text-[12.5px] text-text/68">
           © 2026 {site.siteName} / Built in daylight. Useful after launch.
-        </div>
+        </footer>
       </main>
     </div>
   );

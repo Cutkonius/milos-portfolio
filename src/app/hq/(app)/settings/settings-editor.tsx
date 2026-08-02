@@ -24,7 +24,7 @@ export function SettingsEditor({ initial }: { initial: SiteSettings }) {
 
   return (
     <div>
-      <PageHeader kicker="Controls" title="Settings" description="Search, social, availability and launch." />
+      <PageHeader kicker="Controls" title="Settings" description="Search, social and availability." />
 
       <div className="flex flex-col gap-5">
         <Card>
@@ -71,17 +71,11 @@ export function SettingsEditor({ initial }: { initial: SiteSettings }) {
               onChange={(v) => set({ openForProjects: v })}
               label="Open for projects. Shows the hero availability badge"
             />
-            <div>
-              <Toggle
-                checked={data.launched}
-                onChange={(v) => set({ launched: v })}
-                label="Launched. Makes the site indexable (drops noindex)"
-              />
-              <p className="mt-1.5 text-xs text-text/40">
-                Note: the pre-launch vault login wall is separate. See the go-live checklist to
-                remove it when you&apos;re ready for the public.
-              </p>
-            </div>
+            <p className="rounded-xl border border-text/10 bg-night/35 px-4 py-3 text-xs leading-5 text-text/55">
+              Public launch is intentionally controlled at deploy time with the server-only
+              <code className="mx-1 text-amber">SITE_LAUNCHED=true</code> environment variable.
+              This CMS cannot accidentally remove the vault or make an unfinished site indexable.
+            </p>
           </div>
         </Card>
       </div>

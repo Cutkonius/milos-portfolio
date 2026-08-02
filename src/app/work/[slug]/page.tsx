@@ -35,13 +35,30 @@ export async function generateMetadata({
   const found = await findCase(slug);
   if (!found) return {};
   const { project, site } = found;
-  const title = `${project.title} | ${site.siteName}`;
-  const description = project.caseStudy?.intro || project.description || "";
+  const projectName = project.title?.trim() || "Case study";
+  const title = `${projectName} case study | ${site.siteName}`;
+  const intro = project.caseStudy?.intro || project.description || "";
+  const tags = project.caseStudy?.tags?.join(", ");
+  const description = [intro, tags ? `Work spanning ${tags}.` : ""].filter(Boolean).join(" ");
+  const canonicalPath = `/work/${slug}`;
+
   return {
     title,
     description,
-    openGraph: { title, description, type: "article" },
-    robots: site.launched ? undefined : { index: false, follow: false },
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      title,
+      description,
+      url: canonicalPath,
+      siteName: site.siteName,
+      locale: "en_US",
+      type: "article",
+    },
+    twitter: { card: "summary_large_image", title, description },
+    robots:
+      process.env.SITE_LAUNCHED === "true"
+        ? { index: true, follow: true }
+        : { index: false, follow: false, noarchive: true },
   };
 }
 

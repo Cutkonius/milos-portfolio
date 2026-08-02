@@ -7,6 +7,8 @@ const slugOf = (p: { slug?: string; id: string }) => p.slug || p.id;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://milosnovakovic.com";
+  if (process.env.SITE_LAUNCHED !== "true") return [];
+
   const { work } = await getContent();
 
   const caseStudies = work.projects

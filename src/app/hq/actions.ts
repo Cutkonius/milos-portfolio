@@ -9,12 +9,17 @@ import {
   saveDraft,
 } from "@/lib/cms/content";
 import { deleteMedia } from "@/lib/cms/media";
+import { ContentValidationError, validateSection } from "@/lib/cms/validate";
 import type { ContentDoc } from "@/lib/cms/types";
 
 export type SaveResult = { ok: true } | { ok: false; error: string };
 
 function fail(err: unknown, fallback: string): SaveResult {
-  return { ok: false, error: err instanceof Error ? err.message : fallback };
+  if (err instanceof ContentValidationError) return { ok: false, error: err.message };
+  if (err instanceof Error && err.message === "Unauthorized") {
+    return { ok: false, error: "unauthorized" };
+  }
+  return { ok: false, error: fallback };
 }
 
 /**
@@ -25,8 +30,9 @@ function fail(err: unknown, fallback: string): SaveResult {
 export async function saveSection(section: keyof ContentDoc, value: unknown): Promise<SaveResult> {
   try {
     await requireAdmin();
+    const validated = validateSection(section, value);
     const { content } = await getContentAdmin();
-    await saveDraft({ ...content, [section]: value } as ContentDoc);
+    await saveDraft({ ...content, [section]: validated } as ContentDoc);
     return { ok: true };
   } catch (err) {
     return fail(err, "save_failed");

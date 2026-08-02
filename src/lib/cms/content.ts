@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { DEFAULT_CONTENT } from "./defaults";
 import type { ContentDoc } from "./types";
 import { CMS_STORE, listKeys, readJSON, removeKey, writeJSON } from "./store";
+import { contentFailureReason, validateContentDoc } from "./validate";
 
 /** Published doc the public site reads. */
 export const CONTENT_KEY = "content";
@@ -11,6 +12,7 @@ export const DRAFT_KEY = "draft";
 const BACKUP_PREFIX = "backups/";
 /** Keep at most this many restore points; older ones are pruned on publish. */
 const MAX_BACKUPS = 50;
+const SAFE_DEFAULT_CONTENT = validateContentDoc(DEFAULT_CONTENT);
 
 export interface Version {
   key: string;
@@ -34,7 +36,7 @@ function mergeSection<T>(def: T, stored: Partial<T> | undefined): T {
 }
 
 function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
-  const d = DEFAULT_CONTENT;
+  const d = SAFE_DEFAULT_CONTENT;
   if (!stored) return d;
 
   /*
@@ -120,16 +122,19 @@ function withDefaults(stored: Partial<ContentDoc> | null): ContentDoc {
 export const getContent = cache(async (): Promise<ContentDoc> => {
   try {
     const res = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY);
-    return withDefaults(res?.value ?? null);
-  } catch {
-    return DEFAULT_CONTENT;
+    return validateContentDoc(withDefaults(res?.value ?? null));
+  } catch (error) {
+    console.error("[cms] published_content_fallback", {
+      reason: contentFailureReason(error),
+    });
+    return SAFE_DEFAULT_CONTENT;
   }
 });
 
 /** The published doc, uncached (for publish comparison). */
 async function getPublished(): Promise<ContentDoc> {
   const res = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
-  return withDefaults(res?.value ?? null);
+  return validateContentDoc(withDefaults(res?.value ?? null));
 }
 
 /**
@@ -139,28 +144,34 @@ async function getPublished(): Promise<ContentDoc> {
  */
 export async function getContentAdmin(): Promise<{ content: ContentDoc; etag: string | null }> {
   const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
-  if (draft) return { content: withDefaults(draft.value), etag: draft.etag };
+  if (draft) return { content: validateContentDoc(withDefaults(draft.value)), etag: draft.etag };
   const pub = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
-  return { content: withDefaults(pub?.value ?? null), etag: pub?.etag ?? null };
+  return {
+    content: validateContentDoc(withDefaults(pub?.value ?? null)),
+    etag: pub?.etag ?? null,
+  };
 }
 
 /** Save the working copy. Not public until published, so no revalidation. */
 export async function saveDraft(next: ContentDoc): Promise<{ etag: string | null }> {
-  return writeJSON(CMS_STORE, DRAFT_KEY, next);
+  return writeJSON(CMS_STORE, DRAFT_KEY, validateContentDoc(next));
 }
 
 /** True when the draft differs from what's published. */
 export async function hasUnpublishedChanges(): Promise<boolean> {
   const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
   if (!draft) return false;
-  return JSON.stringify(withDefaults(draft.value)) !== JSON.stringify(await getPublished());
+  return (
+    JSON.stringify(validateContentDoc(withDefaults(draft.value))) !==
+    JSON.stringify(await getPublished())
+  );
 }
 
 /** Promote the draft to live (snapshots the previous published doc first). */
 export async function publish(): Promise<boolean> {
   const draft = await readJSON<ContentDoc>(CMS_STORE, DRAFT_KEY, { consistency: "strong" });
   if (!draft) return false;
-  await saveContent(withDefaults(draft.value));
+  await saveContent(validateContentDoc(withDefaults(draft.value)));
   return true;
 }
 
@@ -174,12 +185,13 @@ export async function discardDraft(): Promise<void> {
  * `backups/<millis>`, prune old ones, then publish and revalidate the site.
  */
 export async function saveContent(next: ContentDoc): Promise<{ etag: string | null }> {
+  const validated = validateContentDoc(next);
   const current = await readJSON<ContentDoc>(CMS_STORE, CONTENT_KEY, { consistency: "strong" });
   if (current) {
     await writeJSON(CMS_STORE, `${BACKUP_PREFIX}${Date.now()}`, current.value).catch(() => {});
     await pruneBackups().catch(() => {});
   }
-  const res = await writeJSON(CMS_STORE, CONTENT_KEY, next);
+  const res = await writeJSON(CMS_STORE, CONTENT_KEY, validated);
   revalidatePath("/");
   revalidatePath("/work/[slug]", "page");
   return res;
@@ -204,7 +216,7 @@ export async function listVersions(): Promise<Version[]> {
 export async function getVersion(key: string): Promise<ContentDoc | null> {
   if (!key.startsWith(BACKUP_PREFIX)) return null;
   const res = await readJSON<ContentDoc>(CMS_STORE, key, { consistency: "strong" });
-  return res ? withDefaults(res.value) : null;
+  return res ? validateContentDoc(withDefaults(res.value)) : null;
 }
 
 /** Restore a snapshot as the live content and sync the draft to match. */

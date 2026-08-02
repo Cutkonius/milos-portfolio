@@ -85,7 +85,7 @@ body {
 }
 
 input::placeholder {
-  color: rgba(238, 241, 247, 0.4);
+  color: rgba(238, 241, 247, 0.62);
 }
 
 .time-label {

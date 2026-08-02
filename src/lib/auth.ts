@@ -9,6 +9,22 @@ export const TOKEN_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 const enc = new TextEncoder();
 
+const PLACEHOLDER_CREDENTIAL =
+  /(?:replace[-_ ]?me|replace[-_ ]?with|change[-_ ]?me|example|your[-_ ]?strong|long[-_ ]?random[-_ ]?string)/i;
+
+/**
+ * Local development may use short throwaway values. Production fails closed
+ * for missing, recognisable placeholder or implausibly short credentials.
+ */
+export function isConfiguredCredential(
+  value: string | undefined,
+  productionMinLength = 1
+): value is string {
+  if (!value) return false;
+  if (process.env.NODE_ENV !== "production") return true;
+  return value.length >= productionMinLength && !PLACEHOLDER_CREDENTIAL.test(value);
+}
+
 async function hmacKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey(
     "raw",

@@ -15,27 +15,47 @@ const switzer = localFont({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getContent();
+  const metadataBase = new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://milosnovakovic.com"
+  );
+  const socialImageAlt =
+    "Miloš Novaković — Build the website. Set up what happens next.";
+
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    metadataBase,
     title: site.metaTitle,
     description: site.metaDescription,
+    alternates: { canonical: "/" },
+    authors: [{ name: site.siteName, url: "/" }],
+    creator: site.siteName,
+    publisher: site.siteName,
     openGraph: {
       title: site.ogTitle,
       description: site.ogDescription,
+      url: "/",
       siteName: site.siteName,
+      locale: "en_US",
       type: "website",
       images: [
         {
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: `${site.siteName} | built in daylight, useful after launch`,
+          alt: socialImageAlt,
         },
       ],
     },
-    twitter: { card: "summary_large_image", images: ["/og.png"] },
-    // Keep the site out of the index until it is launched from the CMS.
-    robots: site.launched ? undefined : { index: false, follow: false },
+    twitter: {
+      card: "summary_large_image",
+      title: site.ogTitle,
+      description: site.ogDescription,
+      images: [{ url: "/og.png", alt: socialImageAlt }],
+    },
+    // Match the server-only switch used by Proxy and robots.txt.
+    robots:
+      process.env.SITE_LAUNCHED === "true"
+        ? { index: true, follow: true }
+        : { index: false, follow: false, noarchive: true },
   };
 }
 

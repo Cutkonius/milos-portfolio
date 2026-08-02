@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scryptSync, timingSafeEqual } from "node:crypto";
-import { createToken, safeEqual } from "@/lib/auth";
+import { createToken, isConfiguredCredential, safeEqual } from "@/lib/auth";
 import { HQ_COOKIE, HQ_TOKEN_MAX_AGE_MS } from "@/lib/cms/admin-auth";
 
 export const runtime = "nodejs";
@@ -71,9 +71,12 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const secret = process.env.HQ_SECRET;
-  const user = process.env.HQ_USER;
-  const passHash = process.env.HQ_PASS_HASH;
+  const rawSecret = process.env.HQ_SECRET;
+  const rawUser = process.env.HQ_USER;
+  const secret = isConfiguredCredential(rawSecret, 32) ? rawSecret : undefined;
+  const user = isConfiguredCredential(rawUser, 3) ? rawUser : undefined;
+  const rawPassHash = process.env.HQ_PASS_HASH;
+  const passHash = isConfiguredCredential(rawPassHash, 64) ? rawPassHash : undefined;
   if (!secret || !user || !passHash) {
     return NextResponse.json({ ok: false, error: "hq_not_configured" }, { status: 500 });
   }

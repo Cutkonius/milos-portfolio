@@ -5,23 +5,37 @@ import { AnimatePresence, motion } from "motion/react";
 import { BookCallButton } from "@/components/book-call";
 import type { Nav as NavData } from "@/lib/cms/types";
 
+function sectionForHref(href: string): HTMLElement | null {
+  if (!href.startsWith("#") || href.length < 2) return null;
+  try {
+    return document.getElementById(decodeURIComponent(href.slice(1)));
+  } catch {
+    return null;
+  }
+}
+
 export function Nav({ data }: { data: NavData }) {
   const { links } = data;
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(links[0]?.href ?? "");
+  const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
     let positions: Array<{ href: string; top: number }> = [];
+    let contactTop: number | null = null;
+    const hasContactLink = links.some((link) => link.href === "#contact");
 
     const measure = () => {
       positions = links.flatMap((link) => {
-        const section = document.querySelector<HTMLElement>(link.href);
+        const section = sectionForHref(link.href);
         return section ? [{ href: link.href, top: section.offsetTop }] : [];
       });
+      contactTop = hasContactLink
+        ? null
+        : (document.getElementById("contact")?.offsetTop ?? null);
     };
 
     const onScroll = () => {
@@ -31,10 +45,12 @@ export function Nav({ data }: { data: NavData }) {
         const y = window.scrollY;
         const vh = window.innerHeight;
 
-        let current = links[0]?.href ?? "";
+        const marker = y + vh * 0.34;
+        let current = "";
         for (const position of positions) {
-          if (position.top <= y + vh * 0.34) current = position.href;
+          if (position.top <= marker) current = position.href;
         }
+        if (contactTop !== null && contactTop <= marker) current = "";
         setActive((previous) => (previous === current ? previous : current));
       });
     };
@@ -47,9 +63,11 @@ export function Nav({ data }: { data: NavData }) {
     measure();
     const resizeObserver = new ResizeObserver(measure);
     for (const link of links) {
-      const section = document.querySelector<HTMLElement>(link.href);
+      const section = sectionForHref(link.href);
       if (section) resizeObserver.observe(section);
     }
+    const contact = hasContactLink ? null : document.getElementById("contact");
+    if (contact) resizeObserver.observe(contact);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
     window.addEventListener("load", onResize, { once: true });
@@ -62,6 +80,16 @@ export function Nav({ data }: { data: NavData }) {
       cancelAnimationFrame(raf);
     };
   }, [links]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = (event: MediaQueryListEvent | MediaQueryList) => {
+      if (event.matches) setMenuOpen(false);
+    };
+    closeOnDesktop(desktop);
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -113,6 +141,15 @@ export function Nav({ data }: { data: NavData }) {
       className="pointer-events-none fixed inset-x-0 top-4 z-[70] flex justify-center px-4"
     >
       <div className="nav-shell pointer-events-auto relative inline-flex h-[50px] w-max max-w-[calc(100vw-2rem)] items-stretch overflow-hidden rounded-[22px] border border-blue/60 bg-[#050713] text-text shadow-[0_10px_30px_rgba(0,0,0,.22)] sm:h-[52px]">
+        <a
+          href="#top"
+          aria-label={`${data.brand}, back to top`}
+          className="hidden min-h-11 items-center px-5 text-[12px] font-semibold tracking-[-0.01em] text-text transition-colors hover:text-amber focus-visible:outline-offset-[-3px] xl:inline-flex"
+        >
+          {data.brand}
+        </a>
+        <span aria-hidden="true" className="my-2 hidden w-px flex-none bg-text/18 xl:block" />
+
         <nav aria-label="Main" className="flex min-w-0 items-stretch">
           <div className="hidden items-stretch lg:flex">
             {links.map((link) => {
@@ -184,9 +221,9 @@ export function Nav({ data }: { data: NavData }) {
             className="mobile-index pointer-events-auto fixed inset-0 -z-10 flex bg-[#090e1d] px-5 pb-8 pt-[100px] text-text sm:px-8 sm:pt-[112px] lg:hidden"
           >
             <div className="flex w-full flex-col">
-              <div className="mb-8 flex items-end justify-between border-b border-amber/34 pb-4 text-[12px] font-semibold uppercase tracking-[0.1em] text-text/72">
-                <span>Index</span>
-                <span>Portfolio / 2026</span>
+              <div className="mb-8 flex items-end justify-between gap-5 border-b border-amber/34 pb-4 text-[12px] font-semibold uppercase tracking-[0.1em] text-text/72">
+                <span>{data.brand}</span>
+                <span className="text-right">Index / 2026</span>
               </div>
 
               <div className="divide-y divide-text/16 border-b border-t border-text/16">

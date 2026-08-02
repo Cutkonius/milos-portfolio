@@ -1,17 +1,16 @@
 import type { MetadataRoute } from "next";
-import { getContent } from "@/lib/cms/content";
-
 export const dynamic = "force-dynamic";
 
 /**
- * Crawling follows the CMS launch toggle: disallow everything until the site is
- * launched, then allow all but the admin and point crawlers at the sitemap.
+ * Crawling follows the same fail-closed deploy switch as the vault proxy.
+ * Keeping the decision in server-only environment state prevents a CMS edit
+ * from accidentally exposing an unfinished site.
  */
-export default async function robots(): Promise<MetadataRoute.Robots> {
+export default function robots(): MetadataRoute.Robots {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://milosnovakovic.com";
-  const { site } = await getContent();
+  const launched = process.env.SITE_LAUNCHED === "true";
 
-  if (!site.launched) {
+  if (!launched) {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
 

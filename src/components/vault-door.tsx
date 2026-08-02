@@ -58,15 +58,16 @@ export function VaultDoor() {
       });
       if (res.ok) {
         setStatus("open");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const g = gateRef.current;
-        if (g) {
+        if (g && !reduceMotion) {
           g.style.opacity = "0";
           g.style.transform = "translateY(-32px)";
         }
-        setTimeout(() => {
+        window.setTimeout(() => {
           router.replace("/");
           router.refresh();
-        }, 660);
+        }, reduceMotion ? 0 : 660);
         return;
       }
       if (res.status === 429) {
@@ -159,11 +160,10 @@ export function VaultDoor() {
               type="text"
               placeholder="user"
               autoComplete="username"
-              autoFocus
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-5 block w-full rounded-xl border border-white/[0.16] bg-white/[0.08] px-4 py-[13px] text-sm text-text transition-colors duration-250 focus:border-amber/55 focus:outline-none"
+              className="mt-5 block w-full rounded-xl border border-white/[0.16] bg-white/[0.08] px-4 py-[13px] text-[16px] text-text transition-colors duration-250 focus:border-amber/55 focus:outline-none sm:text-sm"
             />
             <label htmlFor="gate-pass" className="sr-only">
               Password
@@ -177,7 +177,7 @@ export function VaultDoor() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-2.5 block w-full rounded-xl border border-white/[0.16] bg-white/[0.08] px-4 py-[13px] text-sm text-text transition-colors duration-250 focus:border-amber/55 focus:outline-none"
+              className="mt-2.5 block w-full rounded-xl border border-white/[0.16] bg-white/[0.08] px-4 py-[13px] text-[16px] text-text transition-colors duration-250 focus:border-amber/55 focus:outline-none sm:text-sm"
             />
             <button
               type="submit"

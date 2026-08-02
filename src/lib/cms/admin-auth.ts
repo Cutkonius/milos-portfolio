@@ -6,7 +6,7 @@
  * separate credentials.
  */
 import type { NextRequest } from "next/server";
-import { verifyToken } from "@/lib/auth";
+import { isConfiguredCredential, verifyToken } from "@/lib/auth";
 
 export const HQ_COOKIE = "mn_hq";
 export const HQ_TOKEN_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -26,7 +26,8 @@ export function isAdminHost(host: string | null | undefined): boolean {
 
 /** True when the request carries a valid, unexpired admin session cookie. */
 export async function isAdminAuthed(req: NextRequest): Promise<boolean> {
-  const secret = process.env.HQ_SECRET;
+  const rawSecret = process.env.HQ_SECRET;
+  const secret = isConfiguredCredential(rawSecret, 32) ? rawSecret : undefined;
   const token = req.cookies.get(HQ_COOKIE)?.value;
   return Boolean(secret && token && (await verifyToken(token, secret)));
 }

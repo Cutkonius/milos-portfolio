@@ -186,7 +186,7 @@ export interface SiteSettings {
   calLink: string;
   /** Drives the hero "Open for projects" corner note. */
   openForProjects: boolean;
-  /** When true the pre-launch vault wall is lifted and the site is indexable. */
+  /** @deprecated Kept for stored-document compatibility; launch is controlled by SITE_LAUNCHED. */
   launched: boolean;
 }
 

@@ -1,5 +1,3 @@
-"use client";
-
 import Image, { type StaticImageData } from "next/image";
 import vujicautoScreen from "@/images/vujicauto-screen.png";
 import vujicautoProduct from "@/images/vujicauto-product.png";

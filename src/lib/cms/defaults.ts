@@ -8,15 +8,15 @@ import type { ContentDoc } from "./types";
  * site renders identically to before the CMS existed.
  */
 export const DEFAULT_CONTENT: ContentDoc = {
-  version: 9,
+  version: 10,
 
   site: {
-    metaTitle: "Miloš Novaković | Websites and email marketing systems",
+    metaTitle: "Miloš Novaković | Web Design, Development & Email Marketing",
     metaDescription:
-      "I build websites from scratch and set up complete email marketing systems, including the email platform, automated flows and written sequences. AI-assisted, experience-led.",
-    ogTitle: "Websites from scratch. Email systems that follow through.",
+      "Miloš Novaković plans, designs and builds websites, then sets up email platforms, automations and lifecycle sequences for growing businesses.",
+    ogTitle: "Build the website. Set up what happens next.",
     ogDescription:
-      "Complete website builds, email platform setup, automated flows and written sequences. AI-assisted execution, guided by knowledge and experience.",
+      "Website strategy, interface design and development—plus email platform setup, automations and lifecycle copy, handled directly by Miloš.",
     siteName: "Miloš Novaković",
     email: EMAIL,
     calLink: CAL_LINK,
@@ -32,30 +32,30 @@ export const DEFAULT_CONTENT: ContentDoc = {
       { href: "#about", label: "About" },
       { href: "#process", label: "Process" },
     ],
-    ctaLabel: "Book a call",
+    ctaLabel: "Book a project call",
     clockStartMin: 19 * 60 + 58,
     clockEndMin: 26 * 60 + 13,
   },
 
   hero: {
     day: {
-      label: "Websites and email marketing",
-      title: "Websites from scratch.",
+      label: "Miloš Novaković — independent web & email specialist",
+      title: "Build the website.",
       body:
-        "I plan, design and build complete websites, and set up email platforms, automated flows and written sequences.",
+        "I plan, design and build the website, then set up the platform, automations and lifecycle emails that keep the customer journey moving.",
     },
     night: {
-      title: "Email systems, end to end.",
-      body: "Built in daylight. Useful after launch.",
+      title: "Set up what happens next.",
+      body: "Strategy, design, development, automation and copy—handled directly by me.",
     },
-    sunHint: "Explore the work",
-    cornerLeft: "Websites / ESP setup / Flows / Email sequences",
-    openForProjectsLabel: "Available for August projects",
+    sunHint: "See Vujić Auto in progress",
+    cornerLeft: "Website strategy / UX/UI / Development / Email automation / Lifecycle copy",
+    openForProjectsLabel: "Open for selected projects",
   },
 
   work: {
-    label: "Selected work / Currently in production",
-    sublabel: "Automotive commerce / Strategy / UI/UX / Development",
+    label: "Selected work / In progress",
+    sublabel: "Automotive commerce / Information architecture / UX/UI / Development",
     projects: [
       {
         id: "vujicauto",
@@ -63,10 +63,10 @@ export const DEFAULT_CONTENT: ContentDoc = {
         order: 0,
         published: true,
         featured: true,
-        title: "vujicauto",
-        statusLink: "In production / 2026",
+        title: "Vujić Auto",
+        statusLink: "Work in progress / 2026",
         description:
-          "Vujić Auto is a new online store for car parts. I am planning, designing and building a storefront that helps buyers choose their vehicle, find a compatible part and complete the order with confidence.",
+          "Vujić Auto is a vehicle-first auto-parts storefront designed to reduce compatibility guesswork. I’m leading the structure, UX/UI and build from discovery through checkout.",
         urlBar: "vujicauto.rs",
         badge: "01",
         screenshot: {
@@ -75,33 +75,33 @@ export const DEFAULT_CONTENT: ContentDoc = {
         },
         productShot: {
           key: "static:vujicauto-product",
-          alt: "Vujić Auto product catalog with categories and prices",
+          alt: "Vujić Auto catalog showing vehicle-filtered categories and product pricing",
         },
         slug: "vujicauto",
         caseStudy: {
           enabled: false,
-          intro: "A vehicle-first way to find the right part.",
+          intro: "A vehicle-first storefront that reduces compatibility guesswork.",
           liveUrl: "https://vujicauto.rs",
-          tags: ["Commerce", "Information architecture", "UI/UX", "Development"],
+          tags: ["Ecommerce strategy", "Information architecture", "UX/UI", "Development"],
           metrics: [],
           blocks: [
             {
               id: "b1",
-              heading: "Project goal",
+              heading: "The problem",
               body:
-                "Make it easier to find a compatible car part and complete the order without calling for help.",
+                "Car-parts catalogs often expect buyers to know a category or part number before they know whether a product fits. That uncertainty creates dead ends and sends people to support.",
             },
             {
               id: "b2",
-              heading: "What I am building",
+              heading: "The organizing decision",
               body:
-                "Offer and content structure, vehicle search, catalog UX, responsive interface, storefront development and checkout.",
+                "Start with the vehicle the buyer already knows. Vehicle selection narrows the catalog before category, product and checkout, making compatibility part of the path instead of a last-minute question.",
             },
             {
               id: "b3",
-              heading: "Current stage",
+              heading: "Role, stage and success criteria",
               body:
-                "The core experience is being designed and developed. Final screens and the full case study will be published after launch.",
+                "I own the information architecture, content direction, UX/UI and storefront development. Core flows are in design and build; after launch, the case study will add final screens and evidence from support demand, product discovery and checkout completion.",
             },
           ],
           gallery: [],
@@ -112,63 +112,65 @@ export const DEFAULT_CONTENT: ContentDoc = {
         kind: "redacted",
         order: 1,
         published: false,
-        label: "02 · Top secret",
-        cardTitle: "[REDACTED]",
-        blurb: "An NDA is an NDA. You will never learn about this one.",
+        label: "02 · Confidential project",
+        cardTitle: "[CONFIDENTIAL]",
+        blurb:
+          "A private engagement. Scope and permitted outcomes will be shared without identifying details.",
       },
       {
         id: "reserved-1",
         kind: "reserved",
         order: 2,
         published: false,
-        label: "03 · Reserved for you",
-        cardTitle: "This slot is yours.",
-        blurb: "A focused project for a new website, an email marketing system or both.",
+        label: "03 · Your project",
+        cardTitle: "Build the next system.",
+        blurb:
+          "A focused website, email engagement or joined-up build shaped around the clearest business bottleneck.",
         ctaLabel: "Book a call →",
       },
     ],
   },
 
   services: {
-    label: "Services / Websites and email marketing",
-    heading: "Websites from scratch. Email marketing from setup to sequence.",
+    label: "Services / Website and lifecycle email",
+    heading: "One partner for the website and the follow-up behind it.",
     rows: [
       {
         id: "s1",
         n: "01",
         stroke: "rgba(238,241,247,0.28)",
-        title: "Build the website from scratch",
+        title: "Plan, design and build the website",
         favorite: false,
         blurb:
-          "I take the site from a blank page to launch: structure, content direction, interface design, responsive development, motion, testing and deployment.",
-        shift: "Strategy / UI/UX / Development",
+          "From offer structure and content hierarchy to responsive interface design, development, motion, QA and launch.",
+        shift: "Strategy / UX/UI / Development",
       },
       {
         id: "s2",
         n: "02",
         stroke: "rgba(245,169,78,0.5)",
-        title: "Set up email marketing",
+        title: "Set up the lifecycle email system",
         favorite: true,
         blurb:
-          "I configure the email platform (ESP), audience structure and core automations, then write the sequences for welcome, nurture, recovery and sales.",
-        shift: "ESP setup / Flows / Email copywriting",
+          "I set up the email platform, lists and segments, build the core automations, and write lifecycle sequences for welcome, nurture, re-engagement and sales.",
+        shift: "Platform setup / Automation / Lifecycle copy",
       },
     ],
   },
 
   process: {
     label: "How it works",
-    heading: "From first call to launch, in four clear steps.",
+    heading: "A clear path from first call to launch.",
     steps: [
       {
         id: "p1",
-        label: "FIRST / 15-MINUTE CALL",
+        label: "FIRST / SHORT PROJECT CALL",
         stroke: "rgba(245,169,78,0.55)",
         dot: "#f5a94e",
         ring: "rgba(245,169,78,0.16)",
-        title: "Define the scope",
+        title: "Define the right next step",
         blurb:
-          "We decide whether you need a website, email marketing or both, and agree on the goal.",
+          "We identify the main bottleneck, choose website, email or both, and agree on one focused outcome.",
       },
       {
         id: "p2",
@@ -176,9 +178,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(238,241,247,0.3)",
         dot: "#d99a5b",
         ring: "rgba(217,154,91,0.14)",
-        title: "Plan the system",
+        title: "Map the system",
         blurb:
-          "I map the pages, message and user paths, or the ESP, segments, flows and sequence goals.",
+          "For a website, I map pages, messages and user paths. For email, I map the platform, segments, automations and sequence goals.",
       },
       {
         id: "p3",
@@ -186,9 +188,9 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(238,241,247,0.3)",
         dot: "#8fabff",
         ring: "rgba(143,171,255,0.14)",
-        title: "Build and review",
+        title: "Build, share and refine",
         blurb:
-          "I build the working website or email system and share it early for focused feedback.",
+          "I share working flows early, so feedback stays focused and there is no surprise reveal at the end.",
       },
       {
         id: "p4",
@@ -196,57 +198,57 @@ export const DEFAULT_CONTENT: ContentDoc = {
         stroke: "rgba(91,140,255,0.6)",
         dot: "#5b8cff",
         ring: "rgba(91,140,255,0.18)",
-        title: "Test and launch",
+        title: "Test, launch and learn",
         blurb:
-          "I test every critical path, fix the details and launch. Real results guide the next improvements.",
+          "We test the critical paths, launch with a clear handoff and define what to measure next.",
       },
     ],
   },
 
   about: {
-    label: "About / AI-assisted, experience-led",
-    heading: "Websites and email marketing, handled directly by me.",
+    label: "About / Direct from scope to launch",
+    heading: "One person accountable from the first decision to launch.",
     paragraphs: [
-      "I’m Miloš Novaković. I build websites from scratch and set up complete email marketing systems, including email platform (ESP) configuration, automated flows and written sequences.",
-      "I use AI throughout research, copy, design exploration and development to work faster and test more options. My knowledge and experience still guide the strategy, decisions, editing and final quality.",
+      "I’m Miloš Novaković, an independent web and email specialist based in Serbia. I work directly across strategy, content direction, interface design, development, platform setup and lifecycle copy.",
+      "AI speeds up research and exploration; I remain responsible for the strategy, decisions, editing and shipped result. The goal is one coherent system, not a stack of disconnected deliverables.",
     ],
     fileHeading: "Working model",
     fileRows: [
-      { k: "Based", v: "Serbia / CET" },
-      { k: "Role", v: "Designer / Developer / Email marketer" },
-      { k: "Websites", v: "Strategy / UI/UX / Development" },
-      { k: "Email", v: "ESP setup / Flows / Sequences" },
+      { k: "Based", v: "Serbia / CET–CEST" },
+      { k: "Role", v: "Independent web & email specialist" },
+      { k: "Websites", v: "Strategy / UX/UI / Development" },
+      { k: "Email", v: "Platform setup / Automation / Lifecycle copy" },
     ],
-    statusLabel: "Availability",
-    statusValue: "August projects",
+    statusLabel: "Working model",
+    statusValue: "Direct with Miloš",
     photo: { key: "static:milos", alt: "Miloš Novaković" },
   },
 
   contact: {
     label: "Start a project",
-    heading: "Do you need a website, email marketing or both?",
+    heading: "Let’s find the clearest next step.",
     pitch:
-      "Tell me what you sell, what is already in place and where people get stuck. In a 15-minute call, we will decide whether you need a new website, an email marketing system or both, then define a practical scope.",
-    receiptsNote: "Choose one service or combine both",
+      "Tell me what you sell, what is already working and where customers lose momentum. On a short project call, we’ll identify the main bottleneck and decide whether the useful next move is a website, an email system or both.",
+    receiptsNote: "Choose either service or connect both",
     receipts: [
       {
         id: "r1",
         icon: "01",
-        title: "A complete website built from scratch",
-        meta: "Structure / UI/UX / Development",
+        title: "A website planned, designed and built to launch",
+        meta: "Structure / UX/UI / Development",
       },
       {
         id: "r2",
         icon: "02",
-        title: "A complete email marketing system",
-        meta: "Email platform setup / Automated flows / Written sequences",
+        title: "A lifecycle email system ready to run",
+        meta: "Platform setup / Automations / Sequence copy",
       },
     ],
     nightTotal: 2,
     nightTotalMeta: "core services",
-    ctaLabel: "Book a 15-minute call",
+    ctaLabel: "Book a project call",
     footerCopyright: "© 2026 Miloš Novaković / Built in daylight. Useful after launch.",
     footerEmail: EMAIL,
-    footerLockLabel: "Exit site",
+    footerLockLabel: "Independent / Serbia",
   },
 };

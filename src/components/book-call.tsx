@@ -1,21 +1,36 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
+import { requestCalOpen, requestCalPrepare } from "@/components/cal-provider";
 import { useSiteConfig } from "@/components/site-config";
 
 function useCalAttrs() {
-  const { calLink, calNamespace } = useSiteConfig();
+  const { calLink } = useSiteConfig();
+  const trimmed = calLink.trim();
+  const href = /^https?:\/\//i.test(trimmed)
+    ? trimmed
+    : `https://cal.com/${trimmed.replace(/^\/+/, "")}`;
+
+  const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+    if (requestCalOpen(event.currentTarget, calLink, href)) event.preventDefault();
+  };
+
   return {
-    "data-cal-namespace": calNamespace,
-    "data-cal-link": calLink,
-    "data-cal-config": '{"layout":"month_view","theme":"dark"}',
+    href,
+    onClick,
+    onFocus: requestCalPrepare,
+    onPointerEnter: requestCalPrepare,
+    "aria-haspopup": "dialog" as const,
   };
 }
 
 /** Primary booking CTA: a clear, soft-corner action. */
 export function BookCallButton({
   size = "lg",
-  label = "Book a 15-minute call",
+  label = "Book a call",
 }: {
   size?: "sm" | "lg";
   label?: string;
@@ -27,8 +42,7 @@ export function BookCallButton({
       : "min-h-11 gap-3 px-4 py-2.5 text-[14px]";
 
   return (
-    <button
-      type="button"
+    <a
       {...calAttrs}
       className={`ink-action group inline-flex items-center justify-between font-semibold tracking-[-0.015em] ${sizeClasses}`}
     >
@@ -41,7 +55,7 @@ export function BookCallButton({
       >
         →
       </span>
-    </button>
+    </a>
   );
 }
 
@@ -55,13 +69,12 @@ export function CalTextLink({
 }) {
   const calAttrs = useCalAttrs();
   return (
-    <button
-      type="button"
+    <a
       {...calAttrs}
       className={`group text-left font-semibold text-blue-soft transition-colors duration-300 hover:text-amber focus-visible:text-amber ${className}`}
     >
       <span className="email-action">{children}</span>
-    </button>
+    </a>
   );
 }
 

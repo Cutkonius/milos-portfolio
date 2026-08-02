@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE_NAME, verifyToken } from "@/lib/auth";
+import { COOKIE_NAME, isConfiguredCredential, verifyToken } from "@/lib/auth";
 import { HQ_COOKIE, isAdminHost, isAdminAuthed } from "@/lib/cms/admin-auth";
 
 /**
@@ -9,20 +9,28 @@ import { HQ_COOKIE, isAdminHost, isAdminAuthed } from "@/lib/cms/admin-auth";
  *    admin app. Clean subdomain paths (`/projects`) are rewritten onto the
  *    internal `/hq/*` route segment; everything but `/login` requires a valid
  *    admin session. The admin app is never reachable from the public host.
- *  - Every other host is the public site behind the pre-launch vault wall:
- *    nothing but the vault door is served without a signed cookie.
- *
- * Remove/relax the vault half when the site goes public.
+ *  - Every other host is the public site. It stays behind the pre-launch
+ *    vault until SITE_LAUNCHED is explicitly set to true; share images remain
+ *    public so link previews work before launch.
  */
 
-const PUBLIC_PATHS = [/^\/vault\/?$/, /^\/api\/login\/?$/, /^\/(opengraph|twitter)-image/];
+const PUBLIC_PATHS = [
+  /^\/vault\/?$/,
+  /^\/api\/login\/?$/,
+  /^\/og\.png$/,
+  /(?:^|\/)(?:opengraph-image|twitter-image)(?:\.[^/]+)?(?:\/.*)?$/,
+];
 
-function withCommonHeaders(res: NextResponse, admin: boolean): NextResponse {
-  res.headers.set("X-Robots-Tag", "noindex, nofollow");
+function withCommonHeaders(
+  res: NextResponse,
+  { admin, noindex }: { admin: boolean; noindex: boolean }
+): NextResponse {
+  if (noindex) res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  else res.headers.delete("X-Robots-Tag");
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-  // The public site frames cal.com; the admin frames nothing.
+  // Neither the public site nor the admin should be embedded by another site.
   res.headers.set("X-Frame-Options", "DENY");
   if (admin) res.headers.set("Cache-Control", "no-store");
   return res;
@@ -31,16 +39,33 @@ function withCommonHeaders(res: NextResponse, admin: boolean): NextResponse {
 export async function proxy(req: NextRequest) {
   const host = req.headers.get("host");
   const { pathname } = req.nextUrl;
+  // Server-only, explicit and fail-closed. Metadata and robots use this same
+  // switch so the public surface cannot drift into a half-launched state.
+  const vaultLocked = process.env.SITE_LAUNCHED !== "true";
 
   if (isAdminHost(host)) {
-    return withCommonHeaders(await adminGate(req, pathname), true);
+    return withCommonHeaders(await adminGate(req, pathname), { admin: true, noindex: true });
   }
 
   // Public host must never expose the admin routes.
   if (pathname === "/hq" || pathname.startsWith("/hq/")) {
-    return withCommonHeaders(new NextResponse("Not found", { status: 404 }), false);
+    return withCommonHeaders(new NextResponse("Not found", { status: 404 }), {
+      admin: false,
+      noindex: vaultLocked,
+    });
   }
-  return withCommonHeaders(await vaultGate(req), false);
+
+  if (!vaultLocked) {
+    if (pathname === "/vault" || pathname.startsWith("/vault/")) {
+      return withCommonHeaders(NextResponse.redirect(new URL("/", req.url)), {
+        admin: false,
+        noindex: false,
+      });
+    }
+    return withCommonHeaders(NextResponse.next(), { admin: false, noindex: false });
+  }
+
+  return withCommonHeaders(await vaultGate(req), { admin: false, noindex: true });
 }
 
 /** CMS host gate + clean-URL rewrite onto the `/hq/*` route segment. */
@@ -82,7 +107,8 @@ async function adminGate(req: NextRequest, pathname: string): Promise<NextRespon
 /** Pre-launch vault: only the door is public; everything else needs the cookie. */
 async function vaultGate(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl;
-  const secret = process.env.VAULT_SECRET;
+  const rawSecret = process.env.VAULT_SECRET;
+  const secret = isConfiguredCredential(rawSecret, 32) ? rawSecret : undefined;
   const token = req.cookies.get(COOKIE_NAME)?.value;
   const authed = Boolean(secret && token && (await verifyToken(token, secret)));
 

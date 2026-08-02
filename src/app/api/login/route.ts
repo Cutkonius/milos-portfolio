@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE_NAME, TOKEN_MAX_AGE_MS, createToken, safeEqual } from "@/lib/auth";
+import {
+  COOKIE_NAME,
+  TOKEN_MAX_AGE_MS,
+  createToken,
+  isConfiguredCredential,
+  safeEqual,
+} from "@/lib/auth";
 
 export const runtime = "nodejs";
 
@@ -61,9 +67,12 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const secret = process.env.VAULT_SECRET;
-  const user = process.env.VAULT_USER;
-  const pass = process.env.VAULT_PASS;
+  const rawSecret = process.env.VAULT_SECRET;
+  const rawUser = process.env.VAULT_USER;
+  const rawPass = process.env.VAULT_PASS;
+  const secret = isConfiguredCredential(rawSecret, 32) ? rawSecret : undefined;
+  const user = isConfiguredCredential(rawUser, 3) ? rawUser : undefined;
+  const pass = isConfiguredCredential(rawPass, 12) ? rawPass : undefined;
   if (!secret || !user || !pass) {
     return NextResponse.json({ ok: false, error: "vault_not_configured" }, { status: 500 });
   }

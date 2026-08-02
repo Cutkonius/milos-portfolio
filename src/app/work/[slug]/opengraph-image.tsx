@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { getContent } from "@/lib/cms/content";
 import type { Project } from "@/lib/cms/types";
 
-export const alt = "Case study | Miloš Novaković";
+export const alt = "Selected work case study by Miloš Novaković";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,7 +14,13 @@ const font = (file: string) => readFile(join(process.cwd(), "src/fonts", file));
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { work } = await getContent();
-  const project = work.projects.find((p) => p.kind === "case" && slugOf(p) === slug);
+  const project = work.projects.find(
+    (p) =>
+      p.kind === "case" &&
+      p.published &&
+      p.caseStudy?.enabled &&
+      slugOf(p) === slug
+  );
   const title = project?.title || "Case study";
   const intro = project?.caseStudy?.intro || project?.description || "";
   const tags = project?.caseStudy?.tags ?? [];
@@ -66,7 +72,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           }}
         />
         <div style={{ display: "flex", zIndex: 1, fontSize: 18, fontWeight: 600, letterSpacing: 3, color: "#f2b33d" }}>
-          SELECTED WORK / MILOŠ NOVAKOVIĆ
+          CASE STUDY / MILOŠ NOVAKOVIĆ
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", zIndex: 1, fontSize: 88, fontWeight: 600, letterSpacing: -2, lineHeight: 0.96 }}>
